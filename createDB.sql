@@ -36,6 +36,7 @@ CREATE TABLE playerEcon (
 
 CREATE TABLE playerStats (
     playerID INTEGER PRIMARY KEY,
+    playerName VARCHAR(20),
     champID INTEGER UNIQUE,
     championName VARCHAR(20),
     manaPoints INTEGER,
@@ -142,11 +143,11 @@ INSERT INTO playerEcon VALUES (180, 8, 2500, 10);
 INSERT INTO playerEcon VALUES (160, 6, 3800, 13);
 INSERT INTO playerEcon VALUES (140, 9, 5200, 18);
 
-INSERT INTO playerStats VALUES (1, 123, 'Ahri', 500, 800, 150, 5, 'Gold', 1);
-INSERT INTO playerStats VALUES (2, 234, 'Darius', 300, 1000, 120, 7, 'Silver', 1);
-INSERT INTO playerStats VALUES (3, 345, 'Ezreal', 600, 750, 180, 8, 'Platinum', 2);
-INSERT INTO playerStats VALUES (4, 456, 'Jinx', 400, 900, 160, 6, 'Gold', 2);
-INSERT INTO playerStats VALUES (5, 567, 'Yasuo', 200, 850, 140, 9, 'Diamond', 3);
+INSERT INTO playerStats VALUES (1, 'CyberReaper666', 123, 'Ahri', 500, 800, 150, 5, 'Iron', 1);
+INSERT INTO playerStats VALUES (2, 'UREKA', 234, 'Darius', 300, 1000, 120, 7, 'Master', 1);
+INSERT INTO playerStats VALUES (3, 'tenko_dogfather', 345, 'Ezreal', 600, 750, 180, 8, 'Diamond', 2);
+INSERT INTO playerStats VALUES (4, 'Eric', 456, 'Jinx', 400, 900, 160, 6, 'Platinum', 2);
+INSERT INTO playerStats VALUES (5, 'euoruph', 567, 'Yasuo', 200, 850, 140, 9, 'Challenger', 3);
 
 INSERT INTO ownsItem VALUES (1, 'Banshee''s Veil', 60, 0, 0, 45, 2900);
 INSERT INTO ownsItem VALUES (2, 'Infinity Edge', 0, 70, 0, 0, 3400);

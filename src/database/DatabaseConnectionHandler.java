@@ -1,10 +1,23 @@
 package database;
 
+import models.BranchModel;
+import models.PlayerStats;
+import util.PrintablePreparedStatement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+
+/**
+ * This class handles all database related transactions
+ */
 public class DatabaseConnectionHandler {
+    // Use this version of the ORACLE_URL if you are running the code off of the server
+//	private static final String ORACLE_URL = "jdbc:oracle:thin:@dbhost.students.cs.ubc.ca:1522:stu";
+    // Use this version of the ORACLE_URL if you are tunneling into the undergrad servers
     private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
@@ -16,6 +29,459 @@ public class DatabaseConnectionHandler {
             // Load the Oracle JDBC driver
             // Note that the path could change for new drivers
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    public void deleteBranch(int branchId) {
+        try {
+            String query = "DELETE FROM branch WHERE branch_id = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, branchId);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Branch " + branchId + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    public void insertBranch(BranchModel model) {
+        try {
+            String query = "INSERT INTO branch VALUES (?,?,?,?,?)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, model.getId());
+            ps.setString(2, model.getName());
+            ps.setString(3, model.getAddress());
+            ps.setString(4, model.getCity());
+            if (model.getPhoneNumber() == 0) {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(5, model.getPhoneNumber());
+            }
+
+            ps.executeUpdate();
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    public PlayerStats[] getPlayerStats() {
+        ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
+
+        try {
+            String query = "SELECT * FROM playerstats";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                PlayerStats model = new PlayerStats(rs.getInt("playerID"),
+                        rs.getString("playerName"),
+                        rs.getInt("champID"),
+                        rs.getString("championName"),
+                        rs.getInt("manaPoints"),
+                        rs.getInt("healthPoints"),
+                        rs.getInt("creepScore"),
+                        rs.getInt("kills"),
+                        rs.getString("rank"),
+                        rs.getInt("mapID")
+                        );
+                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new PlayerStats[result.size()]);
+    }
+
+    public void updateBranch(int id, String name) {
+        try {
+            String query = "UPDATE branch SET branch_name = ? WHERE branch_id = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Branch " + id + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    public boolean login(String username, String password) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+
+            connection = DriverManager.getConnection(ORACLE_URL, username, password);
+            connection.setAutoCommit(false);
+
+            System.out.println("\nConnected to Oracle!");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    private void rollbackConnection() {
+        try  {
+            connection.rollback();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+//    public void databaseSetup() {
+//        dropDragonJungleTableIfExists();
+//        dropDragonTypeTableIfExists();
+//        dropBaronJungleObjectiveTableIfExists();
+//        dropInhibitorTableIfExists();
+//        dropNexusTableIfExists();
+//        dropTurretTableIfExists();
+//        dropTurretDamageTableIfExists();
+//        dropTurretStatsTableIfExists();
+//        dropOwnsItemTableIfExists();
+//        dropPlayerStatsTableIfExists();
+//        dropPlayerEconTableIfExists();
+//        dropMapDeterminesTableIfExists();
+//        dropGameModeTableIfExists();
+//
+//        try {
+//            String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE mapDetermines ( mapID INT PRIMARY KEY, mapName VARCHAR(20), numberOfLanes INTEGER, gamemodeName VARCHAR(20), FOREIGN KEY (gamemodeName) REFERENCES gameMode(gamemodeName) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE playerEcon ( creepScore INTEGER, kills INTEGER, gold INTEGER, playerLevel INTEGER, PRIMARY KEY (creepScore, kills))";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY, champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER, kills INTEGER, rank VARCHAR(20), mapID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (creepScore, kills) REFERENCES playerEcon(creepScore, kills) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE ownsItem ( playerID INTEGER, itemName VARCHAR(20), mr INTEGER, ad INTEGER, ap INTEGER, armor INTEGER, cost INTEGER, PRIMARY KEY (playerID, itemName), FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE turretStats ( structureLocation VARCHAR(20) PRIMARY KEY, healthPoints INTEGER)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE turretDamage ( structureLocation VARCHAR(20) PRIMARY KEY, damage INTEGER, FOREIGN KEY(structureLocation) REFERENCES turretStats(structureLocation) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE turret ( structureID INTEGER PRIMARY KEY, structureLocation VARCHAR(20), mapID INTEGER, playerID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE, FOREIGN KEY(structureLocation) REFERENCES turretStats(structureLocation) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE nexus ( structureID INTEGER PRIMARY KEY, healthPoints INTEGER, structureLocation VARCHAR(20), vulnerable INTEGER, mapID INTEGER, playerID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE inhibitor ( structureID INTEGER PRIMARY KEY, healthPoints INTEGER, structureLocation VARCHAR(20), respawnTime INTEGER, mapID INTEGER, playerID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE baronJungleObjective ( jungleObjectiveID INTEGER PRIMARY KEY, healthPoints INTEGER, effectTime INTEGER, mapID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE dragonType ( dragonType VARCHAR(20) PRIMARY KEY, healthPoints INTEGER)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            query = "CREATE TABLE dragonJungle ( jungleObjectiveID INTEGER PRIMARY KEY, dragonType VARCHAR(20), mapID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (dragonType) REFERENCES dragonType(dragonType) ON DELETE CASCADE)";
+//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ps.executeUpdate();
+//
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+
+    private void dropDragonJungleTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("dragonjungle")) {
+                    ps.execute("DROP TABLE dragonjungle");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropDragonTypeTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                System.out.println(rs.getString(1).toLowerCase());
+                if(rs.getString(1).toLowerCase().equals("dragontype")) {
+                    ps.execute("DROP TABLE dragontype");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropBaronJungleObjectiveTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("baronjungleobjective")) {
+                    ps.execute("DROP TABLE baronJungleObjective");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropInhibitorTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("inhibitor")) {
+                    ps.execute("DROP TABLE inhibitor");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropNexusTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("nexus")) {
+                    ps.execute("DROP TABLE nexus");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropTurretTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("turret")) {
+                    ps.execute("DROP TABLE turret");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropTurretDamageTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("turretdamage")) {
+                    ps.execute("DROP TABLE turretDamage");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropTurretStatsTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("turretstats")) {
+                    ps.execute("DROP TABLE turretStats");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropOwnsItemTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("ownsitem")) {
+                    ps.execute("DROP TABLE ownsItem");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropPlayerStatsTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("playerstats")) {
+                    ps.execute("DROP TABLE playerStats");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropPlayerEconTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("playerecon")) {
+                    ps.execute("DROP TABLE playerEcon");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropMapDeterminesTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("mapdetermines")) {
+                    ps.execute("DROP TABLE mapDetermines");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropGameModeTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("gamemode")) {
+                    ps.execute("DROP TABLE gameMode");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }

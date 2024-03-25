@@ -2,6 +2,8 @@ package models;
 
 public class PlayerStats {
     private final int playerID;
+
+    private final String playerName;
     private final int champID;
     private final String championName;
     private final int manaPoints;
@@ -11,9 +13,10 @@ public class PlayerStats {
     private final String rank;
     private final int mapID;
 
-    public PlayerStats(int playerID, int champID, String championName, int manaPoints, int healthPoints,
+    public PlayerStats(int playerID, String playerName, int champID, String championName, int manaPoints, int healthPoints,
                             int creepScore, int kills, String rank, int mapID) {
         this.playerID = playerID;
+        this.playerName = playerName;
         this.champID = champID;
         this.championName = championName;
         this.manaPoints = manaPoints;
@@ -27,6 +30,8 @@ public class PlayerStats {
     public int getPlayerID() {
         return playerID;
     }
+
+    public String getPlayerName() { return playerName;}
 
     public int getChampID() {
         return champID;
