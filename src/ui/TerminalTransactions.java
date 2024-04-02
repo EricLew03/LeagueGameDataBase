@@ -1,6 +1,7 @@
 package ui;
 
 import delegates.LeagueDelegate;
+import models.OwnsItem;
 import models.PlayerStats;
 
 import java.io.BufferedReader;
@@ -69,6 +70,9 @@ public class TerminalTransactions {
 			System.out.println("3. Update ______");
 			System.out.println("4. Show playerStats");
 			System.out.println("5. Quit");
+			System.out.println("6. insert item");
+			System.out.println("7. delete item");
+			System.out.println("8. show item");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -92,6 +96,15 @@ public class TerminalTransactions {
 				case 5:
 					handleQuitOption();
 					break;
+					case 6:
+						handleInsertItem();
+						break;
+					case 7:
+						handleDeleteItem();
+						break;
+					case 8:
+						delegate.showOwnsItem();
+						break;
 				default:
 					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
 					break;
@@ -171,7 +184,65 @@ public class TerminalTransactions {
 											map );
 		delegate.insertPlayerStats(model);
 	}
-	
+
+	private void handleDeleteItem() {
+		int playerId = INVALID_INPUT;
+		String name = "";
+		while (playerId == INVALID_INPUT && name == "") {
+			System.out.print("Please enter the player ID you wish to delete: ");
+			playerId = readInteger(false);
+			System.out.print("Please enter the item name you wish to delete: ");
+			name = readLine().trim();
+			if (playerId != INVALID_INPUT && name != "") {
+				delegate.deleteOwnsItem(playerId, name);
+			}
+
+
+		}
+	}
+
+	private void handleInsertItem() {
+		int pid = INVALID_INPUT;
+		while (pid == INVALID_INPUT) {
+			System.out.print("Please enter the player ID you wish to insert: ");
+			pid = readInteger(false);
+		}
+
+		String name = null;
+		while (name == null || name.length() <= 0) {
+			System.out.print("Please enter the item name you wish to insert: ");
+			name = readLine().trim();
+		}
+
+
+		System.out.print("Please enter the mana you wish to insert: ");
+		int mana = readInteger(true);
+
+		System.out.print("Please enter the mana you wish to insert: ");
+		int armor = readInteger(true);
+
+
+		System.out.print("Please enter the health you wish to insert: ");
+		int ap = readInteger(true);
+
+		System.out.print("Please enter cs you wish to insert: ");
+		int ad = readInteger(true);
+
+		System.out.print("Please enter cost you wish to insert: ");
+		int cost = readInteger(true);
+
+
+		OwnsItem model = new OwnsItem(pid,
+				name,
+				mana,
+				armor,
+				ad,
+				ap,
+				cost);
+		delegate.insertOwnsItem(model);
+	}
+
+
 	private void handleQuitOption() {
 		System.out.println("Good Bye!");
 		

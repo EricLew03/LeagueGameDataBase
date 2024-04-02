@@ -166,6 +166,7 @@ public class DatabaseConnectionHandler {
         }
     }
 
+
     public PlayerStats[] getPlayerStats() {
         ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
 
@@ -285,6 +286,9 @@ public class DatabaseConnectionHandler {
         }
         PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
         insertPlayerStats(player1);
+
+        OwnsItem item1 = new OwnsItem(1, "lol",1,2,3,4,5);
+        insertOwnsItem(item1);
     }
 
 //        String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";

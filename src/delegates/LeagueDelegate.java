@@ -12,7 +12,7 @@ public interface LeagueDelegate {
     public void showPlayerStats();
     public void updatePlayerStats(int playerId, String name);
 
-
+    public void playerSelection();
 
     public void deleteOwnsItem(int playerId, String itemName);
 
