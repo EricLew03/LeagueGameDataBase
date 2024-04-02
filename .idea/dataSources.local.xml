@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.14808.21">
+  <component name="dataSourceStorageLocal" created-in="IU-233.15026.9">
     <data-source name="@dbhost.students.cs.ubc.ca" uuid="c11a2415-0187-42cd-bdc2-1f7c06386e94">
       <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
         <extra-name-characters>$#</extra-name-characters>
@@ -20,7 +20,30 @@
       <load-sources>user_and_system_sources</load-sources>
       <ssh-properties>
         <enabled>true</enabled>
-        <ssh-config-id>8131373d-5e2c-4511-b9b4-27d1107259ca</ssh-config-id>
+        <ssh-config-id>a5a71b05-d0be-4182-8e7f-5bf03425038f</ssh-config-id>
+        <local-port>1522</local-port>
+      </ssh-properties>
+    </data-source>
+    <data-source name="2" uuid="ce2d180a-3249-4265-9fb8-394836109d12">
+      <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ora_elewkimp</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="PUBLIC" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <load-sources>user_and_system_sources</load-sources>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>a5a71b05-d0be-4182-8e7f-5bf03425038f</ssh-config-id>
         <local-port>1522</local-port>
       </ssh-properties>
     </data-source>

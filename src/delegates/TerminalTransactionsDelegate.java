@@ -12,7 +12,7 @@ import models.BranchModel;
  * Bank is the actual class that will implement the methods.
  */
 public interface TerminalTransactionsDelegate {
-//	public void databaseSetup();
+	public void databaseSetup();
 	
 	public void deleteBranch(int branchId);
 	public void insertBranch(BranchModel model);

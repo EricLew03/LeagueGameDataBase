@@ -1,7 +1,7 @@
 package ui;
 
-import delegates.TerminalTransactionsDelegate;
-import models.BranchModel;
+import delegates.LeagueDelegate;
+import models.PlayerStats;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class TerminalTransactions {
 	private static final int EMPTY_INPUT = 0;
 	
 	private BufferedReader bufferedReader = null;
-	private TerminalTransactionsDelegate delegate = null;
+	private LeagueDelegate delegate = null;
 
 	public TerminalTransactions() {
 	}
@@ -26,37 +26,37 @@ public class TerminalTransactions {
 	 * Sets up the database to have a branch table with two tuples so we can insert/update/delete from it.
 	 * Refer to the databaseSetup.sql file to determine what tuples are going to be in the table.
 	 */
-//	public void setupDatabase(TerminalTransactionsDelegate delegate) {
-//		this.delegate = delegate;
-//
-//		bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//		int choice = INVALID_INPUT;
-//
-//		while(choice != 1 && choice != 2) {
-//			System.out.println("If you have a table called Branch in your database (capitialization of the name does not matter), it will be dropped and a new Branch table will be created.\nIf you want to proceed, enter 1; if you want to quit, enter 2.");
-//
-//			choice = readInteger(false);
-//
-//			if (choice != INVALID_INPUT) {
-//				switch (choice) {
-//				case 1:
-//					delegate.databaseSetup();
-//					break;
-//				case 2:
-//					handleQuitOption();
-//					break;
-//				default:
-//					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.\n");
-//					break;
-//				}
-//			}
-//		}
-//	}
+	public void setupDatabase(LeagueDelegate delegate) {
+		this.delegate = delegate;
+
+		bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		int choice = INVALID_INPUT;
+
+		while(choice != 1 && choice != 2) {
+			System.out.println("If you have a table called Branch in your database (capitialization of the name does not matter), it will be dropped and a new Branch table will be created.\nIf you want to proceed, enter 1; if you want to quit, enter 2.");
+
+			choice = readInteger(false);
+
+			if (choice != INVALID_INPUT) {
+				switch (choice) {
+				case 1:
+					delegate.databaseSetup();
+					break;
+				case 2:
+					handleQuitOption();
+					break;
+				default:
+					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.\n");
+					break;
+				}
+			}
+		}
+	}
 
 	/**
 	 * Displays simple text interface
 	 */ 
-	public void showMainMenu(TerminalTransactionsDelegate delegate) {
+	public void showMainMenu(LeagueDelegate delegate) {
 		this.delegate = delegate;
 		
 	    bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -87,7 +87,7 @@ public class TerminalTransactions {
 					handleUpdateOption();
 					break;
 				case 4:  
-					delegate.showBranch(); 
+					delegate.showPlayerStats();
 					break;
 				case 5:
 					handleQuitOption();
@@ -101,54 +101,75 @@ public class TerminalTransactions {
 	}
 	
 	private void handleDeleteOption() {
-		int branchId = INVALID_INPUT;
-		while (branchId == INVALID_INPUT) {
-			System.out.print("Please enter the branch ID you wish to delete: ");
-			branchId = readInteger(false);
-			if (branchId != INVALID_INPUT) {
-				delegate.deleteBranch(branchId);
+		int playerId = INVALID_INPUT;
+		while (playerId == INVALID_INPUT) {
+			System.out.print("Please enter the player ID you wish to delete: ");
+			playerId = readInteger(false);
+			if (playerId != INVALID_INPUT) {
+				delegate.deletePlayerStats(playerId);
 			}
 		}
 	}
 	
 	private void handleInsertOption() {
-		int id = INVALID_INPUT;
-		while (id == INVALID_INPUT) {
-			System.out.print("Please enter the branch ID you wish to insert: ");
-			id = readInteger(false);
+		int pid = INVALID_INPUT;
+		while (pid == INVALID_INPUT) {
+			System.out.print("Please enter the player ID you wish to insert: ");
+			pid = readInteger(false);
 		}
 		
 		String name = null;
 		while (name == null || name.length() <= 0) {
-			System.out.print("Please enter the branch name you wish to insert: ");
+			System.out.print("Please enter the player name you wish to insert: ");
 			name = readLine().trim();
 		}
-		
-		// branch address is allowed to be null so we don't need to repeatedly ask for the address
-		System.out.print("Please enter the branch address you wish to insert: ");
-		String address = readLine().trim();
-		if (address.length() == 0) {
-			address = null;
+
+		int cid = INVALID_INPUT;
+		while (cid == INVALID_INPUT) {
+			System.out.print("Please enter the champion ID you wish to insert: ");
+			cid = readInteger(false);
 		}
-		
-		String city = null;
-		while (city == null || city.length() <= 0) {
-			System.out.print("Please enter the branch city you wish to insert: ");
-			city = readLine().trim();
+
+		String cname = null;
+		while (cname == null || name.length() <= 0) {
+			System.out.print("Please enter the champion name you wish to insert: ");
+			cname = readLine().trim();
 		}
+
+		System.out.print("Please enter the mana you wish to insert: ");
+		int mana = readInteger(true);
+
+		System.out.print("Please enter the mana you wish to insert: ");
+		int kills = readInteger(true);
+
+
+		System.out.print("Please enter the health you wish to insert: ");
+		int health = readInteger(true);
+
+		System.out.print("Please enter cs you wish to insert: ");
+		int cs = readInteger(true);
+
+
+		System.out.print("Please enter the branch city you wish to insert: ");
+		String rank = readLine();
+
+
+		System.out.print("Please enter the map you wish to insert: ");
+		int map = readInteger(true);
+
+
 		
-		int phoneNumber = INVALID_INPUT;
-		while (phoneNumber == INVALID_INPUT) {
-			System.out.print("Please enter the branch phone number you wish to insert: ");
-			phoneNumber = readInteger(true);
-		}
-		
-		BranchModel model = new BranchModel(address,
-											city,
-											id,
+		PlayerStats model = new PlayerStats(pid,
 											name,
-											phoneNumber);
-		delegate.insertBranch(model);
+											cid,
+											cname,
+											mana,
+											health,
+											cs,
+											 kills,
+											rank,
+											map );
+		delegate.insertPlayerStats(model);
 	}
 	
 	private void handleQuitOption() {
@@ -162,7 +183,7 @@ public class TerminalTransactions {
 			}
 		}
 		
-		delegate.terminalTransactionsFinished();
+		delegate.LeagueFinished();
 	}
 	
 	private void handleUpdateOption() {
@@ -178,7 +199,7 @@ public class TerminalTransactions {
 			name = readLine().trim();
 		}
 
-		delegate.updateBranch(id, name);
+		delegate.updatePlayerStats(id, name);
 	}
 	
 	private int readInteger(boolean allowEmpty) {

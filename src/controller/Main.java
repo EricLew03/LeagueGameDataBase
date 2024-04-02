@@ -2,9 +2,8 @@ package controller;
 
 
 import database.DatabaseConnectionHandler;
+import delegates.LeagueDelegate;
 import delegates.LoginWindowDelegate;
-import delegates.TerminalTransactionsDelegate;
-import models.BranchModel;
 import models.PlayerStats;
 import ui.LoginWindow;
 import ui.TerminalTransactions;
@@ -12,7 +11,7 @@ import ui.TerminalTransactions;
 /**
  * This is the main controller class that will orchestrate everything.
  */
-public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
+public class Main implements LoginWindowDelegate, LeagueDelegate {
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
 
@@ -38,7 +37,7 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
 			loginWindow.dispose();
 
 			TerminalTransactions transaction = new TerminalTransactions();
-//			transaction.setupDatabase(this);
+			transaction.setupDatabase(this);
 			transaction.showMainMenu(this);
 		} else {
 			loginWindow.handleLoginFailed();
@@ -56,27 +55,31 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	 * 
 	 * Insert a branch with the given info
 	 */
-    public void insertBranch(BranchModel model) {
-    	dbHandler.insertBranch(model);
-    }
+	@Override
+	public void insertPlayerStats(PlayerStats model) {
+		dbHandler.insertPlayerStats(model);
+	}
 
     /**
 	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Delete branch with given branch ID.
-	 */ 
-    public void deleteBranch(int branchId) {
-    	dbHandler.deleteBranch(branchId);
-    }
-    
+	 */
+
+	@Override
+	public void deletePlayerStats(int playerId) {
+
+		dbHandler.deletePlayerStats(playerId);
+	}
     /**
 	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Update the branch name for a specific ID
 	 */
 
-    public void updateBranch(int branchId, String name) {
-    	dbHandler.updateBranch(branchId, name);
+	@Override
+	public void updatePlayerStats(int playerId, String name) {
+		dbHandler.updatePlayerStats(playerId, name);
     }
 
     /**
@@ -84,7 +87,8 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	 * 
 	 * Displays information about varies bank branches.
 	 */
-    public void showBranch() {
+	@Override
+	public void showPlayerStats() {
     	PlayerStats[] models = dbHandler.getPlayerStats();
     	
     	for (int i = 0; i < models.length; i++) {
@@ -99,13 +103,7 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
     			System.out.printf("%-20.20s", model.getChampionName());
     		}
 			System.out.printf("%-20.20s", model.getRank());
-//    		System.out.printf("%-15.15s", model.getCity());
-//    		if (model.getPhoneNumber() == 0) {
-//    			System.out.printf("%-15.15s", " ");
-//    		} else {
-//    			System.out.printf("%-15.15s", model.getPhoneNumber());
-//    		}
-    		
+    		System.out.printf("%-15.15s", model.getKills());
     		System.out.println();
     	}
     }
@@ -115,11 +113,13 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	 * 
      * The TerminalTransaction instance tells us that it is done with what it's 
      * doing, so we are cleaning up the connection since it's no longer needed.
-     */ 
-    public void terminalTransactionsFinished() {
+     */
+
+
+	@Override
+	public void LeagueFinished() {
     	dbHandler.close();
     	dbHandler = null;
-    	
     	System.exit(0);
     }
     
@@ -129,11 +129,10 @@ public class Main implements LoginWindowDelegate, TerminalTransactionsDelegate {
      * The TerminalTransaction instance tells us that the user is fine with dropping any existing table
      * called branch and creating a new one for this project to use
      */ 
-//	public void databaseSetup() {
-//		dbHandler.databaseSetup();
-//
-//	}
-    
+	public void databaseSetup() {
+		dbHandler.databaseSetup();
+
+	}
 	/**
 	 * Main method called at launch time
 	 */

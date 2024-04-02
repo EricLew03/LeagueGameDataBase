@@ -1,6 +1,5 @@
 package database;
 
-import models.BranchModel;
 import models.PlayerStats;
 import util.PrintablePreparedStatement;
 
@@ -44,15 +43,15 @@ public class DatabaseConnectionHandler {
         }
     }
 
-    public void deleteBranch(int branchId) {
+    public void deletePlayerStats(int playerID) {
         try {
-            String query = "DELETE FROM branch WHERE branch_id = ?";
+            String query = "DELETE FROM playerStats WHERE branchID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ps.setInt(1, branchId);
+            ps.setInt(1, playerID);
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Branch " + branchId + " does not exist!");
+                System.out.println(WARNING_TAG + " Branch " + playerID + " does not exist!");
             }
 
             connection.commit();
@@ -64,19 +63,21 @@ public class DatabaseConnectionHandler {
         }
     }
 
-    public void insertBranch(BranchModel model) {
+    public void insertPlayerStats(PlayerStats model) {
         try {
-            String query = "INSERT INTO branch VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO playerStats VALUES (?,?,?,?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ps.setInt(1, model.getId());
-            ps.setString(2, model.getName());
-            ps.setString(3, model.getAddress());
-            ps.setString(4, model.getCity());
-            if (model.getPhoneNumber() == 0) {
-                ps.setNull(5, java.sql.Types.INTEGER);
-            } else {
-                ps.setInt(5, model.getPhoneNumber());
-            }
+            ps.setInt(1, model.getPlayerID());
+            ps.setString(2, model.getPlayerName());
+            ps.setInt(3, model.getChampID());
+            ps.setString(4, model.getChampionName());
+            ps.setInt(5, model.getManaPoints());
+            ps.setInt(6, model.getHealthPoints());
+            ps.setInt(7, model.getCreepScore());
+            ps.setInt(8, model.getKills());
+            ps.setString(9, model.getRank());
+            ps.setInt(10, model.getMapID());
+
 
             ps.executeUpdate();
             connection.commit();
@@ -92,7 +93,7 @@ public class DatabaseConnectionHandler {
         ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
 
         try {
-            String query = "SELECT * FROM playerstats";
+            String query = "SELECT * FROM playerStats";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
@@ -119,16 +120,16 @@ public class DatabaseConnectionHandler {
         return result.toArray(new PlayerStats[result.size()]);
     }
 
-    public void updateBranch(int id, String name) {
+    public void updatePlayerStats(int id, String name) {
         try {
-            String query = "UPDATE branch SET branch_name = ? WHERE branch_id = ?";
+            String query = "UPDATE player SET playerName = ? WHERE playerID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setString(1, name);
             ps.setInt(2, id);
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Branch " + id + " does not exist!");
+                System.out.println(WARNING_TAG + " Player " + id + " does not exist!");
             }
 
             connection.commit();
@@ -165,7 +166,9 @@ public class DatabaseConnectionHandler {
         }
     }
 
-//    public void databaseSetup() {
+    public void databaseSetup() {
+        dropPlayerStatsTableIfExists();
+
 //        dropDragonJungleTableIfExists();
 //        dropDragonTypeTableIfExists();
 //        dropBaronJungleObjectiveTableIfExists();
@@ -175,12 +178,11 @@ public class DatabaseConnectionHandler {
 //        dropTurretDamageTableIfExists();
 //        dropTurretStatsTableIfExists();
 //        dropOwnsItemTableIfExists();
-//        dropPlayerStatsTableIfExists();
 //        dropPlayerEconTableIfExists();
 //        dropMapDeterminesTableIfExists();
 //        dropGameModeTableIfExists();
 //
-//        try {
+        try {
 //            String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";
 //            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 //            ps.executeUpdate();
@@ -193,9 +195,14 @@ public class DatabaseConnectionHandler {
 //            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 //            ps.executeUpdate();
 //
-//            query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY, champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER, kills INTEGER, rank VARCHAR(20), mapID INTEGER, FOREIGN KEY (mapID) REFERENCES mapDetermines(mapID) ON DELETE CASCADE, FOREIGN KEY (creepScore, kills) REFERENCES playerEcon(creepScore, kills) ON DELETE CASCADE)";
-//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//            ps.executeUpdate();
+            String query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY,playerName VARCHAR(20), champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER, kills INTEGER, rank VARCHAR(20), mapID INTEGER)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
 //
 //            query = "CREATE TABLE ownsItem ( playerID INTEGER, itemName VARCHAR(20), mr INTEGER, ad INTEGER, ap INTEGER, armor INTEGER, cost INTEGER, PRIMARY KEY (playerID, itemName), FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
 //            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -233,11 +240,11 @@ public class DatabaseConnectionHandler {
 //            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 //            ps.executeUpdate();
 //
-//            ps.close();
-//        } catch (SQLException e) {
-//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-//        }
-//    }
+
+        PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
+        insertPlayerStats(player1);
+    }
+
 
     private void dropDragonJungleTableIfExists() {
         try {
