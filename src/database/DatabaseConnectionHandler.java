@@ -141,6 +141,10 @@ public class DatabaseConnectionHandler {
         }
     }
 
+
+
+
+
     public boolean login(String username, String password) {
         try {
             if (connection != null) {
@@ -168,8 +172,8 @@ public class DatabaseConnectionHandler {
 
     public void databaseSetup() {
         dropPlayerStatsTableIfExists();
-        dropPlayerEconTableIfExists();
-        dropOwnsItemTableIfExists();
+//        dropPlayerEconTableIfExists();
+//        dropOwnsItemTableIfExists();
 
 //        dropDragonJungleTableIfExists();
 //        dropDragonTypeTableIfExists();
@@ -208,11 +212,8 @@ public class DatabaseConnectionHandler {
 //        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 //        ps.executeUpdate();
 
-//
-//
-//
-//            query = "CREATE TABLE turretStats ( structureLocation VARCHAR(20) PRIMARY KEY, healthPoints INTEGER)";
-//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        query = "CREATE TABLE turretStats ( structureLocation VARCHAR(20) PRIMARY KEY, healthPoints INTEGER)";
+//        ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 //            ps.executeUpdate();
 //
 //            query = "CREATE TABLE turretDamage ( structureLocation VARCHAR(20) PRIMARY KEY, damage INTEGER, FOREIGN KEY(structureLocation) REFERENCES turretStats(structureLocation) ON DELETE CASCADE)";
@@ -245,26 +246,7 @@ public class DatabaseConnectionHandler {
 //
 
 
-
-    private void dropOwnsItemTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("ownsitem")) {
-                    ps.execute("DROP TABLE ownsItem");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
+// we can drop all tables in a single function i think
     private void dropPlayerStatsTableIfExists() {
         try {
             String query = "select table_name from user_tables";
@@ -273,6 +255,8 @@ public class DatabaseConnectionHandler {
 
             while(rs.next()) {
                 if(rs.getString(1).toLowerCase().equals("playerstats")) {
+                    ps.execute("DROP TABLE playerEcon");
+                    ps.execute("DROP TABLE ownsItem");
                     ps.execute("DROP TABLE playerStats");
                     break;
                 }
@@ -284,25 +268,88 @@ public class DatabaseConnectionHandler {
         }
     }
 
-    private void dropPlayerEconTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("playerecon")) {
-                    ps.execute("DROP TABLE playerEcon");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
+}
 
+//
+//private void dropPlayerEconTableIfExists() {
+//    try {
+//        String query = "select table_name from user_tables";
+//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while(rs.next()) {
+//            if(rs.getString(1).toLowerCase().equals("playerecon")) {
+//                ps.execute("DROP TABLE playerEcon");
+//                break;
+//            }
+//        }
+//        rs.close();
+//        ps.close();
+//    } catch (SQLException e) {
+//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//    }
+//}
+//
+//
+//
+//
+//private void dropMapDeterminesTableIfExists() {
+//    try {
+//        String query = "select table_name from user_tables";
+//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while(rs.next()) {
+//            if(rs.getString(1).toLowerCase().equals("mapdetermines")) {
+//                ps.execute("DROP TABLE mapDetermines");
+//                break;
+//            }
+//        }
+//        rs.close();
+//        ps.close();
+//    } catch (SQLException e) {
+//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//    }
+//}
+//
+//private void dropGameModeTableIfExists() {
+//    try {
+//        String query = "select table_name from user_tables";
+//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while(rs.next()) {
+//            if (rs.getString(1).toLowerCase().equals("gamemode")) {
+//                ps.execute("DROP TABLE gameMode");
+//                break;
+//            }
+//        }
+//        rs.close();
+//        ps.close();
+//    } catch (SQLException e) {
+//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//    }
+//}
+
+//private void dropOwnsItemTableIfExists() {
+//    try {
+//        String query = "select table_name from user_tables";
+//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while(rs.next()) {
+//            if(rs.getString(1).toLowerCase().equals("ownsitem")) {
+//                ps.execute("DROP TABLE ownsItem");
+//                break;
+//            }
+//        }
+//        rs.close();
+//        ps.close();
+//    } catch (SQLException e) {
+//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//    }
+//}
 
 
 //    private void dropDragonJungleTableIfExists() {
@@ -459,42 +506,3 @@ public class DatabaseConnectionHandler {
 //    }
 
 
-
-    private void dropMapDeterminesTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("mapdetermines")) {
-                    ps.execute("DROP TABLE mapDetermines");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropGameModeTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if (rs.getString(1).toLowerCase().equals("gamemode")) {
-                    ps.execute("DROP TABLE gameMode");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-}
