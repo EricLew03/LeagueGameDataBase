@@ -10,11 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-
+import java.util.*;
 
 
 /**
@@ -211,12 +207,31 @@ public class DatabaseConnectionHandler {
 
     public PlayerStats[] playerSelection() {
         ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
-        Map<String, Object> condtions = getUserInput();
+        Map<String, Object> conditions = getUserInput();
 
         try {
-            String query = "SELECT * FROM playerStats";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM playerStats");
+            if (!conditions.isEmpty()) {
+                queryBuilder.append(" WHERE ");
+                List<String> conditionsList = new ArrayList<>();
+                for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                    conditionsList.add(entry.getKey() + " = ?");
+                }
+                queryBuilder.append(String.join(" AND ", conditionsList));
+            }
+
+            // Step 3: Execute the query to fetch filtered player stats
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
+            int index = 1;
+            for (Object value : conditions.values()) {
+                if (value instanceof Integer) {
+                    ps.setInt(index++, (Integer) value);
+                } else if (value instanceof String) {
+                    ps.setString(index++, (String) value);
+                } // Add additional cases for other data types if needed
+            }
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
@@ -241,22 +256,22 @@ public class DatabaseConnectionHandler {
     }
 
 
-    public Map<String, Object> getUserInput(){
+    public Map<String, Object> getUserInput() {
+        Scanner scanner = new Scanner(System.in);
         Map<String, Object> conditions = new HashMap<>();
 
         System.out.println("Enter conditions for filtering (press Enter to skip):");
         System.out.print("Player ID: ");
-        int playerId = readInteger(false);
+        int playerId = Integer.parseInt(scanner.nextLine().trim());
 
         System.out.print("Player Name: ");
-        String playerName = readLine().trim();
+        String playerName = scanner.nextLine().trim();
 
         System.out.print("Champion ID: ");
-        int champId = readInteger(false);
+        int champId = Integer.parseInt(scanner.nextLine().trim());
 
         System.out.print("Champion Name: ");
-        String championName = readLine().trim();
-
+        String championName = scanner.nextLine().trim();
 
         if (playerId != -1) {
             conditions.put("playerID", playerId);
@@ -271,9 +286,11 @@ public class DatabaseConnectionHandler {
             conditions.put("championName", championName);
         }
 
-        return conditions;
 
+        return conditions;
     }
+
+
 
     public void updatePlayerStats(int id, String name) {
         try {

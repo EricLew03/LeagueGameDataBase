@@ -1,7 +1,6 @@
 package util;
 
-import java.io.InputStream;
-import java.io.Reader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Date;
@@ -20,6 +19,52 @@ public class PrintablePreparedStatement implements PreparedStatement {
     public PrintablePreparedStatement(PreparedStatement preparedStatement, String query) {
         this(preparedStatement, query, false);
     }
+
+    public static void executeFile(Connection connection, File file) throws IOException, SQLException {
+        String fileName = file.getName();
+        int statementCount = 0;
+        int failureCount = 0;
+        String failures="";
+
+        System.out.printf("Executing file %s.\n", fileName);
+        try (FileReader fReader = new FileReader(file);
+             BufferedReader reader = new BufferedReader(fReader)) {
+            StringBuilder buf = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buf.append(line);
+            }
+
+            String[] statementStrings = buf.toString().split(";");
+
+
+            for (String statementString : statementStrings) {
+                String trimString = statementString.trim();
+                if (trimString.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
+                Statement statement = connection.createStatement();
+                try {
+                    statement.execute(trimString);
+                    statementCount++;
+                }catch (SQLException e){
+                    failures += "\n On line:"+trimString+e.getMessage()+"\n";
+                    failureCount++;
+                }
+            }
+
+            System.out.printf("%d statements executed, %d exceptions from file %s.\n", statementCount,failureCount, fileName);
+        } catch (SQLException e) {
+            System.out.printf("%d statements executed from file %s before exception.\n", statementCount, fileName);
+            throw e;
+        }
+        if(!failures.equals("")){
+            failures = "Encountered "+failureCount+" exception(s) during execution. \n"+failures;
+            throw new SQLException(failures);
+        }
+    }
+
 
     public PrintablePreparedStatement(PreparedStatement preparedStatement, String query, Boolean disableInstanceAutoPrint) {
         this.preparedStatement = preparedStatement;

@@ -43,7 +43,7 @@
       <load-sources>user_and_system_sources</load-sources>
       <ssh-properties>
         <enabled>true</enabled>
-        <ssh-config-id>f68c48c9-734c-4eba-a5f7-b74aabf8e533</ssh-config-id>
+        <ssh-config-id>a5a71b05-d0be-4182-8e7f-5bf03425038f</ssh-config-id>
         <local-port>1522</local-port>
       </ssh-properties>
     </data-source>
