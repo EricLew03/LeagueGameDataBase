@@ -74,6 +74,7 @@ public class TerminalTransactions {
 			System.out.println("7. delete item");
 			System.out.println("8. show item");
 			System.out.println("9. player selection");
+			System.out.println("10. player projection");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -109,6 +110,10 @@ public class TerminalTransactions {
 					case 9:
 						delegate.playerSelection();
 						break;
+					case 10:
+						delegate.playerProjection();
+						break;
+
 				default:
 					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
 					break;

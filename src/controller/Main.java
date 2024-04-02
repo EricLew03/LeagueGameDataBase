@@ -134,6 +134,12 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		}
 	}
 
+	@Override
+	public void playerProjection() {
+		dbHandler.showTables();
+
+	}
+
 	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * 

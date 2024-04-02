@@ -14,6 +14,8 @@ public interface LeagueDelegate {
 
     public void playerSelection();
 
+    public void playerProjection();
+
     public void deleteOwnsItem(int playerId, String itemName);
 
     public void insertOwnsItem(OwnsItem model);

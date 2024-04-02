@@ -6,6 +6,7 @@ import util.PrintablePreparedStatement;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,6 +32,8 @@ public class DatabaseConnectionHandler {
 
     private BufferedReader bufferedReader = null;
 
+    //=================================================================================
+    // connecting to the oracle server
     public DatabaseConnectionHandler() {
         try {
             // Load the Oracle JDBC driver
@@ -51,6 +54,10 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    //========================================================================================
+    // functions for ownItem relation
+
+    // delete one tuple of the ownItem given playerID and itemName
     public void deleteOwnsItem(int playerId, String name){
      try {
         String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
@@ -72,6 +79,7 @@ public class DatabaseConnectionHandler {
     }
 }
 
+    // insert one tuple into the ownItem relation
     public void insertOwnsItem(OwnsItem model){
         try {
             String query = "INSERT INTO ownsItem VALUES (?,?,?,?,?,?,?)";
@@ -95,6 +103,7 @@ public class DatabaseConnectionHandler {
 
     }
 
+    // returns the ownItem relation
     public OwnsItem[] getOwnsItem(){
         ArrayList<OwnsItem> result = new ArrayList<OwnsItem>();
 
@@ -122,11 +131,10 @@ public class DatabaseConnectionHandler {
         return result.toArray(new OwnsItem[result.size()]);
     }
 
+// =============================================================================================================
+//  functions for the playerStats relation
 
-
-
-
-
+    // delete one tuple in the playerStats relation given a playerID
     public void deletePlayerStats(int playerID) {
         try {
             String query = "DELETE FROM playerStats WHERE playerID = ?";
@@ -147,6 +155,7 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    // Insert a new tuple in the playerStats relation
     public void insertPlayerStats(PlayerStats model) {
         try {
             String query = "INSERT INTO playerStats VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -174,6 +183,7 @@ public class DatabaseConnectionHandler {
     }
 
 
+    // returns the tuples in playerStats relation
     public PlayerStats[] getPlayerStats() {
         ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
 
@@ -205,6 +215,8 @@ public class DatabaseConnectionHandler {
     }
 
 
+    // returns tuples based on the selection condition
+    // have to improve to accept or arguments as well
     public PlayerStats[] playerSelection() {
         ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
         Map<String, Object> conditions = getUserInput();
@@ -220,7 +232,6 @@ public class DatabaseConnectionHandler {
                 queryBuilder.append(String.join(" AND ", conditionsList));
             }
 
-            // Step 3: Execute the query to fetch filtered player stats
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
             int index = 1;
             for (Object value : conditions.values()) {
@@ -256,6 +267,8 @@ public class DatabaseConnectionHandler {
     }
 
 
+    // helper function to get user input for the selection conditions
+    // have to improve to get more conditions
     public Map<String, Object> getUserInput() {
         Scanner scanner = new Scanner(System.in);
         Map<String, Object> conditions = new HashMap<>();
@@ -291,6 +304,8 @@ public class DatabaseConnectionHandler {
     }
 
 
+    // updating one tuple given a playerID
+    // got to change it to update more attributes
 
     public void updatePlayerStats(int id, String name) {
         try {
@@ -313,11 +328,98 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    public void showTables() {
+        try {
+            String query = "SELECT table_name FROM user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            // Iterate through the result set and print table names
+            System.out.println("Table Names:");
+            while (rs.next()) {
+                String tableName = rs.getString("table_name");
+                System.out.println(tableName);
+            }
+
+            // Close resources
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
+
+        while (choice != 5) {
+            choice = readInteger(false);
+
+            System.out.println(" ");
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        playerProjection();
+                        break;
+                    default:
+                        System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
+                        break;
+                }
+            }
+        }
+    }
+
+
+public void playerProjection() {
+        List<String> selectedColumns = getColumnSelection(); // Get user-selected columns
+
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder("SELECT ");
+
+            // Append selected columns to the query
+            queryBuilder.append(String.join(", ", selectedColumns));
+            queryBuilder.append(" FROM playerStats");
+
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Iterate through each row of the result set
+                for (String columnName : selectedColumns) {
+                    // For each selected column, retrieve its value and process it as needed
+                    String columnValue = rs.getString(columnName);
+                    System.out.println(columnName + ": " + columnValue);
+                    // Or do whatever processing you need with the column value
+                }
+                // Optionally, you can add a separator between rows
+                System.out.println("-------------------------------------");
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+
+    // Method to prompt the user to select columns
+    public List<String> getColumnSelection() {
+        Scanner scanner = new Scanner(System.in);
+        List<String> selectedColumns = new ArrayList<>();
+
+        System.out.println("Enter columns to select (comma-separated, e.g., playerID, playerName, ...): ");
+        String columnsInput = scanner.nextLine().trim();
+        selectedColumns.addAll(Arrays.asList(columnsInput.split("\\s*,\\s*")));
+
+        return selectedColumns;
+    }
 
 
 
 
-
+    //===================================================================================================================================
 
     public boolean login(String username, String password) {
         try {
