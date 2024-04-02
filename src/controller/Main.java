@@ -4,6 +4,7 @@ package controller;
 import database.DatabaseConnectionHandler;
 import delegates.LeagueDelegate;
 import delegates.LoginWindowDelegate;
+import models.OwnsItem;
 import models.PlayerStats;
 import ui.LoginWindow;
 import ui.TerminalTransactions;
@@ -12,6 +13,8 @@ import ui.TerminalTransactions;
  * This is the main controller class that will orchestrate everything.
  */
 public class Main implements LoginWindowDelegate, LeagueDelegate {
+
+
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
 
@@ -48,6 +51,34 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 				System.exit(-1);
 			}
 		}
+	}
+
+
+	@Override
+	public void deleteOwnsItem(int playerId, String itemName) {
+		dbHandler.deleteOwnsItem(playerId, itemName);
+	}
+
+	@Override
+	public void insertOwnsItem(OwnsItem model) {
+		dbHandler.insertOwnsItem(model);
+	}
+
+	@Override
+	public void showOwnsItem() {
+		OwnsItem[] models = dbHandler.getOwnsItem();
+
+		for (int i = 0; i < models.length; i++) {
+			OwnsItem model = models[i];
+			System.out.printf("1. ");
+			// simplified output formatting; truncation may occur
+			System.out.printf("%-4.10s", model.getPlayerID());
+			System.out.printf("%-20.20s", model.getName());
+			System.out.printf("%-20.20s", model.getAd());
+			System.out.printf("%-15.15s", model.getArmor());
+			System.out.println();
+		}
+
 	}
 	
 	/**

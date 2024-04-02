@@ -1,5 +1,6 @@
 package database;
 
+import models.OwnsItem;
 import models.PlayerStats;
 import util.PrintablePreparedStatement;
 
@@ -42,6 +43,82 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
+
+    public void deleteOwnsItem(int playerId, String name){
+     try {
+        String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
+        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+        ps.setInt(1, playerId);
+        ps.setString(2, name);
+
+        int rowCount = ps.executeUpdate();
+        if (rowCount == 0) {
+            System.out.println(WARNING_TAG + " Player " + playerId + " does not exist!");
+        }
+
+        connection.commit();
+
+        ps.close();
+    } catch (SQLException e) {
+        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        rollbackConnection();
+    }
+}
+
+    public void insertOwnsItem(OwnsItem model){
+        try {
+            String query = "INSERT INTO ownsItem VALUES (?,?,?,?,?,?,?)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, model.getPlayerID());
+            ps.setString(2, model.getName());
+            ps.setInt(3, model.getMr());
+            ps.setInt(4, model.getAd());
+            ps.setInt(5, model.getAp());
+            ps.setInt(6, model.getArmor());
+            ps.setInt(7, model.getCost());
+
+            ps.executeUpdate();
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+
+    }
+
+    public OwnsItem[] getOwnsItem(){
+        ArrayList<OwnsItem> result = new ArrayList<OwnsItem>();
+
+        try {
+            String query = "SELECT * FROM ownsItem";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                OwnsItem model = new OwnsItem(rs.getInt("playerID"),
+                        rs.getString("itemName"),
+                        rs.getInt("mr"),
+                        rs.getInt("ad"),
+                        rs.getInt("ap"),
+                        rs.getInt("armor"),
+                        rs.getInt("cost")
+                );
+                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result.toArray(new OwnsItem[result.size()]);
+    }
+
+
+
+
+
 
     public void deletePlayerStats(int playerID) {
         try {
@@ -140,6 +217,8 @@ public class DatabaseConnectionHandler {
             rollbackConnection();
         }
     }
+
+
 
 
 
