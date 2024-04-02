@@ -168,6 +168,8 @@ public class DatabaseConnectionHandler {
 
     public void databaseSetup() {
         dropPlayerStatsTableIfExists();
+        dropPlayerEconTableIfExists();
+        dropOwnsItemTableIfExists();
 
 //        dropDragonJungleTableIfExists();
 //        dropDragonTypeTableIfExists();
@@ -177,36 +179,37 @@ public class DatabaseConnectionHandler {
 //        dropTurretTableIfExists();
 //        dropTurretDamageTableIfExists();
 //        dropTurretStatsTableIfExists();
-//        dropOwnsItemTableIfExists();
-//        dropPlayerEconTableIfExists();
 //        dropMapDeterminesTableIfExists();
 //        dropGameModeTableIfExists();
 //
         try {
-//            String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";
-//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//            ps.executeUpdate();
-//
-//            query = "CREATE TABLE mapDetermines ( mapID INT PRIMARY KEY, mapName VARCHAR(20), numberOfLanes INTEGER, gamemodeName VARCHAR(20), FOREIGN KEY (gamemodeName) REFERENCES gameMode(gamemodeName) ON DELETE CASCADE)";
-//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//            ps.executeUpdate();
-//
-//            query = "CREATE TABLE playerEcon ( creepScore INTEGER, kills INTEGER, gold INTEGER, playerLevel INTEGER, PRIMARY KEY (creepScore, kills))";
-//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//            ps.executeUpdate();
-//
             String query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY,playerName VARCHAR(20), champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER, kills INTEGER, rank VARCHAR(20), mapID INTEGER)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.executeUpdate();
             ps.close();
+
+            query = "CREATE TABLE ownsItem ( playerID INTEGER, itemName VARCHAR(20), mr INTEGER, ad INTEGER, ap INTEGER, armor INTEGER, cost INTEGER, PRIMARY KEY (playerID, itemName), FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
+            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.executeUpdate();
+
+            query = "CREATE TABLE playerEcon ( creepScore INTEGER, kills INTEGER, gold INTEGER, playerLevel INTEGER, PRIMARY KEY (creepScore, kills))";
+            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.executeUpdate();
+
+
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
+        PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
+        insertPlayerStats(player1);
+    }
+
+//        String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";
+//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//        ps.executeUpdate();
 
 //
-//            query = "CREATE TABLE ownsItem ( playerID INTEGER, itemName VARCHAR(20), mr INTEGER, ad INTEGER, ap INTEGER, armor INTEGER, cost INTEGER, PRIMARY KEY (playerID, itemName), FOREIGN KEY (playerID) REFERENCES playerStats(playerID) ON DELETE CASCADE)";
-//            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//            ps.executeUpdate();
+//
 //
 //            query = "CREATE TABLE turretStats ( structureLocation VARCHAR(20) PRIMARY KEY, healthPoints INTEGER)";
 //            ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -241,163 +244,7 @@ public class DatabaseConnectionHandler {
 //            ps.executeUpdate();
 //
 
-        PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
-        insertPlayerStats(player1);
-    }
 
-
-    private void dropDragonJungleTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("dragonjungle")) {
-                    ps.execute("DROP TABLE dragonjungle");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropDragonTypeTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                System.out.println(rs.getString(1).toLowerCase());
-                if(rs.getString(1).toLowerCase().equals("dragontype")) {
-                    ps.execute("DROP TABLE dragontype");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropBaronJungleObjectiveTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("baronjungleobjective")) {
-                    ps.execute("DROP TABLE baronJungleObjective");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropInhibitorTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("inhibitor")) {
-                    ps.execute("DROP TABLE inhibitor");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropNexusTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("nexus")) {
-                    ps.execute("DROP TABLE nexus");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropTurretTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("turret")) {
-                    ps.execute("DROP TABLE turret");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropTurretDamageTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("turretdamage")) {
-                    ps.execute("DROP TABLE turretDamage");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-    private void dropTurretStatsTableIfExists() {
-        try {
-            String query = "select table_name from user_tables";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("turretstats")) {
-                    ps.execute("DROP TABLE turretStats");
-                    break;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
 
     private void dropOwnsItemTableIfExists() {
         try {
@@ -455,6 +302,163 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
+
+
+
+//    private void dropDragonJungleTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("dragonjungle")) {
+//                    ps.execute("DROP TABLE dragonjungle");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+//
+//    private void dropDragonTypeTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                System.out.println(rs.getString(1).toLowerCase());
+//                if(rs.getString(1).toLowerCase().equals("dragontype")) {
+//                    ps.execute("DROP TABLE dragontype");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+//
+//    private void dropBaronJungleObjectiveTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("baronjungleobjective")) {
+//                    ps.execute("DROP TABLE baronJungleObjective");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+//
+//    private void dropInhibitorTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("inhibitor")) {
+//                    ps.execute("DROP TABLE inhibitor");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+//
+//    private void dropNexusTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("nexus")) {
+//                    ps.execute("DROP TABLE nexus");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+
+//    private void dropTurretTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("turret")) {
+//                    ps.execute("DROP TABLE turret");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+//
+//    private void dropTurretDamageTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("turretdamage")) {
+//                    ps.execute("DROP TABLE turretDamage");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+
+//    private void dropTurretStatsTableIfExists() {
+//        try {
+//            String query = "select table_name from user_tables";
+//            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                if(rs.getString(1).toLowerCase().equals("turretstats")) {
+//                    ps.execute("DROP TABLE turretStats");
+//                    break;
+//                }
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//        }
+//    }
+
+
 
     private void dropMapDeterminesTableIfExists() {
         try {
