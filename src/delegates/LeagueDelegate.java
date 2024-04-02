@@ -1,6 +1,7 @@
 package delegates;
 
 import models.OwnsItem;
+import models.PlayerEcon;
 import models.PlayerStats;
 
 public interface LeagueDelegate {
@@ -20,8 +21,13 @@ public interface LeagueDelegate {
 
     public void insertOwnsItem(OwnsItem model);
 
-
     public void showOwnsItem();
+
+    public void insertPlayerEcon(PlayerEcon model);
+
+    public void deletePlayerEcon(int creepScore, int kills);
+
+    public void showPlayerEcon();
 
 
 

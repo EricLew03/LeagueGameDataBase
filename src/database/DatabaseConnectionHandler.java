@@ -1,6 +1,7 @@
 package database;
 
 import models.OwnsItem;
+import models.PlayerEcon;
 import models.PlayerStats;
 import util.PrintablePreparedStatement;
 
@@ -370,7 +371,73 @@ public class DatabaseConnectionHandler {
     }
 
 
-public void playerProjection() {
+    public void insertPlayerEcon(PlayerEcon model) {
+        try {
+            String query = "INSERT INTO playerEcon VALUES (?,?,?,?)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, model.getCreepscore());
+            ps.setInt(2, model.getKills());
+            ps.setInt(3, model.getGold());
+            ps.setInt(4, model.getLevel());
+
+            ps.executeUpdate();
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    public PlayerEcon[] getPlayerEcon() {
+        ArrayList<PlayerEcon> result = new ArrayList<PlayerEcon>();
+
+        try {
+            String query = "SELECT * FROM playerEcon";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                PlayerEcon model = new PlayerEcon(rs.getInt("creepScore"),
+                        rs.getInt("kills"),
+                        rs.getInt("gold"),
+                        rs.getInt("playerLevel")
+                );
+                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new PlayerEcon[result.size()]);
+    }
+
+    public void deletePlayerEcon(int creepScore, int kills){
+        try {
+            String query = "DELETE FROM playerEcon WHERE creepScore = ? AND kills = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, creepScore);
+            ps.setInt(2, kills);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Player " + creepScore + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+
+
+    public void playerProjection() {
         List<String> selectedColumns = getColumnSelection(); // Get user-selected columns
 
 
@@ -485,6 +552,9 @@ public void playerProjection() {
 
         OwnsItem item1 = new OwnsItem(1, "lol",1,2,3,4,5);
         insertOwnsItem(item1);
+
+        PlayerEcon player2 = new PlayerEcon(22,1,23,22);
+        insertPlayerEcon(player2);
     }
 
 //        String query = "CREATE TABLE gameMode ( gamemodeName VARCHAR(20) PRIMARY KEY, maxPartySize INTEGER, canBan INTEGER)";

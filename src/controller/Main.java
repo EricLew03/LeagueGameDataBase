@@ -5,6 +5,7 @@ import database.DatabaseConnectionHandler;
 import delegates.LeagueDelegate;
 import delegates.LoginWindowDelegate;
 import models.OwnsItem;
+import models.PlayerEcon;
 import models.PlayerStats;
 import ui.LoginWindow;
 import ui.TerminalTransactions;
@@ -80,7 +81,35 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		}
 
 	}
-	
+
+	@Override
+	public void insertPlayerEcon(PlayerEcon model) {
+		dbHandler.insertPlayerEcon(model);
+	}
+
+	@Override
+	public void deletePlayerEcon(int creepScore, int kills) {
+		dbHandler.deletePlayerEcon(creepScore,kills);
+
+	}
+
+	@Override
+	public void showPlayerEcon() {
+		PlayerEcon[] models = dbHandler.getPlayerEcon();
+
+		for (int i = 0; i < models.length; i++) {
+			PlayerEcon model = models[i];
+			System.out.printf("1. ");
+			// simplified output formatting; truncation may occur
+			System.out.printf("%-4.10s", model.getCreepscore());
+			System.out.printf("%-20.20s", model.getKills());
+			System.out.printf("%-20.20s", model.getGold());
+			System.out.printf("%-15.15s", model.getLevel());
+			System.out.println();
+		}
+
+	}
+
 	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * 

@@ -2,6 +2,7 @@ package ui;
 
 import delegates.LeagueDelegate;
 import models.OwnsItem;
+import models.PlayerEcon;
 import models.PlayerStats;
 
 import java.io.BufferedReader;
@@ -75,6 +76,9 @@ public class TerminalTransactions {
 			System.out.println("8. show item");
 			System.out.println("9. player selection");
 			System.out.println("10. player projection");
+			System.out.println("11. insert econ");
+			System.out.println("12. delete econ");
+			System.out.println("13. show econ");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -112,6 +116,15 @@ public class TerminalTransactions {
 						break;
 					case 10:
 						delegate.playerProjection();
+						break;
+					case 11:
+						handleInsertEcon();
+						break;
+					case 12:
+						handleDeleteEcon();
+						break;
+					case 13:
+						delegate.showPlayerEcon();
 						break;
 
 				default:
@@ -249,6 +262,52 @@ public class TerminalTransactions {
 				ap,
 				cost);
 		delegate.insertOwnsItem(model);
+	}
+
+	private void handleInsertEcon() {
+		int creepScore = INVALID_INPUT;
+		while (creepScore == INVALID_INPUT) {
+			System.out.print("Please enter the creep score you wish to insert: ");
+			creepScore = readInteger(false);
+		}
+
+		int kills = INVALID_INPUT;
+		while (kills == INVALID_INPUT) {
+			System.out.print("Please enter the creep score you wish to insert: ");
+			kills = readInteger(false);
+		}
+
+
+		System.out.print("Please enter the gold you wish to insert: ");
+		int gold = readInteger(true);
+
+		System.out.print("Please enter the level you wish to insert: ");
+		int level = readInteger(true);
+
+
+
+		PlayerEcon model = new PlayerEcon(creepScore,
+				kills,
+				gold,
+				level);
+		delegate.insertPlayerEcon(model);
+	}
+
+
+	private void handleDeleteEcon() {
+		int creepScore = INVALID_INPUT;
+		int kills = INVALID_INPUT;
+		while (creepScore == INVALID_INPUT && kills == INVALID_INPUT) {
+			System.out.print("Please enter the player ID you wish to delete: ");
+			creepScore = readInteger(false);
+			System.out.print("Please enter the item name you wish to delete: ");
+			kills = readInteger(false);
+			if (creepScore != INVALID_INPUT && kills != INVALID_INPUT) {
+				delegate.deletePlayerEcon(creepScore, kills);
+			}
+
+
+		}
 	}
 
 
