@@ -113,7 +113,12 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		dbHandler.updatePlayerStats(playerId, name);
     }
 
-    /**
+	@Override
+	public void playerSelection() {
+		dbHandler.playerSelection();
+	}
+
+	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Displays information about varies bank branches.

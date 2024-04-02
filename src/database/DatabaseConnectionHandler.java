@@ -4,11 +4,17 @@ import models.OwnsItem;
 import models.PlayerStats;
 import util.PrintablePreparedStatement;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 
 /**
@@ -23,6 +29,11 @@ public class DatabaseConnectionHandler {
     private static final String WARNING_TAG = "[WARNING]";
 
     private Connection connection = null;
+
+    private static final int INVALID_INPUT = Integer.MIN_VALUE;
+    private static final int EMPTY_INPUT = 0;
+
+    private BufferedReader bufferedReader = null;
 
     public DatabaseConnectionHandler() {
         try {
@@ -174,7 +185,6 @@ public class DatabaseConnectionHandler {
             String query = "SELECT * FROM playerStats";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
-
             while(rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
@@ -196,6 +206,73 @@ public class DatabaseConnectionHandler {
         }
 
         return result.toArray(new PlayerStats[result.size()]);
+    }
+
+
+    public PlayerStats[] playerSelection() {
+        ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
+        Map<String, Object> condtions = getUserInput();
+
+        try {
+            String query = "SELECT * FROM playerStats";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                PlayerStats model = new PlayerStats(rs.getInt("playerID"),
+                        rs.getString("playerName"),
+                        rs.getInt("champID"),
+                        rs.getString("championName"),
+                        rs.getInt("manaPoints"),
+                        rs.getInt("healthPoints"),
+                        rs.getInt("creepScore"),
+                        rs.getInt("kills"),
+                        rs.getString("rank"),
+                        rs.getInt("mapID")
+                );
+                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new PlayerStats[result.size()]);
+    }
+
+
+    public Map<String, Object> getUserInput(){
+        Map<String, Object> conditions = new HashMap<>();
+
+        System.out.println("Enter conditions for filtering (press Enter to skip):");
+        System.out.print("Player ID: ");
+        int playerId = readInteger(false);
+
+        System.out.print("Player Name: ");
+        String playerName = readLine().trim();
+
+        System.out.print("Champion ID: ");
+        int champId = readInteger(false);
+
+        System.out.print("Champion Name: ");
+        String championName = readLine().trim();
+
+
+        if (playerId != -1) {
+            conditions.put("playerID", playerId);
+        }
+        if (!playerName.isEmpty()) {
+            conditions.put("playerName", playerName);
+        }
+        if (champId != -1) {
+            conditions.put("champID", champId);
+        }
+        if (!championName.isEmpty()) {
+            conditions.put("championName", championName);
+        }
+
+        return conditions;
+
     }
 
     public void updatePlayerStats(int id, String name) {
@@ -349,6 +426,34 @@ public class DatabaseConnectionHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
+    }
+
+    private int readInteger(boolean allowEmpty) {
+        String line = null;
+        int input = INVALID_INPUT;
+        try {
+            line = bufferedReader.readLine();
+            input = Integer.parseInt(line);
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        } catch (NumberFormatException e) {
+            if (allowEmpty && line.length() == 0) {
+                input = EMPTY_INPUT;
+            } else {
+                System.out.println(WARNING_TAG + " Your input was not an integer");
+            }
+        }
+        return input;
+    }
+
+    private String readLine() {
+        String result = null;
+        try {
+            result = bufferedReader.readLine();
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
     }
 
 
@@ -587,5 +692,6 @@ public class DatabaseConnectionHandler {
 //            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 //        }
 //    }
+
 
 
