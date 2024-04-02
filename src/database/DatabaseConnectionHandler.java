@@ -45,13 +45,13 @@ public class DatabaseConnectionHandler {
 
     public void deletePlayerStats(int playerID) {
         try {
-            String query = "DELETE FROM playerStats WHERE branchID = ?";
+            String query = "DELETE FROM playerStats WHERE playerID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, playerID);
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Branch " + playerID + " does not exist!");
+                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
             }
 
             connection.commit();
@@ -122,7 +122,7 @@ public class DatabaseConnectionHandler {
 
     public void updatePlayerStats(int id, String name) {
         try {
-            String query = "UPDATE player SET playerName = ? WHERE playerID = ?";
+            String query = "UPDATE playerStats SET playerName = ? WHERE playerID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setString(1, name);
             ps.setInt(2, id);

@@ -189,13 +189,13 @@ public class TerminalTransactions {
 	private void handleUpdateOption() {
 		int id = INVALID_INPUT;
 		while (id == INVALID_INPUT) {
-			System.out.print("Please enter the branch ID you wish to update: ");
+			System.out.print("Please enter the player ID you wish to update: ");
 			id = readInteger(false);
 		}
 		
 		String name = null;
 		while (name == null || name.length() <= 0) {
-			System.out.print("Please enter the branch name you wish to update: ");
+			System.out.print("Please enter the player name you wish to update: ");
 			name = readLine().trim();
 		}
 
