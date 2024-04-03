@@ -135,6 +135,29 @@ public class DatabaseConnectionHandler {
         return result.toArray(new OwnsItem[result.size()]);
     }
 
+
+    public void aggregate() {
+        try {
+            String query = "SELECT itemName, COUNT(*) AS item_count FROM ownsItem GROUP BY itemName";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String itemName = rs.getString("itemName");
+                int count = rs.getInt("item_count");
+                System.out.println("Item Name: " + itemName + ", Count: " + count);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+
+
+
 // ==================================================================================================================================
 // ===============================================================================================================================
 //  functions for the playerStats relation
@@ -530,6 +553,7 @@ public class DatabaseConnectionHandler {
 
 
 
+
     //===================================================================================================================================
     // ============================================================================================================================
     public boolean login(String username, String password) {
@@ -556,6 +580,16 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     public void databaseSetup() {
         dropOwnsItemTableIfExists();

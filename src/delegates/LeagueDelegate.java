@@ -35,4 +35,6 @@ public interface LeagueDelegate {
 
 
     public void LeagueFinished();
+
+    public void aggregate();
 }
