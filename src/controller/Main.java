@@ -15,7 +15,6 @@ import ui.TerminalTransactions;
  */
 public class Main implements LoginWindowDelegate, LeagueDelegate {
 
-
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
 
@@ -27,7 +26,6 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		loginWindow = new LoginWindow();
 		loginWindow.showFrame(this);
 	}
-	
 	/**
 	 * LoginWindowDelegate Implementation
 	 * 
@@ -72,7 +70,6 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		for (int i = 0; i < models.length; i++) {
 			OwnsItem model = models[i];
 			System.out.printf("1. ");
-			// simplified output formatting; truncation may occur
 			System.out.printf("%-4.10s", model.getPlayerID());
 			System.out.printf("%-20.20s", model.getName());
 			System.out.printf("%-20.20s", model.getAd());
@@ -92,7 +89,6 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		dbHandler.deletePlayerEcon(creepScore,kills);
 
 	}
-
 	@Override
 	public void showPlayerEcon() {
 		PlayerEcon[] models = dbHandler.getPlayerEcon();
@@ -100,7 +96,6 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 		for (int i = 0; i < models.length; i++) {
 			PlayerEcon model = models[i];
 			System.out.printf("1. ");
-			// simplified output formatting; truncation may occur
 			System.out.printf("%-4.10s", model.getCreepscore());
 			System.out.printf("%-20.20s", model.getKills());
 			System.out.printf("%-20.20s", model.getGold());
@@ -110,32 +105,20 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 
 	}
 
-	/**
-	 * TerminalTransactionsDelegate Implementation
-	 * 
-	 * Insert a branch with the given info
-	 */
+
+
+
 	@Override
 	public void insertPlayerStats(PlayerStats model) {
 		dbHandler.insertPlayerStats(model);
 	}
 
-    /**
-	 * TerminalTransactionsDelegate Implementation
-	 * 
-	 * Delete branch with given branch ID.
-	 */
 
 	@Override
 	public void deletePlayerStats(int playerId) {
 
 		dbHandler.deletePlayerStats(playerId);
 	}
-    /**
-	 * TerminalTransactionsDelegate Implementation
-	 * 
-	 * Update the branch name for a specific ID
-	 */
 
 	@Override
 	public void updatePlayerStats(int playerId, String name) {

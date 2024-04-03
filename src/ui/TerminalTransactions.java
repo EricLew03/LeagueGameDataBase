@@ -24,10 +24,7 @@ public class TerminalTransactions {
 	public TerminalTransactions() {
 	}
 	
-	/**
-	 * Sets up the database to have a branch table with two tuples so we can insert/update/delete from it.
-	 * Refer to the databaseSetup.sql file to determine what tuples are going to be in the table.
-	 */
+
 	public void setupDatabase(LeagueDelegate delegate) {
 		this.delegate = delegate;
 
@@ -66,19 +63,20 @@ public class TerminalTransactions {
 		
 		while (choice != 5) {
 			System.out.println();
-			System.out.println("1. Insert ______");
-			System.out.println("2. Delete ______");
-			System.out.println("3. Update ______");
+			System.out.println("1. Insert playerStats");
+			System.out.println("2. Delete playerStats");
+			System.out.println("3. Update playerStats");
 			System.out.println("4. Show playerStats");
 			System.out.println("5. Quit");
 			System.out.println("6. insert item");
 			System.out.println("7. delete item");
 			System.out.println("8. show item");
-			System.out.println("9. player selection");
-			System.out.println("10. player projection");
-			System.out.println("11. insert econ");
-			System.out.println("12. delete econ");
-			System.out.println("13. show econ");
+			System.out.println("9. playerStats selection");
+			System.out.println("10. playerStats projection");
+			System.out.println("11. insert playerEcon");
+			System.out.println("12. delete playerEcon");
+			System.out.println("13. show playerEcon");
+			System.out.println("14. join");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -126,7 +124,7 @@ public class TerminalTransactions {
 					case 13:
 						delegate.showPlayerEcon();
 						break;
-
+					case 14:
 				default:
 					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
 					break;
