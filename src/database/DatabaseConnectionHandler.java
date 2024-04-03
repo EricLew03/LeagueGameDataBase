@@ -33,6 +33,7 @@ public class DatabaseConnectionHandler {
 
     private BufferedReader bufferedReader = null;
 
+
     //=================================================================================
     // connecting to the oracle server
     public DatabaseConnectionHandler() {
@@ -55,7 +56,9 @@ public class DatabaseConnectionHandler {
         }
     }
 
-    //========================================================================================
+
+    //===========================================================================================================
+    //============================================================================================================
     // functions for ownItem relation
 
     // delete one tuple of the ownItem given playerID and itemName
@@ -132,7 +135,8 @@ public class DatabaseConnectionHandler {
         return result.toArray(new OwnsItem[result.size()]);
     }
 
-// =============================================================================================================
+// ==================================================================================================================================
+// ===============================================================================================================================
 //  functions for the playerStats relation
 
     // delete one tuple in the playerStats relation given a playerID
@@ -361,6 +365,7 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    // show all the tables we have in the database
     public void showTables() {
         try {
             String query = "SELECT table_name FROM user_tables";
@@ -402,6 +407,58 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    // method to make show selected columns
+    public void playerProjection() {
+        List<String> selectedColumns = getColumnSelection(); // Get user-selected columns
+
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder("SELECT ");
+
+            // Append selected columns to the query
+            queryBuilder.append(String.join(", ", selectedColumns));
+            queryBuilder.append(" FROM playerStats");
+
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Iterate through each row of the result set
+                for (String columnName : selectedColumns) {
+                    // For each selected column, retrieve its value and process it as needed
+                    String columnValue = rs.getString(columnName);
+                    System.out.println(columnName + ": " + columnValue);
+                    // Or do whatever processing you need with the column value
+                }
+                // Optionally, you can add a separator between rows
+                System.out.println("-------------------------------------");
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+
+    // Method to prompt the user to select columns
+    public List<String> getColumnSelection() {
+        Scanner scanner = new Scanner(System.in);
+        List<String> selectedColumns = new ArrayList<>();
+
+        System.out.println("Enter columns to select (comma-separated, e.g., playerID, playerName, ...): ");
+        String columnsInput = scanner.nextLine().trim();
+        selectedColumns.addAll(Arrays.asList(columnsInput.split("\\s*,\\s*")));
+
+        return selectedColumns;
+    }
+
+
+    //====================================================================================================================================
+    //====================================================================================================================================
+
+    //functions for the player econ relation
 
     public void insertPlayerEcon(PlayerEcon model) {
         try {
@@ -469,57 +526,12 @@ public class DatabaseConnectionHandler {
 
 
 
-    public void playerProjection() {
-        List<String> selectedColumns = getColumnSelection(); // Get user-selected columns
-
-
-        try {
-            StringBuilder queryBuilder = new StringBuilder("SELECT ");
-
-            // Append selected columns to the query
-            queryBuilder.append(String.join(", ", selectedColumns));
-            queryBuilder.append(" FROM playerStats");
-
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                // Iterate through each row of the result set
-                for (String columnName : selectedColumns) {
-                    // For each selected column, retrieve its value and process it as needed
-                    String columnValue = rs.getString(columnName);
-                    System.out.println(columnName + ": " + columnValue);
-                    // Or do whatever processing you need with the column value
-                }
-                // Optionally, you can add a separator between rows
-                System.out.println("-------------------------------------");
-            }
-
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
-
-
-    // Method to prompt the user to select columns
-    public List<String> getColumnSelection() {
-        Scanner scanner = new Scanner(System.in);
-        List<String> selectedColumns = new ArrayList<>();
-
-        System.out.println("Enter columns to select (comma-separated, e.g., playerID, playerName, ...): ");
-        String columnsInput = scanner.nextLine().trim();
-        selectedColumns.addAll(Arrays.asList(columnsInput.split("\\s*,\\s*")));
-
-        return selectedColumns;
-    }
 
 
 
 
     //===================================================================================================================================
-
+    // ============================================================================================================================
     public boolean login(String username, String password) {
         try {
             if (connection != null) {
@@ -546,9 +558,11 @@ public class DatabaseConnectionHandler {
     }
 
     public void databaseSetup() {
+        dropOwnsItemTableIfExists();
+        dropPlayerEconTableIfExists();
         dropPlayerStatsTableIfExists();
-//        dropPlayerEconTableIfExists();
-//        dropOwnsItemTableIfExists();
+
+
 
 //        dropDragonJungleTableIfExists();
 //        dropDragonTypeTableIfExists();
@@ -562,7 +576,7 @@ public class DatabaseConnectionHandler {
 //        dropGameModeTableIfExists();
 //
         try {
-            String query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY,playerName VARCHAR(20), champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER, kills INTEGER, rank VARCHAR(20), mapID INTEGER)";
+            String query = "CREATE TABLE playerStats ( playerID INTEGER PRIMARY KEY,playerName VARCHAR(20), champID INTEGER UNIQUE, championName VARCHAR(20), manaPoints INTEGER, healthPoints INTEGER, creepScore INTEGER , kills INTEGER , rank VARCHAR(20), mapID INTEGER)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.executeUpdate();
             ps.close();
@@ -585,7 +599,7 @@ public class DatabaseConnectionHandler {
         OwnsItem item1 = new OwnsItem(1, "lol",1,2,3,4,5);
         insertOwnsItem(item1);
 
-        PlayerEcon player2 = new PlayerEcon(22,1,23,22);
+        PlayerEcon player2 = new PlayerEcon(150,5,23,22);
         insertPlayerEcon(player2);
     }
 
@@ -636,9 +650,26 @@ public class DatabaseConnectionHandler {
 
             while(rs.next()) {
                 if(rs.getString(1).toLowerCase().equals("playerstats")) {
-                    ps.execute("DROP TABLE playerEcon");
-                    ps.execute("DROP TABLE ownsItem");
                     ps.execute("DROP TABLE playerStats");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+    private void dropOwnsItemTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("ownsitem")) {
+                    ps.execute("DROP TABLE ownsItem");
                     break;
                 }
             }
@@ -667,6 +698,25 @@ public class DatabaseConnectionHandler {
         return input;
     }
 
+    private void dropPlayerEconTableIfExists() {
+        try {
+            String query = "select table_name from user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                if(rs.getString(1).toLowerCase().equals("playerecon")) {
+                    ps.execute("DROP TABLE playerEcon");
+                    break;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
     private String readLine() {
         String result = null;
         try {
@@ -680,26 +730,8 @@ public class DatabaseConnectionHandler {
 
 }
 
-//
-//private void dropPlayerEconTableIfExists() {
-//    try {
-//        String query = "select table_name from user_tables";
-//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//        ResultSet rs = ps.executeQuery();
-//
-//        while(rs.next()) {
-//            if(rs.getString(1).toLowerCase().equals("playerecon")) {
-//                ps.execute("DROP TABLE playerEcon");
-//                break;
-//            }
-//        }
-//        rs.close();
-//        ps.close();
-//    } catch (SQLException e) {
-//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-//    }
-//}
-//
+
+
 //
 //
 //
@@ -741,24 +773,7 @@ public class DatabaseConnectionHandler {
 //    }
 //}
 
-//private void dropOwnsItemTableIfExists() {
-//    try {
-//        String query = "select table_name from user_tables";
-//        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-//        ResultSet rs = ps.executeQuery();
-//
-//        while(rs.next()) {
-//            if(rs.getString(1).toLowerCase().equals("ownsitem")) {
-//                ps.execute("DROP TABLE ownsItem");
-//                break;
-//            }
-//        }
-//        rs.close();
-//        ps.close();
-//    } catch (SQLException e) {
-//        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-//    }
-//}
+
 
 
 //    private void dropDragonJungleTableIfExists() {
