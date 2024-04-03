@@ -195,8 +195,13 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 			System.out.println();
 		}
 	}
-	
-    /**
+
+	@Override
+	public void aggregateHaving() {
+		dbHandler.aggregateHaving();
+	}
+
+	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * 
      * The TerminalTransaction instance tells us that it is done with what it's 

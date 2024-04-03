@@ -51,6 +51,7 @@ public class TerminalTransactions {
 			System.out.println("13. show playerEcon");
 			System.out.println("14. join");
 			System.out.println("15. aggregate");
+			System.out.println("16. aggregateHaving");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -102,6 +103,9 @@ public class TerminalTransactions {
 						break;
 					case 15:
 						delegate.aggregate();
+						break;
+					case 16:
+						delegate.aggregateHaving();
 						break;
 				default:
 					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");

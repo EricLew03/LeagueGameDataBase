@@ -155,6 +155,30 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    public void aggregateHaving() {
+        try {
+            String query = "SELECT itemName, MAX(cost) AS max_price " +
+                    "FROM ownsItem " +
+                    "GROUP BY itemName " +
+                    "HAVING COUNT(*) > 2";
+
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String itemName = rs.getString("itemName");
+                double maxPrice = rs.getDouble("max_price");
+                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
 
 
 
