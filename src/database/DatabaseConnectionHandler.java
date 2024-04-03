@@ -191,12 +191,13 @@ public class DatabaseConnectionHandler {
                             "FROM PlayerAverageCost average " +
                             "JOIN playerStats player ON average.playerID = player.playerID " +
                             "WHERE average.average_cost = (SELECT MAX(average_cost) FROM PlayerAverageCost)";
+
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 String playerName = rs.getString("playerName");
-                double highestAvgCost = rs.getDouble("highest_avg_cost");
+                double highestAvgCost = rs.getDouble("average_cost");
                 System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
             }
 
