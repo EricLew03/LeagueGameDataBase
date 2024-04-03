@@ -608,7 +608,7 @@ public class DatabaseConnectionHandler {
     }
 
 
-    public void division() {
+    public String division() {
         List<String> ownedItemNames = new ArrayList<>();
 
         try {
@@ -637,7 +637,8 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
 
-        // return ownedItemNames;
+        String flattenedResult = String.join(", ", ownedItemNames);
+        return flattenedResult;
     }
 
 

@@ -38,5 +38,5 @@ public interface LeagueDelegate {
 
     public void aggregate();
 
-    public void division();
+    public String division();
 }
