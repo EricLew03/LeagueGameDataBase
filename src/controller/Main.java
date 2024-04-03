@@ -39,7 +39,6 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 			loginWindow.dispose();
 
 			TerminalTransactions transaction = new TerminalTransactions();
-			transaction.setupDatabase(this);
 			transaction.showMainMenu(this);
 		} else {
 			loginWindow.handleLoginFailed();

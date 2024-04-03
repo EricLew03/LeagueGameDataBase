@@ -23,34 +23,7 @@ public class TerminalTransactions {
 
 	public TerminalTransactions() {
 	}
-	
 
-	public void setupDatabase(LeagueDelegate delegate) {
-		this.delegate = delegate;
-
-		bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		int choice = INVALID_INPUT;
-
-		while(choice != 1 && choice != 2) {
-			System.out.println("If you have a table called Branch in your database (capitialization of the name does not matter), it will be dropped and a new Branch table will be created.\nIf you want to proceed, enter 1; if you want to quit, enter 2.");
-
-			choice = readInteger(false);
-
-			if (choice != INVALID_INPUT) {
-				switch (choice) {
-				case 1:
-					delegate.databaseSetup();
-					break;
-				case 2:
-					handleQuitOption();
-					break;
-				default:
-					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.\n");
-					break;
-				}
-			}
-		}
-	}
 
 	/**
 	 * Displays simple text interface
