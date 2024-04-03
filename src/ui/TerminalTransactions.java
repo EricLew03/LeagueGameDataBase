@@ -174,7 +174,7 @@ public class TerminalTransactions {
 		System.out.print("Please enter the mana you wish to insert: ");
 		int mana = readInteger(true);
 
-		System.out.print("Please enter the mana you wish to insert: ");
+		System.out.print("Please enter the kills you wish to insert: ");
 		int kills = readInteger(true);
 
 
@@ -240,14 +240,14 @@ public class TerminalTransactions {
 		System.out.print("Please enter the mana you wish to insert: ");
 		int mana = readInteger(true);
 
-		System.out.print("Please enter the mana you wish to insert: ");
+		System.out.print("Please enter the armor you wish to insert: ");
 		int armor = readInteger(true);
 
 
-		System.out.print("Please enter the health you wish to insert: ");
+		System.out.print("Please enter the ap you wish to insert: ");
 		int ap = readInteger(true);
 
-		System.out.print("Please enter cs you wish to insert: ");
+		System.out.print("Please enter ad you wish to insert: ");
 		int ad = readInteger(true);
 
 		System.out.print("Please enter cost you wish to insert: ");
@@ -273,7 +273,7 @@ public class TerminalTransactions {
 
 		int kills = INVALID_INPUT;
 		while (kills == INVALID_INPUT) {
-			System.out.print("Please enter the creep score you wish to insert: ");
+			System.out.print("Please enter the kills you wish to insert: ");
 			kills = readInteger(false);
 		}
 
@@ -300,7 +300,7 @@ public class TerminalTransactions {
 		while (creepScore == INVALID_INPUT && kills == INVALID_INPUT) {
 			System.out.print("Please enter the player ID you wish to delete: ");
 			creepScore = readInteger(false);
-			System.out.print("Please enter the item name you wish to delete: ");
+			System.out.print("Please enter the kills you wish to delete: ");
 			kills = readInteger(false);
 			if (creepScore != INVALID_INPUT && kills != INVALID_INPUT) {
 				delegate.deletePlayerEcon(creepScore, kills);
