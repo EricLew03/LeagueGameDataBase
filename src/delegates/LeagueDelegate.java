@@ -30,4 +30,6 @@ public interface LeagueDelegate {
     public void showPlayerEcon();
 
     public void LeagueFinished();
+
+    public void aggregate();
 }

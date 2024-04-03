@@ -191,8 +191,13 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     	dbHandler = null;
     	System.exit(0);
     }
-    
-    /**
+
+	@Override
+	public void aggregate() {
+		dbHandler.aggregate();
+	}
+
+	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * 
      * The TerminalTransaction instance tells us that the user is fine with dropping any existing table
