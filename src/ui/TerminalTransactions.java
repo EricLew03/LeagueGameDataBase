@@ -99,6 +99,7 @@ public class TerminalTransactions {
 						delegate.showPlayerEcon();
 						break;
 					case 14:
+						handleJoinOption();
 						break;
 					case 15:
 						delegate.aggregate();
@@ -315,6 +316,15 @@ public class TerminalTransactions {
 		}
 
 		delegate.updatePlayerStats(id, name);
+	}
+
+	private void handleJoinOption() {
+		int mapID = INVALID_INPUT;
+		while (mapID == INVALID_INPUT) {
+			System.out.print("Please enter the mapID you wish to look at: ");
+			mapID = readInteger(false);
+		}
+		delegate.joinPlayerTurret(mapID);
 	}
 	
 	private int readInteger(boolean allowEmpty) {

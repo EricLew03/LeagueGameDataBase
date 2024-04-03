@@ -246,21 +246,21 @@ public class DatabaseConnectionHandler {
         ArrayList<PlayerStats> result = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM playerStats INNER JOIN turret ON playerStats.playerID = turret.playerID WHERE turret.mapID = ?";
+            String query = "SELECT p.playerName, p.championName, p.creepScore, p.kills, p.rank FROM playerStats p INNER JOIN turret ON p.playerID = turret.playerID WHERE turret.mapID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, mapID);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                PlayerStats model = new PlayerStats(rs.getInt("playerID"),
+                PlayerStats model = new PlayerStats(0,
                         rs.getString("playerName"),
-                        rs.getInt("champID"),
+                        0,
                         rs.getString("championName"),
-                        rs.getInt("manaPoints"),
-                        rs.getInt("healthPoints"),
+                        0,
+                        0,
                         rs.getInt("creepScore"),
                         rs.getInt("kills"),
                         rs.getString("rank"),
-                        rs.getInt("mapID")
+                        0
                 );
                 result.add(model);
             }
