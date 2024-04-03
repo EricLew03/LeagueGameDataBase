@@ -40,6 +40,10 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 
 			TerminalTransactions transaction = new TerminalTransactions();
 			transaction.showMainMenu(this);
+
+//            HomePage homePage = new HomePage();
+//            homePage.showFrame();
+
 		} else {
 			loginWindow.handleLoginFailed();
 
@@ -220,6 +224,11 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 	public void aggregate() {
 		dbHandler.aggregate();
 	}
+
+    @Override
+    public void division() {
+        dbHandler.division();
+    }
 
 	/**
 	 * TerminalTransactionsDelegate Implementation

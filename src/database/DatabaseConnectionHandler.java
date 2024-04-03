@@ -235,6 +235,8 @@ public class DatabaseConnectionHandler {
     }
 
 
+
+
     // returns the tuples in playerStats relation
     public PlayerStats[] getPlayerStats() {
         ArrayList<PlayerStats> result = new ArrayList<>();
@@ -606,6 +608,37 @@ public class DatabaseConnectionHandler {
     }
 
 
+    public void division() {
+        List<String> ownedItemNames = new ArrayList<>();
+
+        try {
+            String query = "SELECT UNIQUE oi.itemname " +
+                    "FROM ownsItem oi " +
+                    "WHERE NOT EXISTS " +
+                    "(SELECT playerID " +
+                    " FROM playerStats " +
+                    " MINUS " +
+                    "(SELECT playerID " +
+                    " FROM ownsItem " +
+                    " WHERE ownsItem.itemname = oi.itemname))";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String itemName = rs.getString(1);
+                ownedItemNames.add(itemName);
+                System.out.println(itemName);
+                System.out.println("----");
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        // return ownedItemNames;
+    }
 
 
 
@@ -775,6 +808,8 @@ public class DatabaseConnectionHandler {
         }
     }
 
+
+
     private String readLine() {
         String result = null;
         try {
@@ -784,6 +819,8 @@ public class DatabaseConnectionHandler {
         }
         return result;
     }
+
+
 
 
 }
