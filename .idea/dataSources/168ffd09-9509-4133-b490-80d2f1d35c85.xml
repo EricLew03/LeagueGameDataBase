@@ -1666,15 +1666,15 @@
     </schema>
     <schema id="555" parent="1" name="ORA_MKLAI10">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <Current>1</Current>
-      <LastIntrospectionL1Timestamp>2024-04-02.12:12:50</LastIntrospectionL1Timestamp>
-      <LastIntrospectionL2Timestamp>2024-04-02.12:12:50</LastIntrospectionL2Timestamp>
-      <LastIntrospectionL3Timestamp>2024-04-02.12:12:50</LastIntrospectionL3Timestamp>
+      <LastIntrospectionL1Timestamp>2024-04-02.12:40:02</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL2Timestamp>2024-04-02.12:40:02</LastIntrospectionL2Timestamp>
+      <LastIntrospectionL3Timestamp>2024-04-02.12:40:02</LastIntrospectionL3Timestamp>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-04-03.02:12:57</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-03.02:40:12</LastIntrospectionLocalTimestamp>
       <LastIntrospectionVersion>200820</LastIntrospectionVersion>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <ObjectId>4394</ObjectId>
     </schema>
     <schema id="556" parent="1" name="ORA_MLEUNG04">
@@ -2711,9 +2711,9 @@
     </schema>
     <schema id="900" parent="1" name="PUBLIC">
       <AutoIntrospectionLevel>1</AutoIntrospectionLevel>
-      <LastIntrospectionL1Timestamp>2024-04-02.12:12:50</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL1Timestamp>2024-04-02.12:40:02</LastIntrospectionL1Timestamp>
       <LastIntrospectionLevel>1</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-04-03.02:12:55</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-03.02:40:12</LastIntrospectionLocalTimestamp>
       <ObjectId>1</ObjectId>
     </schema>
     <schema id="901" parent="1" name="REMOTE_SCHEDULER_AGENT">
@@ -5499,94 +5499,94 @@
       <ObjectId>2147483638</ObjectId>
     </user>
     <table id="1826" parent="555" name="BARONJUNGLEOBJECTIVE">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890468</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
+      <ObjectId>3002189</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1827" parent="555" name="DRAGONJUNGLE">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890472</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
+      <ObjectId>3002193</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1828" parent="555" name="DRAGONTYPE">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890470</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
+      <ObjectId>3002191</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1829" parent="555" name="GAMEMODE">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890447</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002168</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1830" parent="555" name="INHIBITOR">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890466</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
+      <ObjectId>3002187</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1831" parent="555" name="MAPDETERMINES">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890449</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002170</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1832" parent="555" name="NEXUS">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890464</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002185</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1833" parent="555" name="OWNSITEM">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890456</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002177</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1834" parent="555" name="PLAYERECON">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890451</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002172</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1835" parent="555" name="PLAYERSTATS">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890453</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002174</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1836" parent="555" name="TURRET">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890462</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002183</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1837" parent="555" name="TURRETDAMAGE">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890460</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002181</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="1838" parent="555" name="TURRETSTATS">
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
       <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
-      <ObjectId>2890458</ObjectId>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
+      <ObjectId>3002179</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <synonym id="1839" parent="900" name="ABSPATH">
@@ -62582,29 +62582,29 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="8965" parent="1826" name="SYS_C003433157">
+    <foreign-key id="8965" parent="1826" name="SYS_C003569326">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <index id="8966" parent="1826" name="SYS_C003433156">
+    <index id="8966" parent="1826" name="SYS_C003569325">
       <ColNames>JUNGLEOBJECTIVEID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890469</ObjectId>
+      <ObjectId>3002190</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="8967" parent="1826" name="SYS_C003433156">
+    <key id="8967" parent="1826" name="SYS_C003569325">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433156</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569325</UnderlyingIndexName>
     </key>
     <column id="8968" parent="1827" name="JUNGLEOBJECTIVEID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62619,37 +62619,37 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
-    <foreign-key id="8971" parent="1827" name="SYS_C003433161">
+    <foreign-key id="8971" parent="1827" name="SYS_C003569330">
       <ColNames>DRAGONTYPE</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433158</RefKeyName>
+      <RefKeyName>SYS_C003569327</RefKeyName>
       <RefTableName>DRAGONTYPE</RefTableName>
     </foreign-key>
-    <foreign-key id="8972" parent="1827" name="SYS_C003433160">
+    <foreign-key id="8972" parent="1827" name="SYS_C003569329">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <index id="8973" parent="1827" name="SYS_C003433159">
+    <index id="8973" parent="1827" name="SYS_C003569328">
       <ColNames>JUNGLEOBJECTIVEID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890473</ObjectId>
+      <ObjectId>3002194</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="8974" parent="1827" name="SYS_C003433159">
+    <key id="8974" parent="1827" name="SYS_C003569328">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433159</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569328</UnderlyingIndexName>
     </key>
     <column id="8975" parent="1828" name="DRAGONTYPE">
       <DasType>VARCHAR2(20 byte)|0s</DasType>
@@ -62660,21 +62660,21 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
-    <index id="8977" parent="1828" name="SYS_C003433158">
+    <index id="8977" parent="1828" name="SYS_C003569327">
       <ColNames>DRAGONTYPE</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890471</ObjectId>
+      <ObjectId>3002192</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="8978" parent="1828" name="SYS_C003433158">
+    <key id="8978" parent="1828" name="SYS_C003569327">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433158</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569327</UnderlyingIndexName>
     </key>
     <column id="8979" parent="1829" name="GAMEMODENAME">
       <DasType>VARCHAR2(20 byte)|0s</DasType>
@@ -62689,21 +62689,21 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="8982" parent="1829" name="SYS_C003433133">
+    <index id="8982" parent="1829" name="SYS_C003569302">
       <ColNames>GAMEMODENAME</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890448</ObjectId>
+      <ObjectId>3002169</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="8983" parent="1829" name="SYS_C003433133">
+    <key id="8983" parent="1829" name="SYS_C003569302">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433133</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569302</UnderlyingIndexName>
     </key>
     <column id="8984" parent="1830" name="STRUCTUREID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62730,37 +62730,37 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="8990" parent="1830" name="SYS_C003433154">
+    <foreign-key id="8990" parent="1830" name="SYS_C003569323">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <foreign-key id="8991" parent="1830" name="SYS_C003433155">
+    <foreign-key id="8991" parent="1830" name="SYS_C003569324">
       <ColNames>PLAYERID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433137</RefKeyName>
+      <RefKeyName>SYS_C003569306</RefKeyName>
       <RefTableName>PLAYERSTATS</RefTableName>
     </foreign-key>
-    <index id="8992" parent="1830" name="SYS_C003433153">
+    <index id="8992" parent="1830" name="SYS_C003569322">
       <ColNames>STRUCTUREID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:27</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890467</ObjectId>
+      <ObjectId>3002188</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="8993" parent="1830" name="SYS_C003433153">
+    <key id="8993" parent="1830" name="SYS_C003569322">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:27</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433153</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569322</UnderlyingIndexName>
     </key>
     <column id="8994" parent="1831" name="MAPID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62779,29 +62779,29 @@
       <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="8998" parent="1831" name="SYS_C003433135">
+    <foreign-key id="8998" parent="1831" name="SYS_C003569304">
       <ColNames>GAMEMODENAME</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433133</RefKeyName>
+      <RefKeyName>SYS_C003569302</RefKeyName>
       <RefTableName>GAMEMODE</RefTableName>
     </foreign-key>
-    <index id="8999" parent="1831" name="SYS_C003433134">
+    <index id="8999" parent="1831" name="SYS_C003569303">
       <ColNames>MAPID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890450</ObjectId>
+      <ObjectId>3002171</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9000" parent="1831" name="SYS_C003433134">
+    <key id="9000" parent="1831" name="SYS_C003569303">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433134</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569303</UnderlyingIndexName>
     </key>
     <column id="9001" parent="1832" name="STRUCTUREID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62828,37 +62828,37 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="9007" parent="1832" name="SYS_C003433151">
+    <foreign-key id="9007" parent="1832" name="SYS_C003569320">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <foreign-key id="9008" parent="1832" name="SYS_C003433152">
+    <foreign-key id="9008" parent="1832" name="SYS_C003569321">
       <ColNames>PLAYERID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433137</RefKeyName>
+      <RefKeyName>SYS_C003569306</RefKeyName>
       <RefTableName>PLAYERSTATS</RefTableName>
     </foreign-key>
-    <index id="9009" parent="1832" name="SYS_C003433150">
+    <index id="9009" parent="1832" name="SYS_C003569319">
       <ColNames>STRUCTUREID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890465</ObjectId>
+      <ObjectId>3002186</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9010" parent="1832" name="SYS_C003433150">
+    <key id="9010" parent="1832" name="SYS_C003569319">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433150</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569319</UnderlyingIndexName>
     </key>
     <column id="9011" parent="1833" name="PLAYERID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62890,30 +62890,30 @@
       <DasType>NUMBER(*)|0s</DasType>
       <Position>7</Position>
     </column>
-    <foreign-key id="9018" parent="1833" name="SYS_C003433142">
+    <foreign-key id="9018" parent="1833" name="SYS_C003569311">
       <ColNames>PLAYERID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433137</RefKeyName>
+      <RefKeyName>SYS_C003569306</RefKeyName>
       <RefTableName>PLAYERSTATS</RefTableName>
     </foreign-key>
-    <index id="9019" parent="1833" name="SYS_C003433141">
+    <index id="9019" parent="1833" name="SYS_C003569310">
       <ColNames>PLAYERID
 ITEMNAME</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890457</ObjectId>
+      <ObjectId>3002178</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9020" parent="1833" name="SYS_C003433141">
+    <key id="9020" parent="1833" name="SYS_C003569310">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433141</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569310</UnderlyingIndexName>
     </key>
     <column id="9021" parent="1834" name="CREEPSCORE">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62933,22 +62933,22 @@ ITEMNAME</ColNames>
       <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="9025" parent="1834" name="SYS_C003433136">
+    <index id="9025" parent="1834" name="SYS_C003569305">
       <ColNames>CREEPSCORE
 KILLS</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890452</ObjectId>
+      <ObjectId>3002173</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9026" parent="1834" name="SYS_C003433136">
+    <key id="9026" parent="1834" name="SYS_C003569305">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433136</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569305</UnderlyingIndexName>
     </key>
     <column id="9027" parent="1835" name="PLAYERID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -62991,53 +62991,53 @@ KILLS</ColNames>
       <DasType>NUMBER(*)|0s</DasType>
       <Position>10</Position>
     </column>
-    <foreign-key id="9037" parent="1835" name="SYS_C003433140">
+    <foreign-key id="9037" parent="1835" name="SYS_C003569309">
       <ColNames>CREEPSCORE
 KILLS</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433136</RefKeyName>
+      <RefKeyName>SYS_C003569305</RefKeyName>
       <RefTableName>PLAYERECON</RefTableName>
     </foreign-key>
-    <foreign-key id="9038" parent="1835" name="SYS_C003433139">
+    <foreign-key id="9038" parent="1835" name="SYS_C003569308">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <index id="9039" parent="1835" name="SYS_C003433137">
+    <index id="9039" parent="1835" name="SYS_C003569306">
       <ColNames>PLAYERID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890454</ObjectId>
+      <ObjectId>3002175</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <index id="9040" parent="1835" name="SYS_C003433138">
+    <index id="9040" parent="1835" name="SYS_C003569307">
       <ColNames>CHAMPID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890455</ObjectId>
+      <ObjectId>3002176</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9041" parent="1835" name="SYS_C003433137">
+    <key id="9041" parent="1835" name="SYS_C003569306">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433137</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569306</UnderlyingIndexName>
     </key>
-    <key id="9042" parent="1835" name="SYS_C003433138">
+    <key id="9042" parent="1835" name="SYS_C003569307">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <UnderlyingIndexName>SYS_C003433138</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569307</UnderlyingIndexName>
     </key>
     <column id="9043" parent="1836" name="STRUCTUREID">
       <DasType>NUMBER(*)|0s</DasType>
@@ -63056,45 +63056,45 @@ KILLS</ColNames>
       <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="9047" parent="1836" name="SYS_C003433149">
+    <foreign-key id="9047" parent="1836" name="SYS_C003569318">
       <ColNames>STRUCTURELOCATION</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433143</RefKeyName>
+      <RefKeyName>SYS_C003569312</RefKeyName>
       <RefTableName>TURRETSTATS</RefTableName>
     </foreign-key>
-    <foreign-key id="9048" parent="1836" name="SYS_C003433147">
+    <foreign-key id="9048" parent="1836" name="SYS_C003569316">
       <ColNames>MAPID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433134</RefKeyName>
+      <RefKeyName>SYS_C003569303</RefKeyName>
       <RefTableName>MAPDETERMINES</RefTableName>
     </foreign-key>
-    <foreign-key id="9049" parent="1836" name="SYS_C003433148">
+    <foreign-key id="9049" parent="1836" name="SYS_C003569317">
       <ColNames>PLAYERID</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433137</RefKeyName>
+      <RefKeyName>SYS_C003569306</RefKeyName>
       <RefTableName>PLAYERSTATS</RefTableName>
     </foreign-key>
-    <index id="9050" parent="1836" name="SYS_C003433146">
+    <index id="9050" parent="1836" name="SYS_C003569315">
       <ColNames>STRUCTUREID</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890463</ObjectId>
+      <ObjectId>3002184</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9051" parent="1836" name="SYS_C003433146">
+    <key id="9051" parent="1836" name="SYS_C003569315">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433146</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569315</UnderlyingIndexName>
     </key>
     <column id="9052" parent="1837" name="STRUCTURELOCATION">
       <DasType>VARCHAR2(20 byte)|0s</DasType>
@@ -63105,29 +63105,29 @@ KILLS</ColNames>
       <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="9054" parent="1837" name="SYS_C003433145">
+    <foreign-key id="9054" parent="1837" name="SYS_C003569314">
       <ColNames>STRUCTURELOCATION</ColNames>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <OnDelete>cascade</OnDelete>
-      <RefKeyName>SYS_C003433143</RefKeyName>
+      <RefKeyName>SYS_C003569312</RefKeyName>
       <RefTableName>TURRETSTATS</RefTableName>
     </foreign-key>
-    <index id="9055" parent="1837" name="SYS_C003433144">
+    <index id="9055" parent="1837" name="SYS_C003569313">
       <ColNames>STRUCTURELOCATION</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890461</ObjectId>
+      <ObjectId>3002182</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9056" parent="1837" name="SYS_C003433144">
+    <key id="9056" parent="1837" name="SYS_C003569313">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433144</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569313</UnderlyingIndexName>
     </key>
     <column id="9057" parent="1838" name="STRUCTURELOCATION">
       <DasType>VARCHAR2(20 byte)|0s</DasType>
@@ -63138,21 +63138,21 @@ KILLS</ColNames>
       <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
-    <index id="9059" parent="1838" name="SYS_C003433143">
+    <index id="9059" parent="1838" name="SYS_C003569312">
       <ColNames>STRUCTURELOCATION</ColNames>
-      <CreatedTimestamp>2024-03-24.10:22:51</CreatedTimestamp>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <CreatedTimestamp>2024-04-02.12:36:26</CreatedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>2890459</ObjectId>
+      <ObjectId>3002180</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <key id="9060" parent="1838" name="SYS_C003433143">
+    <key id="9060" parent="1838" name="SYS_C003569312">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-03-24.10:22:51</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-02.12:36:26</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexName>SYS_C003433143</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C003569312</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

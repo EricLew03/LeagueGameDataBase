@@ -29,7 +29,7 @@ public interface LeagueDelegate {
 
     public void showPlayerEcon();
 
-
+    public void joinPlayerTurret(int mapID);
 
 
 

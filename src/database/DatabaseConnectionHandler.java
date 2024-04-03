@@ -186,7 +186,7 @@ public class DatabaseConnectionHandler {
 
     // returns the tuples in playerStats relation
     public PlayerStats[] getPlayerStats() {
-        ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
+        ArrayList<PlayerStats> result = new ArrayList<>();
 
         try {
             String query = "SELECT * FROM playerStats";
@@ -214,6 +214,38 @@ public class DatabaseConnectionHandler {
 
         return result.toArray(new PlayerStats[result.size()]);
     }
+
+    public PlayerStats[] joinPlayerTurret(int mapID) {
+        ArrayList<PlayerStats> result = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM playerStats INNER JOIN turret ON playerStats.playerID = turret.playerID WHERE turret.mapID = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, mapID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                PlayerStats model = new PlayerStats(rs.getInt("playerID"),
+                        rs.getString("playerName"),
+                        rs.getInt("champID"),
+                        rs.getString("championName"),
+                        rs.getInt("manaPoints"),
+                        rs.getInt("healthPoints"),
+                        rs.getInt("creepScore"),
+                        rs.getInt("kills"),
+                        rs.getString("rank"),
+                        rs.getInt("mapID")
+                );
+                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new PlayerStats[result.size()]);
+    }
+
 
 
     // returns tuples based on the selection condition

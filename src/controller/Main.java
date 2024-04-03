@@ -194,6 +194,25 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     		System.out.println();
     	}
     }
+
+	public void joinPlayerTurret(int mapID) {
+		PlayerStats[] models = dbHandler.joinPlayerTurret(mapID);
+		for (int i = 0; i < models.length; i++) {
+			PlayerStats model = models[i];
+			System.out.printf("1. ");
+			// simplified output formatting; truncation may occur
+			System.out.printf("%-4.10s", model.getPlayerID());
+			System.out.printf("%-20.20s", model.getPlayerName());
+			if (model.getChampionName() == null) {
+				System.out.printf("%-20.20s", " ");
+			} else {
+				System.out.printf("%-20.20s", model.getChampionName());
+			}
+			System.out.printf("%-20.20s", model.getRank());
+			System.out.printf("%-15.15s", model.getKills());
+			System.out.println();
+		}
+	}
 	
     /**
 	 * TerminalTransactionsDelegate Implementation
