@@ -197,6 +197,11 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 	}
 
 	@Override
+	public void nestedAggregate() {
+		dbHandler.nestedAggregate();
+	}
+
+	@Override
 	public void aggregateHaving() {
 		dbHandler.aggregateHaving();
 	}

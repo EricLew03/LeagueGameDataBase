@@ -179,6 +179,37 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    public void nestedAggregate() {
+        try {
+            String query =
+                    "WITH PlayerAverageCost AS (" +
+                            "   SELECT item.playerID, AVG(item.cost) AS average_cost " +
+                            "   FROM ownsItem item " +
+                            "   GROUP BY item.playerID" +
+                            ") " +
+                            "SELECT player.playerName, average.average_cost " +
+                            "FROM PlayerAverageCost average " +
+                            "JOIN playerStats player ON average.playerID = player.playerID " +
+                            "WHERE average.average_cost = (SELECT MAX(average_cost) FROM PlayerAverageCost)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String playerName = rs.getString("playerName");
+                double highestAvgCost = rs.getDouble("highest_avg_cost");
+                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+
+
 
 
 
