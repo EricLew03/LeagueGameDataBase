@@ -171,9 +171,9 @@ public class HomePage extends JFrame {
 //            case JOIN_TEXT:
 //                newActionPanel = new Join();
 //                break;
-//            case AGGREGATE_TEXT:
-//                newActionPanel = new Aggregate();
-//                break;
+            case AGGREGATE_TEXT:
+                newActionPanel = new AggregateGroupByPanel();
+                break;
 //            case AGGREGATE_HAVING_TEXT:
 //                newActionPanel = new AggregateHaving();
 //                break;

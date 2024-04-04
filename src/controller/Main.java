@@ -228,8 +228,8 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     @Override
-    public void aggregate() {
-        dbHandler.aggregate();
+    public String aggregate() {
+        return dbHandler.aggregate();
     }
 
     @Override

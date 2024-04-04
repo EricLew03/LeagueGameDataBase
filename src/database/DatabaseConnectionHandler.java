@@ -136,7 +136,9 @@ public class DatabaseConnectionHandler {
     }
 
 
-    public void aggregate() {
+    public String aggregate() {
+        String result = "";
+
         try {
             String query = "SELECT itemName, COUNT(*) AS item_count FROM ownsItem GROUP BY itemName";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -145,14 +147,17 @@ public class DatabaseConnectionHandler {
             while (rs.next()) {
                 String itemName = rs.getString("itemName");
                 int count = rs.getInt("item_count");
-                System.out.println("Item Name: " + itemName + ", Count: " + count);
+//                System.out.println("Item Name: " + itemName + ", Count: " + count);
+                result += "Item Name: " + itemName + ", Count: " + count + "<br>";
             }
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
     public void aggregateHaving() {
@@ -229,7 +234,7 @@ public class DatabaseConnectionHandler {
 //                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
                 result = (WARNING_TAG + " Player " + playerID + " does not exist!");
             }
-            
+
             connection.commit();
 
             ps.close();
