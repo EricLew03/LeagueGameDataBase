@@ -154,6 +154,13 @@ INSERT INTO ownsItem VALUES (2, 'Infinity Edge', 0, 70, 0, 0, 3400);
 INSERT INTO ownsItem VALUES (3, 'Rabadon''s Deathcap', 0, 0, 120, 0, 3800);
 INSERT INTO ownsItem VALUES (4, 'Sunfire Cape', 0, 0, 0, 60, 2900);
 INSERT INTO ownsItem VALUES (5, 'Zhonya''s Hourglass', 45, 0, 75, 0, 2600);
+INSERT INTO ownsItem VALUES (1, 'Tear of Goddess', 0, 0, 0, 0, 400);
+INSERT INTO ownsItem VALUES (3, 'Tear of Goddess', 0, 0, 0, 0, 400);
+INSERT INTO ownsItem VALUES (1, 'Boots', 0, 0, 0, 0, 300);
+INSERT INTO ownsItem VALUES (2, 'Boots', 0, 0, 0, 0, 300);
+INSERT INTO ownsItem VALUES (3, 'Boots', 0, 0, 0, 0, 300);
+INSERT INTO ownsItem VALUES (4, 'Boots', 0, 0, 0, 0, 300);
+INSERT INTO ownsItem VALUES (5, 'Boots', 0, 0, 0, 0, 300);
 
 INSERT INTO turretStats VALUES ('Top Lane Outer', 5000);
 INSERT INTO turretStats VALUES ('Mid Lane Outer', 4500);
