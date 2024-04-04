@@ -31,6 +31,8 @@ public interface LeagueDelegate {
 
     public void joinPlayerTurret(int mapID);
 
+    public void nestedAggregate();
+
     public void aggregateHaving();
 
 

@@ -52,7 +52,8 @@ public class TerminalTransactions {
 			System.out.println("14. join");
 			System.out.println("15. aggregate");
 			System.out.println("16. aggregateHaving");
-            System.out.println("17. division");
+			System.out.println("18. nestedAggregated");
+      System.out.println("17. division");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
@@ -109,9 +110,13 @@ public class TerminalTransactions {
 					case 16:
 						delegate.aggregateHaving();
 						break;
-                    case 17:
-                        delegate.division();
-				default:
+          case 17:
+            delegate.nestedAggregate();
+            break;
+					case 18:
+            delegate.division();
+						break;
+					default:
 					System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
 					break;
 				}
