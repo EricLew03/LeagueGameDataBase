@@ -10,8 +10,6 @@ import models.PlayerStats;
 import ui.HomePage;
 import ui.LoginWindow;
 
-import java.util.List;
-
 /**
  * This is the main controller class that will orchestrate everything.
  */
@@ -27,6 +25,8 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 	private void start() {
 		loginWindow = new LoginWindow();
 		loginWindow.showFrame(this);
+//        HomePage homePage = new HomePage();
+//        homePage.showFrame(this);
 	}
 	/**
 	 * LoginWindowDelegate Implementation

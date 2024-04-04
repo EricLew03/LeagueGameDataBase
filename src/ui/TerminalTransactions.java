@@ -53,7 +53,7 @@ public class TerminalTransactions {
 			System.out.println("15. aggregate");
 			System.out.println("16. aggregateHaving");
 			System.out.println("18. nestedAggregated");
-      System.out.println("17. division");
+            System.out.println("17. division");
 			System.out.print("Please choose one of the above 5 options: ");
 
 			choice = readInteger(false);
