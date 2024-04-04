@@ -7,8 +7,10 @@ import delegates.LoginWindowDelegate;
 import models.OwnsItem;
 import models.PlayerEcon;
 import models.PlayerStats;
+import ui.HomePage;
 import ui.LoginWindow;
-import ui.TerminalTransactions;
+
+import java.util.List;
 
 /**
  * This is the main controller class that will orchestrate everything.
@@ -38,8 +40,12 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 			// Once connected, remove login window and start text transaction flow
 			loginWindow.dispose();
 
-			TerminalTransactions transaction = new TerminalTransactions();
-			transaction.showMainMenu(this);
+//			TerminalTransactions transaction = new TerminalTransactions();
+//			transaction.showMainMenu(this);
+
+            HomePage homePage = new HomePage();
+            homePage.showFrame(this);
+
 		} else {
 			loginWindow.handleLoginFailed();
 
@@ -225,6 +231,11 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 	public void aggregate() {
 		dbHandler.aggregate();
 	}
+
+    @Override
+    public String division() {
+        return dbHandler.division();
+    }
 
 	/**
 	 * TerminalTransactionsDelegate Implementation
