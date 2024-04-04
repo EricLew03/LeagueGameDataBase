@@ -20,6 +20,9 @@ public class HomePage extends JFrame implements ActionListener {
     private JMenu menu;
     private String currentMenu;
     private JLabel menuLabel;
+    private JPanel contentPane;
+    private JPanel actionPanel;
+    private JPanel resultPanel;
 
     private String result;
     private JLabel resultLabel;
@@ -73,6 +76,7 @@ public class HomePage extends JFrame implements ActionListener {
                 String chosenMenu = e.getActionCommand();
                 menuLabel.setText("Selected Action: " + chosenMenu);
                 currentMenu = chosenMenu;
+                updateUI(); // update action content based on what was selected
             }
         };
         for (JMenuItem menuItem : menuItems) {
@@ -81,35 +85,54 @@ public class HomePage extends JFrame implements ActionListener {
         }
 
         // Action-specific UI instantiation
-        divisionButton = new JButton("Division");
-        divisionButton.addActionListener(this);
+//        divisionButton = new JButton("Division");
+//        divisionButton.addActionListener(this);
 
         // content adding and packing
         setSize(400, 300);
-        JPanel contentPane = new JPanel(); // Main overall content pane
+        contentPane = new JPanel(); // Main overall content pane
         contentPane.setLayout(new GridLayout(1, 2));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel actionPanel = new JPanel(); // Panel for user interaction
-        actionPanel.setLayout(new FlowLayout());
-        actionPanel.add(divisionButton);
+        // render default action content based on menu selection
+        this.actionPanel = renderActionPanel(currentMenu);
+        this.contentPane.add(this.actionPanel);
 
-
-
-        JPanel resultPanel = new JPanel(); // Panel only for displaying results
+        resultPanel = new JPanel(); // Panel only for displaying results
         resultPanel.setLayout(new BorderLayout());
         resultPanel.add(menuLabel, BorderLayout.NORTH);
         resultPanel.add(resultLabel, BorderLayout.CENTER);
 
-//        contentPane.add(resultLabel, BorderLayout.AFTER_LAST_LINE);
-//        contentPane.add(divisionButton, BorderLayout.BEFORE_FIRST_LINE);
-//        contentPane.add(menuLabel, BorderLayout.CENTER);
         contentPane.add(actionPanel);
         contentPane.add(resultPanel);
         setContentPane(contentPane);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void updateUI() {
+        this.contentPane.removeAll();
+        JPanel newActionPanel = renderActionPanel(this.currentMenu);
+        this.actionPanel = newActionPanel;
+        this.contentPane.add(this.actionPanel);
+        contentPane.add(resultPanel);
+    }
+
+    private JPanel renderActionPanel(String currentMenu) {
+        JPanel newActionPanel = new JPanel();
+        newActionPanel.setLayout(new FlowLayout());
+
+        if (currentMenu.equals("Division")) {
+            divisionButton = new JButton("Division");
+            divisionButton.addActionListener(this);
+            newActionPanel.add(divisionButton);
+        } else {
+            divisionButton = new JButton("not division");
+            newActionPanel.add(divisionButton);
+        }
+
+        return newActionPanel;
     }
 
     // template from LoginWindow.java
