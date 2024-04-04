@@ -24,27 +24,44 @@ public class HomePage extends JFrame {
     private JPanel actionPanel;
     private JPanel resultPanel;
 
-    private String result;
     private JLabel resultLabel;
 
+    final String INSERT_PLAYER_STATS_TEXT = "Insert playerStats";
+    final String DELETE_PLAYER_STATS_TEXT = "Delete playerStats";
+    final String UPDATE_PLAYER_STATS_TEXT = "Update playerStats";
+    final String SHOW_PLAYER_STATS_TEXT = "Show playerStats";
+    final String INSERT_ITEM_TEXT = "Insert item";
+    final String DELETE_ITEM_TEXT = "Delete item";
+    final String SHOW_ITEM_TEXT = "Show item";
+    final String PLAYERSTATS_SELECTION_TEXT = "PlayerStats selection";
+    final String PLAYERSTATS_PROJECTION_TEXT = "PlayerStats projection";
+    final String INSERT_PLAYER_ECON_TEXT = "Insert playerEcon";
+    final String DELETE_PLAYER_ECON_TEXT = "Delete playerEcon";
+    final String SHOW_PLAYER_ECON_TEXT = "Show playerEcon";
+    final String JOIN_TEXT = "Join";
+    final String AGGREGATE_TEXT = "Aggregate";
+    final String AGGREGATE_HAVING_TEXT = "AggregateHaving";
+    final String NESTED_AGGREGATED_TEXT = "NestedAggregated";
+    final String DIVISION_ACTION_TEXT = "Division";
+
     JMenuItem[] menuItems = {
-            new JMenuItem("Insert playerStats"),
-            new JMenuItem("Delete playerStats"),
-            new JMenuItem("Update playerStats"),
-            new JMenuItem("Show playerStats"),
-            new JMenuItem("Insert item"),
-            new JMenuItem("Delete item"),
-            new JMenuItem("Show item"),
-            new JMenuItem("PlayerStats selection"),
-            new JMenuItem("PlayerStats projection"),
-            new JMenuItem("Insert playerEcon"),
-            new JMenuItem("Delete playerEcon"),
-            new JMenuItem("Show playerEcon"),
-            new JMenuItem("Join"),
-            new JMenuItem("Aggregate"),
-            new JMenuItem("AggregateHaving"),
-            new JMenuItem("NestedAggregated"),
-            new JMenuItem("Division")
+            new JMenuItem(INSERT_PLAYER_STATS_TEXT),
+            new JMenuItem(DELETE_PLAYER_STATS_TEXT),
+            new JMenuItem(UPDATE_PLAYER_STATS_TEXT),
+            new JMenuItem(SHOW_PLAYER_STATS_TEXT),
+            new JMenuItem(INSERT_ITEM_TEXT),
+            new JMenuItem(DELETE_ITEM_TEXT),
+            new JMenuItem(SHOW_ITEM_TEXT),
+            new JMenuItem(PLAYERSTATS_SELECTION_TEXT),
+            new JMenuItem(PLAYERSTATS_PROJECTION_TEXT),
+            new JMenuItem(INSERT_PLAYER_ECON_TEXT),
+            new JMenuItem(DELETE_PLAYER_ECON_TEXT),
+            new JMenuItem(SHOW_PLAYER_ECON_TEXT),
+            new JMenuItem(JOIN_TEXT),
+            new JMenuItem(AGGREGATE_TEXT),
+            new JMenuItem(AGGREGATE_HAVING_TEXT),
+            new JMenuItem(NESTED_AGGREGATED_TEXT),
+            new JMenuItem(DIVISION_ACTION_TEXT)
     };
 
     public HomePage() {
@@ -55,8 +72,7 @@ public class HomePage extends JFrame {
         // General Instantiation
         this.delegate = delegate;
 
-        this.result = "Result will display here";
-        resultLabel = new JLabel(result);
+        resultLabel = new JLabel("Result will display here");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.currentMenu = menuItems[0].getText(); // set default chosen menu location
@@ -115,12 +131,65 @@ public class HomePage extends JFrame {
     private JPanel renderActionPanel(String currentMenu) {
         ActionPanel newActionPanel;
 
-        if (currentMenu.equals("Division")) {
-            newActionPanel = new DivisionPanel();
-        } else {
-            newActionPanel = new InsertPlayerStats();
+
+        switch (currentMenu) {
+            case INSERT_PLAYER_STATS_TEXT:
+                newActionPanel = new InsertPlayerStats();
+                break;
+//            case DELETE_PLAYER_STATS_TEXT:
+//                newActionPanel = new DeletePlayerStats();
+//                break;
+//            case UPDATE_PLAYER_STATS_TEXT:
+//                newActionPanel = new UpdatePlayerStats();
+//                break;
+//            case SHOW_PLAYER_STATS_TEXT:
+//                newActionPanel = new ShowPlayerStats();
+//                break;
+//            case INSERT_ITEM_TEXT:
+//                newActionPanel = new InsertItem();
+//                break;
+//            case DELETE_ITEM_TEXT:
+//                newActionPanel = new DeleteItem();
+//                break;
+//            case SHOW_ITEM_TEXT:
+//                newActionPanel = new ShowItem();
+//                break;
+//            case PLAYERSTATS_SELECTION_TEXT:
+//                newActionPanel = new PlayerStatsSelection();
+//                break;
+//            case PLAYERSTATS_PROJECTION_TEXT:
+//                newActionPanel = new PlayerStatsProjection();
+//                break;
+//            case INSERT_PLAYER_ECON_TEXT:
+//                newActionPanel = new InsertPlayerEcon();
+//                break;
+//            case DELETE_PLAYER_ECON_TEXT:
+//                newActionPanel = new DeletePlayerEcon();
+//                break;
+//            case SHOW_PLAYER_ECON_TEXT:
+//                newActionPanel = new ShowPlayerEcon();
+//                break;
+//            case JOIN_TEXT:
+//                newActionPanel = new Join();
+//                break;
+//            case AGGREGATE_TEXT:
+//                newActionPanel = new Aggregate();
+//                break;
+//            case AGGREGATE_HAVING_TEXT:
+//                newActionPanel = new AggregateHaving();
+//                break;
+//            case NESTED_AGGREGATED_TEXT:
+//                newActionPanel = new NestedAggregated();
+//                break;
+            case DIVISION_ACTION_TEXT:
+                newActionPanel = new DivisionPanel();
+                break;
+            default:
+                newActionPanel = new InsertPlayerStats();
+                break;
         }
 
+        newActionPanel.setResultLabel(this.resultLabel);
         return newActionPanel.renderActionPanel(this.delegate);
     }
 }

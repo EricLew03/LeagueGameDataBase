@@ -8,6 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InsertPlayerStats implements ActionPanel {
+    private JLabel resultLabel;
+
+    @Override
+    public void setResultLabel(JLabel resultLabel) {
+        this.resultLabel = resultLabel;
+    }
+
     @Override
     public JPanel renderActionPanel(LeagueDelegate delegate) {
         JPanel actionPanel = new JPanel();
@@ -18,7 +25,7 @@ public class InsertPlayerStats implements ActionPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                delegate.insertPlayerStats();
-                System.out.println("InsertPlayerStats");
+                resultLabel.setText("InsertPlayerStats");
             }
         });
 
