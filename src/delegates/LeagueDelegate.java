@@ -32,7 +32,7 @@ public interface LeagueDelegate {
 
     public void showPlayerEcon();
 
-    public void joinPlayerTurret(int mapID);
+    public String joinPlayerTurret(int mapID);
 
     public String nestedAggregate();
 

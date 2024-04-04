@@ -323,35 +323,46 @@ public class DatabaseConnectionHandler {
         return result.toArray(new PlayerStats[result.size()]);
     }
 
-    public PlayerStats[] joinPlayerTurret(int mapID) {
-        ArrayList<PlayerStats> result = new ArrayList<>();
+    public String joinPlayerTurret(int mapID) {
+//        ArrayList<PlayerStats> result = new ArrayList<>();
+        String result = "";
 
         try {
-            String query = "SELECT p.playerName, p.championName, p.creepScore, p.kills, p.rank FROM playerStats p INNER JOIN turret ON p.playerID = turret.playerID WHERE turret.mapID = ?";
+            String query = "SELECT p.playerName, p.championName, p.creepScore, p.kills," +
+                    " p.rank FROM playerStats p INNER JOIN turret ON p.playerID = turret.playerID WHERE turret.mapID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, mapID);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-                PlayerStats model = new PlayerStats(0,
-                        rs.getString("playerName"),
-                        0,
-                        rs.getString("championName"),
-                        0,
-                        0,
-                        rs.getInt("creepScore"),
-                        rs.getInt("kills"),
-                        rs.getString("rank"),
-                        0
-                );
-                result.add(model);
+//                PlayerStats model = new PlayerStats(0,
+//                        rs.getString("playerName"),
+//                        0,
+//                        rs.getString("championName"),
+//                        0,
+//                        0,
+//                        rs.getInt("creepScore"),
+//                        rs.getInt("kills"),
+//                        rs.getString("rank"),
+//                        0
+//                );
+                result += "Player name: " + rs.getString("playerName")
+                        + ", Champion: " + rs.getString("championName")
+                        + ", Creep Score: " + rs.getInt("creepScore")
+                        + ", Kills: " + rs.getInt("kills")
+                        + ", Rank: " + rs.getString("rank") + "<br>";
+
+//                result.add(model);
             }
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
         }
 
-        return result.toArray(new PlayerStats[result.size()]);
+//        return result.toArray(new PlayerStats[result.size()]);
+        return result;
     }
 
 

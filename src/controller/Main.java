@@ -183,23 +183,24 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
         }
     }
 
-    public void joinPlayerTurret(int mapID) {
-        PlayerStats[] models = dbHandler.joinPlayerTurret(mapID);
-        for (int i = 0; i < models.length; i++) {
-            PlayerStats model = models[i];
-            System.out.printf("1. ");
-            // simplified output formatting; truncation may occur
-            System.out.printf("%-20.20s", model.getPlayerName());
-            if (model.getChampionName() == null) {
-                System.out.printf("%-20.20s", " ");
-            } else {
-                System.out.printf("%-20.20s", model.getChampionName());
-            }
-            System.out.printf("%-15.15s", model.getCreepScore());
-            System.out.printf("%-15.15s", model.getKills());
-            System.out.printf("%-20.20s", model.getRank());
-            System.out.println();
-        }
+    public String joinPlayerTurret(int mapID) {
+        return dbHandler.joinPlayerTurret(mapID);
+//        PlayerStats[] models = dbHandler.joinPlayerTurret(mapID);
+//        for (int i = 0; i < models.length; i++) {
+//            PlayerStats model = models[i];
+//            System.out.printf("1. ");
+//            // simplified output formatting; truncation may occur
+//            System.out.printf("%-20.20s", model.getPlayerName());
+//            if (model.getChampionName() == null) {
+//                System.out.printf("%-20.20s", " ");
+//            } else {
+//                System.out.printf("%-20.20s", model.getChampionName());
+//            }
+//            System.out.printf("%-15.15s", model.getCreepScore());
+//            System.out.printf("%-15.15s", model.getKills());
+//            System.out.printf("%-20.20s", model.getRank());
+//            System.out.println();
+//        }
     }
 
     @Override

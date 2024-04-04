@@ -163,9 +163,9 @@ public class HomePage extends JFrame {
 //            case SHOW_PLAYER_ECON_TEXT:
 //                newActionPanel = new ShowPlayerEcon();
 //                break;
-//            case JOIN_TEXT:
-//                newActionPanel = new Join();
-//                break;
+            case JOIN_TEXT:
+                newActionPanel = new JoinPanel();
+                break;
             case AGGREGATE_TEXT:
                 newActionPanel = new AggregateGroupByPanel();
                 break;
