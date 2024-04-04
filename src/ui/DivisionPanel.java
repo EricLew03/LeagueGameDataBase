@@ -14,15 +14,17 @@ public class DivisionPanel extends ActionPanel {
         JPanel actionPanel = new JPanel();
         actionPanel.setLayout(new FlowLayout());
 
-        JButton divisionButton = new JButton("Division");
+        JLabel descriptorLabel = new JLabel("Query finds all items that are owned by every player");
+        JButton divisionButton = new JButton("Find");
         divisionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                delegate.division();
-                resultLabel.setText("division");
+                String result = delegate.division();
+                resultLabel.setText(result);
             }
         });
 
+        actionPanel.add(descriptorLabel);
         actionPanel.add(divisionButton);
 
         return actionPanel;
