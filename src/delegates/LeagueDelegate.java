@@ -8,9 +8,9 @@ public interface LeagueDelegate {
 
     public void databaseSetup();
 
-    public void deletePlayerStats(int playerId);
+    public String deletePlayerStats(int playerId);
 
-    public int insertPlayerStats(PlayerStats model);
+    public String insertPlayerStats(PlayerStats model);
 
     public void showPlayerStats();
 

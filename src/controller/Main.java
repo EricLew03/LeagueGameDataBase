@@ -23,10 +23,10 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     private void start() {
-//        loginWindow = new LoginWindow();
-//        loginWindow.showFrame(this);
-        HomePage homePage = new HomePage();
-        homePage.showFrame(this);
+        loginWindow = new LoginWindow();
+        loginWindow.showFrame(this);
+//        HomePage homePage = new HomePage();
+//        homePage.showFrame(this);
     }
 
     /**
@@ -44,8 +44,8 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 //			TerminalTransactions transaction = new TerminalTransactions();
 //			transaction.showMainMenu(this);
 //
-//            HomePage homePage = new HomePage();
-//            homePage.showFrame(this);
+            HomePage homePage = new HomePage();
+            homePage.showFrame(this);
 
         } else {
             loginWindow.handleLoginFailed();
@@ -114,15 +114,15 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 
 
     @Override
-    public int insertPlayerStats(PlayerStats model) {
+    public String insertPlayerStats(PlayerStats model) {
         return dbHandler.insertPlayerStats(model);
     }
 
 
     @Override
-    public void deletePlayerStats(int playerId) {
+    public String deletePlayerStats(int playerId) {
 
-        dbHandler.deletePlayerStats(playerId);
+        return dbHandler.deletePlayerStats(playerId);
     }
 
     @Override

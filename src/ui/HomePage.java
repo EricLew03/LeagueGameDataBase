@@ -135,9 +135,9 @@ public class HomePage extends JFrame {
             case INSERT_PLAYER_STATS_TEXT:
                 newActionPanel = new InsertPlayerStatsPanel();
                 break;
-//            case DELETE_PLAYER_STATS_TEXT:
-//                newActionPanel = new DeletePlayerStats();
-//                break;
+            case DELETE_PLAYER_STATS_TEXT:
+                newActionPanel = new DeletePlayerStatsPanel();
+                break;
 //            case UPDATE_PLAYER_STATS_TEXT:
 //                newActionPanel = new UpdatePlayerStats();
 //                break;

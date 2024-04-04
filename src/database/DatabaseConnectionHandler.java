@@ -215,29 +215,35 @@ public class DatabaseConnectionHandler {
 //  functions for the playerStats relation
 
     // delete one tuple in the playerStats relation given a playerID
-    public void deletePlayerStats(int playerID) {
+    public String deletePlayerStats(int playerID) {
+        String result = "";
+
         try {
             String query = "DELETE FROM playerStats WHERE playerID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, playerID);
 
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
+            int rowsAffected = ps.executeUpdate();
+            result = String.valueOf(rowsAffected);
+            if (rowsAffected == 0) {
+//                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
+                result = (WARNING_TAG + " Player " + playerID + " does not exist!");
             }
-
+            
             connection.commit();
 
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
     // Insert a new tuple in the playerStats relation
-    public int insertPlayerStats(PlayerStats model) {
-        int rowsChanged = 0;
+    public String insertPlayerStats(PlayerStats model) {
+        String result = "";
 
         try {
             String query = "INSERT INTO playerStats VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -254,18 +260,20 @@ public class DatabaseConnectionHandler {
             ps.setInt(10, model.getMapID());
 
 
-            rowsChanged = ps.executeUpdate();
-            System.out.println("Insertion: " + rowsChanged + " changed");
+            int rowsChanged = ps.executeUpdate();
+            result = String.valueOf(rowsChanged);
+//            System.out.println("Insertion: " + rowsChanged + " changed");
 
             connection.commit();
 
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
 
-        return rowsChanged;
+        return result;
     }
 
 
