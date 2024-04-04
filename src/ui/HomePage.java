@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HomePage extends JFrame implements ActionListener {
+public class HomePage extends JFrame {
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
     private static final int INVALID_INPUT = Integer.MIN_VALUE;
@@ -26,7 +26,6 @@ public class HomePage extends JFrame implements ActionListener {
 
     private String result;
     private JLabel resultLabel;
-    JButton divisionButton;
 
     JMenuItem[] menuItems = {
             new JMenuItem("Insert playerStats"),
@@ -84,24 +83,18 @@ public class HomePage extends JFrame implements ActionListener {
             menu.add(menuItem);
         }
 
-        // Action-specific UI instantiation
-//        divisionButton = new JButton("Division");
-//        divisionButton.addActionListener(this);
-
         // content adding and packing
         setSize(400, 300);
         contentPane = new JPanel(); // Main overall content pane
         contentPane.setLayout(new GridLayout(1, 2));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // render default action content based on menu selection
-        this.actionPanel = renderActionPanel(currentMenu);
-        this.contentPane.add(this.actionPanel);
-
         resultPanel = new JPanel(); // Panel only for displaying results
         resultPanel.setLayout(new BorderLayout());
         resultPanel.add(menuLabel, BorderLayout.NORTH);
         resultPanel.add(resultLabel, BorderLayout.CENTER);
+
+        updateUI();
 
         contentPane.add(actionPanel);
         contentPane.add(resultPanel);
@@ -120,32 +113,14 @@ public class HomePage extends JFrame implements ActionListener {
     }
 
     private JPanel renderActionPanel(String currentMenu) {
-        JPanel newActionPanel = new JPanel();
-        newActionPanel.setLayout(new FlowLayout());
+        ActionPanel newActionPanel;
 
         if (currentMenu.equals("Division")) {
-            divisionButton = new JButton("Division");
-            divisionButton.addActionListener(this);
-            newActionPanel.add(divisionButton);
+            newActionPanel = new DivisionPanel();
         } else {
-            divisionButton = new JButton("not division");
-            newActionPanel.add(divisionButton);
+            newActionPanel = new InsertPlayerStats();
         }
 
-        return newActionPanel;
+        return newActionPanel.renderActionPanel(this.delegate);
     }
-
-    // template from LoginWindow.java
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == divisionButton) {
-            result = delegate.division();
-            resultLabel.setText(result);
-        } else {
-            // different button
-        }
-    }
-
-
-
 }
