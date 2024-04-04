@@ -92,6 +92,7 @@ public class HomePage extends JFrame {
                 menuLabel.setText("Selected Action: " + chosenMenu);
                 currentMenu = chosenMenu;
                 updateUI(); // update action content based on what was selected
+                resultLabel.setText("Result will display here");
             }
         };
         for (JMenuItem menuItem : menuItems) {
@@ -100,8 +101,8 @@ public class HomePage extends JFrame {
         }
 
         // content adding and packing
-        setSize(400, 300);
         contentPane = new JPanel(); // Main overall content pane
+        contentPane.setSize(400, 300);
         contentPane.setLayout(new GridLayout(1, 2));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -122,8 +123,7 @@ public class HomePage extends JFrame {
 
     private void updateUI() {
         this.contentPane.removeAll();
-        JPanel newActionPanel = renderActionPanel(this.currentMenu);
-        this.actionPanel = newActionPanel;
+        this.actionPanel = renderActionPanel(this.currentMenu);
         this.contentPane.add(this.actionPanel);
         contentPane.add(resultPanel);
     }
@@ -131,10 +131,9 @@ public class HomePage extends JFrame {
     private JPanel renderActionPanel(String currentMenu) {
         ActionPanel newActionPanel;
 
-
         switch (currentMenu) {
             case INSERT_PLAYER_STATS_TEXT:
-                newActionPanel = new InsertPlayerStats();
+                newActionPanel = new InsertPlayerStatsPanel();
                 break;
 //            case DELETE_PLAYER_STATS_TEXT:
 //                newActionPanel = new DeletePlayerStats();
@@ -185,7 +184,7 @@ public class HomePage extends JFrame {
                 newActionPanel = new DivisionPanel();
                 break;
             default:
-                newActionPanel = new InsertPlayerStats();
+                newActionPanel = new InsertPlayerStatsPanel();
                 break;
         }
 

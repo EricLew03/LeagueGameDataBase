@@ -62,29 +62,29 @@ public class DatabaseConnectionHandler {
     // functions for ownItem relation
 
     // delete one tuple of the ownItem given playerID and itemName
-    public void deleteOwnsItem(int playerId, String name){
-     try {
-        String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
-        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-        ps.setInt(1, playerId);
-        ps.setString(2, name);
+    public void deleteOwnsItem(int playerId, String name) {
+        try {
+            String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, playerId);
+            ps.setString(2, name);
 
-        int rowCount = ps.executeUpdate();
-        if (rowCount == 0) {
-            System.out.println(WARNING_TAG + " Player " + playerId + " does not exist!");
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Player " + playerId + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
         }
-
-        connection.commit();
-
-        ps.close();
-    } catch (SQLException e) {
-        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        rollbackConnection();
     }
-}
 
     // insert one tuple into the ownItem relation
-    public void insertOwnsItem(OwnsItem model){
+    public void insertOwnsItem(OwnsItem model) {
         try {
             String query = "INSERT INTO ownsItem VALUES (?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -108,7 +108,7 @@ public class DatabaseConnectionHandler {
     }
 
     // returns the ownItem relation
-    public OwnsItem[] getOwnsItem(){
+    public OwnsItem[] getOwnsItem() {
         ArrayList<OwnsItem> result = new ArrayList<OwnsItem>();
 
         try {
@@ -116,7 +116,7 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 OwnsItem model = new OwnsItem(rs.getInt("playerID"),
                         rs.getString("itemName"),
                         rs.getInt("mr"),
@@ -210,10 +210,6 @@ public class DatabaseConnectionHandler {
     }
 
 
-
-
-
-
 // ==================================================================================================================================
 // ===============================================================================================================================
 //  functions for the playerStats relation
@@ -240,7 +236,9 @@ public class DatabaseConnectionHandler {
     }
 
     // Insert a new tuple in the playerStats relation
-    public void insertPlayerStats(PlayerStats model) {
+    public int insertPlayerStats(PlayerStats model) {
+        int rowsChanged = 0;
+
         try {
             String query = "INSERT INTO playerStats VALUES (?,?,?,?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -256,7 +254,9 @@ public class DatabaseConnectionHandler {
             ps.setInt(10, model.getMapID());
 
 
-            ps.executeUpdate();
+            rowsChanged = ps.executeUpdate();
+            System.out.println("Insertion: " + rowsChanged + " changed");
+
             connection.commit();
 
             ps.close();
@@ -264,9 +264,9 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+
+        return rowsChanged;
     }
-
-
 
 
     // returns the tuples in playerStats relation
@@ -277,7 +277,7 @@ public class DatabaseConnectionHandler {
             String query = "SELECT * FROM playerStats";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
                         rs.getInt("champID"),
@@ -288,7 +288,7 @@ public class DatabaseConnectionHandler {
                         rs.getInt("kills"),
                         rs.getString("rank"),
                         rs.getInt("mapID")
-                        );
+                );
                 result.add(model);
             }
             rs.close();
@@ -308,7 +308,7 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, mapID);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerStats model = new PlayerStats(0,
                         rs.getString("playerName"),
                         0,
@@ -330,7 +330,6 @@ public class DatabaseConnectionHandler {
 
         return result.toArray(new PlayerStats[result.size()]);
     }
-
 
 
     // returns tuples based on the selection condition
@@ -361,7 +360,7 @@ public class DatabaseConnectionHandler {
             }
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
                         rs.getInt("champID"),
@@ -567,7 +566,7 @@ public class DatabaseConnectionHandler {
             String query = "SELECT * FROM playerEcon";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerEcon model = new PlayerEcon(rs.getInt("creepScore"),
                         rs.getInt("kills"),
                         rs.getInt("gold"),
@@ -584,7 +583,7 @@ public class DatabaseConnectionHandler {
         return result.toArray(new PlayerEcon[result.size()]);
     }
 
-    public void deletePlayerEcon(int creepScore, int kills){
+    public void deletePlayerEcon(int creepScore, int kills) {
         try {
             String query = "DELETE FROM playerEcon WHERE creepScore = ? AND kills = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -604,12 +603,6 @@ public class DatabaseConnectionHandler {
             rollbackConnection();
         }
     }
-
-
-
-
-
-
 
 
     //===================================================================================================================================
@@ -632,7 +625,7 @@ public class DatabaseConnectionHandler {
     }
 
     private void rollbackConnection() {
-        try  {
+        try {
             connection.rollback();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -674,18 +667,10 @@ public class DatabaseConnectionHandler {
     }
 
 
-
-
-
-
-
-
-
     public void databaseSetup() {
         dropOwnsItemTableIfExists();
         dropPlayerEconTableIfExists();
         dropPlayerStatsTableIfExists();
-
 
 
 //        dropDragonJungleTableIfExists();
@@ -720,10 +705,10 @@ public class DatabaseConnectionHandler {
         PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
         insertPlayerStats(player1);
 
-        OwnsItem item1 = new OwnsItem(1, "lol",1,2,3,4,5);
+        OwnsItem item1 = new OwnsItem(1, "lol", 1, 2, 3, 4, 5);
         insertOwnsItem(item1);
 
-        PlayerEcon player2 = new PlayerEcon(150,5,23,22);
+        PlayerEcon player2 = new PlayerEcon(150, 5, 23, 22);
         insertPlayerEcon(player2);
     }
 
@@ -765,15 +750,15 @@ public class DatabaseConnectionHandler {
 //
 
 
-// we can drop all tables in a single function i think
+    // we can drop all tables in a single function i think
     private void dropPlayerStatsTableIfExists() {
         try {
             String query = "select table_name from user_tables";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("playerstats")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("playerstats")) {
                     ps.execute("DROP TABLE playerStats");
                     break;
                 }
@@ -791,8 +776,8 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("ownsitem")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("ownsitem")) {
                     ps.execute("DROP TABLE ownsItem");
                     break;
                 }
@@ -828,8 +813,8 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("playerecon")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("playerecon")) {
                     ps.execute("DROP TABLE playerEcon");
                     break;
                 }
@@ -840,7 +825,6 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
-
 
 
     private String readLine() {
@@ -854,10 +838,7 @@ public class DatabaseConnectionHandler {
     }
 
 
-
-
 }
-
 
 
 //
@@ -900,8 +881,6 @@ public class DatabaseConnectionHandler {
 //        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 //    }
 //}
-
-
 
 
 //    private void dropDragonJungleTableIfExists() {
