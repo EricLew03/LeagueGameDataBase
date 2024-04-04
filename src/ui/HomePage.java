@@ -24,15 +24,8 @@ public class HomePage extends JFrame {
     final String INSERT_PLAYER_STATS_TEXT = "Insert playerStats";
     final String DELETE_PLAYER_STATS_TEXT = "Delete playerStats";
     final String UPDATE_PLAYER_STATS_TEXT = "Update playerStats";
-    final String SHOW_PLAYER_STATS_TEXT = "Show playerStats";
-    final String INSERT_ITEM_TEXT = "Insert item";
-    final String DELETE_ITEM_TEXT = "Delete item";
-    final String SHOW_ITEM_TEXT = "Show item";
-    final String PLAYERSTATS_SELECTION_TEXT = "PlayerStats selection";
-    final String PLAYERSTATS_PROJECTION_TEXT = "PlayerStats projection";
-    final String INSERT_PLAYER_ECON_TEXT = "Insert playerEcon";
-    final String DELETE_PLAYER_ECON_TEXT = "Delete playerEcon";
-    final String SHOW_PLAYER_ECON_TEXT = "Show playerEcon";
+    final String SELECT_PLAYER_STATS_TEXT = "Select playerStats";
+    final String PROJECT_TEXT = "Project";
     final String JOIN_TEXT = "Join";
     final String AGGREGATE_TEXT = "Aggregate";
     final String AGGREGATE_HAVING_TEXT = "Aggregate with Having";
@@ -43,15 +36,8 @@ public class HomePage extends JFrame {
             new JMenuItem(INSERT_PLAYER_STATS_TEXT),
             new JMenuItem(DELETE_PLAYER_STATS_TEXT),
             new JMenuItem(UPDATE_PLAYER_STATS_TEXT),
-            new JMenuItem(SHOW_PLAYER_STATS_TEXT),
-            new JMenuItem(INSERT_ITEM_TEXT),
-            new JMenuItem(DELETE_ITEM_TEXT),
-            new JMenuItem(SHOW_ITEM_TEXT),
-            new JMenuItem(PLAYERSTATS_SELECTION_TEXT),
-            new JMenuItem(PLAYERSTATS_PROJECTION_TEXT),
-            new JMenuItem(INSERT_PLAYER_ECON_TEXT),
-            new JMenuItem(DELETE_PLAYER_ECON_TEXT),
-            new JMenuItem(SHOW_PLAYER_ECON_TEXT),
+            new JMenuItem(SELECT_PLAYER_STATS_TEXT),
+            new JMenuItem(PROJECT_TEXT),
             new JMenuItem(JOIN_TEXT),
             new JMenuItem(AGGREGATE_TEXT),
             new JMenuItem(AGGREGATE_HAVING_TEXT),
@@ -134,34 +120,13 @@ public class HomePage extends JFrame {
                 newActionPanel = new DeletePlayerStatsPanel();
                 break;
 //            case UPDATE_PLAYER_STATS_TEXT:
-//                newActionPanel = new UpdatePlayerStats();
+//                newActionPanel = new UpdatePlayerStatsPanel();
 //                break;
-//            case SHOW_PLAYER_STATS_TEXT:
-//                newActionPanel = new ShowPlayerStats();
+//            case SELECT_PLAYER_STATS_TEXT:
+//                newActionPanel = new SelectPlayerStatsPanel();
 //                break;
-//            case INSERT_ITEM_TEXT:
-//                newActionPanel = new InsertItem();
-//                break;
-//            case DELETE_ITEM_TEXT:
-//                newActionPanel = new DeleteItem();
-//                break;
-//            case SHOW_ITEM_TEXT:
-//                newActionPanel = new ShowItem();
-//                break;
-//            case PLAYERSTATS_SELECTION_TEXT:
-//                newActionPanel = new PlayerStatsSelection();
-//                break;
-//            case PLAYERSTATS_PROJECTION_TEXT:
-//                newActionPanel = new PlayerStatsProjection();
-//                break;
-//            case INSERT_PLAYER_ECON_TEXT:
-//                newActionPanel = new InsertPlayerEcon();
-//                break;
-//            case DELETE_PLAYER_ECON_TEXT:
-//                newActionPanel = new DeletePlayerEcon();
-//                break;
-//            case SHOW_PLAYER_ECON_TEXT:
-//                newActionPanel = new ShowPlayerEcon();
+//            case PROJECT_TEXT:
+//                newActionPanel = new ProjectPanel();
 //                break;
             case JOIN_TEXT:
                 newActionPanel = new JoinPanel();
