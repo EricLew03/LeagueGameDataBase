@@ -174,9 +174,9 @@ public class HomePage extends JFrame {
             case AGGREGATE_TEXT:
                 newActionPanel = new AggregateGroupByPanel();
                 break;
-//            case AGGREGATE_HAVING_TEXT:
-//                newActionPanel = new AggregateHaving();
-//                break;
+            case AGGREGATE_HAVING_TEXT:
+                newActionPanel = new AggregateHavingPanel();
+                break;
 //            case NESTED_AGGREGATED_TEXT:
 //                newActionPanel = new NestedAggregated();
 //                break;

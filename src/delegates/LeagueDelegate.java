@@ -36,7 +36,7 @@ public interface LeagueDelegate {
 
     public void nestedAggregate();
 
-    public void aggregateHaving();
+    public String aggregateHaving();
 
 
     public void LeagueFinished();

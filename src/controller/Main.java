@@ -208,8 +208,8 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     @Override
-    public void aggregateHaving() {
-        dbHandler.aggregateHaving();
+    public String aggregateHaving() {
+        return dbHandler.aggregateHaving();
     }
 
     /**

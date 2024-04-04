@@ -160,7 +160,9 @@ public class DatabaseConnectionHandler {
         return result;
     }
 
-    public void aggregateHaving() {
+    public String aggregateHaving() {
+        String result = "";
+
         try {
             String query = "SELECT itemName, MAX(cost) AS max_price " +
                     "FROM ownsItem " +
@@ -173,15 +175,18 @@ public class DatabaseConnectionHandler {
             while (rs.next()) {
                 String itemName = rs.getString("itemName");
                 double maxPrice = rs.getDouble("max_price");
-                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
+//                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
+                result += "Item Name: " + itemName + ", Max Price: " + maxPrice + "<br>";
             }
 
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
     public void nestedAggregate() {
