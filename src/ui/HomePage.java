@@ -53,7 +53,7 @@ public class HomePage extends JFrame implements ActionListener {
         // General Instantiation
         this.delegate = delegate;
 
-        this.result = "Welcome";
+        this.result = "Result will display here";
         resultLabel = new JLabel(result);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -86,12 +86,26 @@ public class HomePage extends JFrame implements ActionListener {
 
         // content adding and packing
         setSize(400, 300);
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout());
+        JPanel contentPane = new JPanel(); // Main overall content pane
+        contentPane.setLayout(new GridLayout(1, 2));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        contentPane.add(resultLabel, BorderLayout.AFTER_LAST_LINE);
-        contentPane.add(divisionButton, BorderLayout.BEFORE_FIRST_LINE);
-        contentPane.add(menuLabel, BorderLayout.CENTER);
+
+        JPanel actionPanel = new JPanel(); // Panel for user interaction
+        actionPanel.setLayout(new FlowLayout());
+        actionPanel.add(divisionButton);
+
+
+
+        JPanel resultPanel = new JPanel(); // Panel only for displaying results
+        resultPanel.setLayout(new BorderLayout());
+        resultPanel.add(menuLabel, BorderLayout.NORTH);
+        resultPanel.add(resultLabel, BorderLayout.CENTER);
+
+//        contentPane.add(resultLabel, BorderLayout.AFTER_LAST_LINE);
+//        contentPane.add(divisionButton, BorderLayout.BEFORE_FIRST_LINE);
+//        contentPane.add(menuLabel, BorderLayout.CENTER);
+        contentPane.add(actionPanel);
+        contentPane.add(resultPanel);
         setContentPane(contentPane);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
