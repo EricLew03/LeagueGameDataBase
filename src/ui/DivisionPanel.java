@@ -7,13 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DivisionPanel implements ActionPanel {
-    private JLabel resultLabel;
-
-    @Override
-    public void setResultLabel(JLabel resultLabel) {
-        this.resultLabel = resultLabel;
-    }
+public class DivisionPanel extends ActionPanel {
 
     @Override
     public JPanel renderActionPanel(LeagueDelegate delegate) {

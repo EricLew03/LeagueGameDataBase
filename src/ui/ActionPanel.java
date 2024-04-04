@@ -4,9 +4,13 @@ import delegates.LeagueDelegate;
 
 import javax.swing.*;
 
-// Class to represent default action panel that defines its own render behaviour
-public interface ActionPanel {
-    void setResultLabel(JLabel resultLabel);
+// Abstract class to represent default action panel that defines its own render behavior
+public abstract class ActionPanel extends JPanel {
+    protected JLabel resultLabel;
 
-    JPanel renderActionPanel(LeagueDelegate delegate);
+    public void setResultLabel(JLabel resultLabel) {
+        this.resultLabel = resultLabel;
+    }
+    
+    public abstract JPanel renderActionPanel(LeagueDelegate delegate);
 }
