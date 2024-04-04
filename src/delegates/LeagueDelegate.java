@@ -12,9 +12,12 @@ public interface LeagueDelegate {
 
     public String insertPlayerStats(PlayerStats model);
 
-    public void showPlayerStats();
+    public PlayerStats[] showPlayerStats();
+
 
     public void updatePlayerStats(int playerId, String name);
+
+    public String updatePlayerStatsWithID(PlayerStats model);
 
     public void playerSelection();
 
@@ -44,4 +47,6 @@ public interface LeagueDelegate {
     public String aggregate();
 
     public String division();
+
+
 }

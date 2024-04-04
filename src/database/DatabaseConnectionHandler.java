@@ -479,6 +479,109 @@ public class DatabaseConnectionHandler {
         }
     }
 
+    public String updatePlayerStatsWithID(PlayerStats model) {
+        String result = "";
+//            ps.setString(1, name);
+//            ps.setInt(2, id);
+
+        // Check if valid ID
+        if (model.getPlayerID() < 0) {
+            result = WARNING_TAG + " Player " + model.getPlayerID() + " is invalid";
+            return result;
+        }
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder("UPDATE playerStats SET ");
+            List<Object> values = new ArrayList<>(); // holds the values to inject into prepared statement later
+
+            // Add fields to update dynamically
+            if (model.getPlayerName() != null) {
+                queryBuilder.append("playerName = ?, ");
+                values.add(model.getPlayerName());
+            }
+
+            if (model.getChampID() != -1) {
+                queryBuilder.append("champID = ?, ");
+                values.add(model.getChampID());
+            }
+
+            if (model.getChampionName() != null) {
+                queryBuilder.append("championName = ?, ");
+                values.add(model.getChampionName());
+            }
+
+            if (model.getManaPoints() != -1) {
+                queryBuilder.append("manaPoints = ?, ");
+                values.add(model.getManaPoints());
+            }
+
+            if (model.getHealthPoints() != -1) {
+                queryBuilder.append("healthPoints = ?, ");
+                values.add(model.getHealthPoints());
+            }
+
+            if (model.getCreepScore() != -1) {
+                queryBuilder.append("creepScore = ?, ");
+                values.add(model.getCreepScore());
+            }
+
+            if (model.getKills() != -1) {
+                queryBuilder.append("kills = ?, ");
+                values.add(model.getKills());
+            }
+
+            if (model.getRank() != null) {
+                queryBuilder.append("rank = ?, ");
+                values.add(model.getRank());
+            }
+
+            if (model.getMapID() != -1) {
+                queryBuilder.append("mapID = ?, ");
+                values.add(model.getMapID());
+            }
+
+            queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length()); // removes artifacts fron query building, the extra ", "
+            queryBuilder.append(" WHERE playerID = ?");
+            values.add(model.getPlayerID());
+
+            String query = queryBuilder.toString();
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+
+            // set parameter values
+            if (values.size() == 1) {
+                // If there was only 1 value, meaning just player ID, return
+                result = "Error: Please enter a field to be updated";
+            } else {
+                for (int i = 0; i < values.size(); i++) {
+                    // General obkct but need to check if int or str so query doesnt replace it as string
+                    Object value = values.get(i);
+                    if (value instanceof Integer) {
+                        ps.setInt(i + 1, (Integer) value);
+                    } else if (value instanceof String) {
+                        ps.setString(i + 1, (String) value);
+                    }
+                }
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 0) {
+                    result = WARNING_TAG + "No rows changed";
+                } else {
+                    result = "Rows updated: " + rowsAffected;
+                }
+
+                connection.commit();
+
+                ps.close();
+            }
+        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
+            rollbackConnection();
+        }
+
+        return result;
+    }
+
     // show all the tables we have in the database
     public void showTables() {
         try {
