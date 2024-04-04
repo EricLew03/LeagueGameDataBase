@@ -8,11 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomePage extends JFrame {
-    private static final String EXCEPTION_TAG = "[EXCEPTION]";
-    private static final String WARNING_TAG = "[WARNING]";
-    private static final int INVALID_INPUT = Integer.MIN_VALUE;
-    private static final int EMPTY_INPUT = 0;
-
     private LeagueDelegate delegate;
 
     // UI components
@@ -40,8 +35,8 @@ public class HomePage extends JFrame {
     final String SHOW_PLAYER_ECON_TEXT = "Show playerEcon";
     final String JOIN_TEXT = "Join";
     final String AGGREGATE_TEXT = "Aggregate";
-    final String AGGREGATE_HAVING_TEXT = "AggregateHaving";
-    final String NESTED_AGGREGATED_TEXT = "NestedAggregated";
+    final String AGGREGATE_HAVING_TEXT = "Aggregate with Having";
+    final String NESTED_AGGREGATED_TEXT = "Nested Aggregate";
     final String DIVISION_ACTION_TEXT = "Division";
 
     JMenuItem[] menuItems = {
@@ -177,9 +172,9 @@ public class HomePage extends JFrame {
             case AGGREGATE_HAVING_TEXT:
                 newActionPanel = new AggregateHavingPanel();
                 break;
-//            case NESTED_AGGREGATED_TEXT:
-//                newActionPanel = new NestedAggregated();
-//                break;
+            case NESTED_AGGREGATED_TEXT:
+                newActionPanel = new AggregateNestedPanel();
+                break;
             case DIVISION_ACTION_TEXT:
                 newActionPanel = new DivisionPanel();
                 break;

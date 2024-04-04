@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AggregateHavingPanel extends ActionPanel {
+public class AggregateNestedPanel extends ActionPanel {
 
     @Override
     public JPanel renderActionPanel(LeagueDelegate delegate) {
@@ -15,20 +15,20 @@ public class AggregateHavingPanel extends ActionPanel {
         actionPanel.setLayout(new FlowLayout());
 
 
-        JLabel descriptorLabel = new JLabel("<html><p style=\"width:300px\">" + "Query groups all items by " +
-                "name and finds how many players own the item, if they are owned by at least 2 players" + "</p></html>");
+        JLabel descriptorLabel = new JLabel("<html><p style=\"width:300px\">" + "Finds the player name" +
+                "who has the highest average cost of items owned" + "</p></html>");
 
-        JButton aggregateHavingButton = new JButton("Find");
-        aggregateHavingButton.addActionListener(new ActionListener() {
+        JButton aggregateNestedButton = new JButton("Find");
+        aggregateNestedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String result = delegate.aggregateHaving();
+                String result = delegate.nestedAggregate();
                 resultLabel.setText("<html><p style=\"width:300px\">" + result + "</p></html>");
             }
         });
 
         actionPanel.add(descriptorLabel);
-        actionPanel.add(aggregateHavingButton);
+        actionPanel.add(aggregateNestedButton);
 
         return actionPanel;
     }

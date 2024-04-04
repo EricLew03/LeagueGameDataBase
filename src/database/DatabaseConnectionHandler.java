@@ -189,7 +189,9 @@ public class DatabaseConnectionHandler {
         return result;
     }
 
-    public void nestedAggregate() {
+    public String nestedAggregate() {
+        String result = "";
+
         try {
             String query =
                     "WITH PlayerAverageCost AS (" +
@@ -208,15 +210,18 @@ public class DatabaseConnectionHandler {
             if (rs.next()) {
                 String playerName = rs.getString("playerName");
                 double highestAvgCost = rs.getDouble("average_cost");
-                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
+//                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
+                result = "Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost;
             }
 
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
 

@@ -203,8 +203,8 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     @Override
-    public void nestedAggregate() {
-        dbHandler.nestedAggregate();
+    public String nestedAggregate() {
+        return dbHandler.nestedAggregate();
     }
 
     @Override
