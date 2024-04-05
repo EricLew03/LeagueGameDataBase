@@ -30,7 +30,7 @@ public class ShowPlayerStatsPanel extends ActionPanel {
         StringBuilder result = new StringBuilder();
 
         result.append("<html><h3 style='text-align: center;'>Owns Item relation:</h3>");
-        result.append("<table style='margin: 0 auto; border-collapse: collapse; text-align: center; font-size: 14px;' border='1' cellspacing='0' cellpadding='3'>");
+        result.append("<table style='margin: 0 auto; border-collapse: collapse; text-align: center; font-size: 12px;' border='1' cellspacing='0' cellpadding='2'>");
         result.append("<tr>");
         result.append("<th>Player ID</th>");
         result.append("<th>Player Name</th>");

@@ -40,21 +40,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 		usernameField = new JTextField(TEXT_FIELD_WIDTH);
 		passwordField = new JPasswordField(TEXT_FIELD_WIDTH);
 
-		//===============================================================================================================
 
-
-
-
-		// i need to remove this after
-
-
-
-
-		usernameField.setText("ora_elewkimp");
-		passwordField.setText("a19138791");
-
-
-		//===================================================================================================================
 		passwordField.setEchoChar('*');
 
 		JButton loginButton = new JButton("Log In");
