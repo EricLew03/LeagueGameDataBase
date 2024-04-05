@@ -122,9 +122,9 @@ public class HomePage extends JFrame {
             case UPDATE_PLAYER_STATS_TEXT:
                 newActionPanel = new UpdatePlayerStatsPanel();
                 break;
-//            case SELECT_PLAYER_STATS_TEXT:
-//                newActionPanel = new SelectPlayerStatsPanel();
-//                break;
+            case SELECT_PLAYER_STATS_TEXT:
+                newActionPanel = new SelectPlayerStatsPanel();
+                break;
 //            case PROJECT_TEXT:
 //                newActionPanel = new ProjectPanel();
 //                break;

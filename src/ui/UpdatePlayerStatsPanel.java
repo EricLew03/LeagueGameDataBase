@@ -2,6 +2,7 @@ package ui;
 
 import delegates.LeagueDelegate;
 import models.PlayerStats;
+import util.StringFormatting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +25,12 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
     public JPanel renderActionPanel(LeagueDelegate delegate) {
         JPanel actionPanel = new JPanel();
         actionPanel.setLayout(new GridLayout(0, 1));
+        StringFormatting formatter = new StringFormatting();
 
         // Show all available tuples
         PlayerStats[] allRawPlayerTuples = delegate.showPlayerStats();
-        actionPanel.add(new JLabel(formatPlayerStats(allRawPlayerTuples)));
+        actionPanel.add(new JLabel("Available  tuples:"));
+        actionPanel.add(new JLabel(formatter.formatPlayerStats(allRawPlayerTuples)));
 
         JPanel inputPanel = new JPanel(new GridLayout(0, 2, 5, 5));
 
@@ -131,28 +134,5 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
         return actionPanel;
     }
 
-    // format results from query that returns array of player stats
-    public String formatPlayerStats(PlayerStats[] playerStatsArray) {
-        StringBuilder result = new StringBuilder();
 
-        result.append("<html><h3>All Available tuples to choose:</h3>" +
-                "<p style=\"width:400px; height:500px\">");
-
-        for (PlayerStats playerStats : playerStatsArray) {
-            result.append("Player ID: ").append(playerStats.getPlayerID()).append(", ");
-            result.append("Player Name: ").append(playerStats.getPlayerName()).append(", ");
-            result.append("Champion ID: ").append(playerStats.getChampID()).append(", ");
-            result.append("Champion Name: ").append(playerStats.getChampionName()).append(", ");
-            result.append("Mana Points: ").append(playerStats.getManaPoints()).append(", ");
-            result.append("Health Points: ").append(playerStats.getHealthPoints()).append(", ");
-            result.append("Creep Score: ").append(playerStats.getCreepScore()).append(", ");
-            result.append("Kills: ").append(playerStats.getKills()).append(", ");
-            result.append("Rank: ").append(playerStats.getRank()).append(", ");
-            result.append("Map ID: ").append(playerStats.getMapID()).append("<br>");
-        }
-
-        result.append("</p></html>");
-
-        return result.toString();
-    }
 }

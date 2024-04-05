@@ -19,7 +19,7 @@ public interface LeagueDelegate {
 
     public String updatePlayerStatsWithID(PlayerStats model);
 
-    public void playerSelection();
+    public String playerSelection(String query);
 
     public void playerProjection();
 
