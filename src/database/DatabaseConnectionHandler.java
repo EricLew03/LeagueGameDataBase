@@ -4,6 +4,7 @@ import models.OwnsItem;
 import models.PlayerEcon;
 import models.PlayerStats;
 import util.PrintablePreparedStatement;
+import util.StringFormatting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -370,32 +371,28 @@ public class DatabaseConnectionHandler {
     }
 
 
-    // returns tuples based on the selection condition
-    // have to improve to accept or arguments as well
-    public PlayerStats[] playerSelection() {
-        ArrayList<PlayerStats> result = new ArrayList<PlayerStats>();
-        Map<String, Object> conditions = getUserInput();
+    // returns tuples based on the query condition
+    public String playerSelection(String query) {
+        ArrayList<PlayerStats> rawResult = new ArrayList<PlayerStats>();
+        StringFormatting formatter = new StringFormatting();
+        String result;
 
         try {
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM playerStats");
-            if (!conditions.isEmpty()) {
+            if (query != "") {
                 queryBuilder.append(" WHERE ");
-                List<String> conditionsList = new ArrayList<>();
-                for (Map.Entry<String, Object> entry : conditions.entrySet()) {
-                    conditionsList.add(entry.getKey() + " = ?");
-                }
-                queryBuilder.append(String.join(" AND ", conditionsList));
+                queryBuilder.append(query);
             }
 
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
-            int index = 1;
-            for (Object value : conditions.values()) {
-                if (value instanceof Integer) {
-                    ps.setInt(index++, (Integer) value);
-                } else if (value instanceof String) {
-                    ps.setString(index++, (String) value);
-                } // Add additional cases for other data types if needed
-            }
+//            int index = 1;
+//            for (Object value : conditions.values()) {
+//                if (value instanceof Integer) {
+//                    ps.setInt(index++, (Integer) value);
+//                } else if (value instanceof String) {
+//                    ps.setString(index++, (String) value);
+//                } // Add additional cases for other data types if needed
+//            }
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -410,15 +407,22 @@ public class DatabaseConnectionHandler {
                         rs.getString("rank"),
                         rs.getInt("mapID")
                 );
-                result.add(model);
+                rawResult.add(model);
             }
             rs.close();
             ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
 
-        return result.toArray(new PlayerStats[result.size()]);
+            PlayerStats[] typedResult = rawResult.toArray(new PlayerStats[rawResult.size()]);
+            if (typedResult.length == 0) {
+                result = "No players found that satisfy the criteria";
+            } else {
+                result = formatter.formatPlayerStats(typedResult);
+            }
+        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
+        }
+        return result;
     }
 
 

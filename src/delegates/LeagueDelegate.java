@@ -21,7 +21,7 @@ public interface LeagueDelegate {
 
     public String updatePlayerStatsWithID(PlayerStats model);
 
-    public void playerSelection();
+    public String playerSelection(String query);
 
     public List<List<String>> playerProjection(List<String> nameList);
 
