@@ -8,10 +8,16 @@ public interface LeagueDelegate {
 
     public void databaseSetup();
 
-    public void deletePlayerStats(int playerId);
-    public void insertPlayerStats(PlayerStats model);
-    public void showPlayerStats();
+    public String deletePlayerStats(int playerId);
+
+    public String insertPlayerStats(PlayerStats model);
+
+    public PlayerStats[] showPlayerStats();
+
+
     public void updatePlayerStats(int playerId, String name);
+
+    public String updatePlayerStatsWithID(PlayerStats model);
 
     public void playerSelection();
 
@@ -29,16 +35,18 @@ public interface LeagueDelegate {
 
     public void showPlayerEcon();
 
-    public void joinPlayerTurret(int mapID);
+    public String joinPlayerTurret(int mapID);
 
-    public void nestedAggregate();
+    public String nestedAggregate();
 
-    public void aggregateHaving();
+    public String aggregateHaving();
 
 
     public void LeagueFinished();
 
-    public void aggregate();
+    public String aggregate();
 
     public String division();
+
+
 }

@@ -62,29 +62,29 @@ public class DatabaseConnectionHandler {
     // functions for ownItem relation
 
     // delete one tuple of the ownItem given playerID and itemName
-    public void deleteOwnsItem(int playerId, String name){
-     try {
-        String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
-        PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-        ps.setInt(1, playerId);
-        ps.setString(2, name);
+    public void deleteOwnsItem(int playerId, String name) {
+        try {
+            String query = "DELETE FROM ownsItem WHERE playerID = ? AND itemName = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, playerId);
+            ps.setString(2, name);
 
-        int rowCount = ps.executeUpdate();
-        if (rowCount == 0) {
-            System.out.println(WARNING_TAG + " Player " + playerId + " does not exist!");
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Player " + playerId + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
         }
-
-        connection.commit();
-
-        ps.close();
-    } catch (SQLException e) {
-        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        rollbackConnection();
     }
-}
 
     // insert one tuple into the ownItem relation
-    public void insertOwnsItem(OwnsItem model){
+    public void insertOwnsItem(OwnsItem model) {
         try {
             String query = "INSERT INTO ownsItem VALUES (?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -108,7 +108,7 @@ public class DatabaseConnectionHandler {
     }
 
     // returns the ownItem relation
-    public OwnsItem[] getOwnsItem(){
+    public OwnsItem[] getOwnsItem() {
         ArrayList<OwnsItem> result = new ArrayList<OwnsItem>();
 
         try {
@@ -116,7 +116,7 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 OwnsItem model = new OwnsItem(rs.getInt("playerID"),
                         rs.getString("itemName"),
                         rs.getInt("mr"),
@@ -136,7 +136,9 @@ public class DatabaseConnectionHandler {
     }
 
 
-    public void aggregate() {
+    public String aggregate() {
+        String result = "";
+
         try {
             String query = "SELECT itemName, COUNT(*) AS item_count FROM ownsItem GROUP BY itemName";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -145,22 +147,27 @@ public class DatabaseConnectionHandler {
             while (rs.next()) {
                 String itemName = rs.getString("itemName");
                 int count = rs.getInt("item_count");
-                System.out.println("Item Name: " + itemName + ", Count: " + count);
+//                System.out.println("Item Name: " + itemName + ", Count: " + count);
+                result += "Item Name: " + itemName + ", Count: " + count + "<br>";
             }
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
-    public void aggregateHaving() {
+    public String aggregateHaving() {
+        String result = "";
+
         try {
             String query = "SELECT itemName, MAX(cost) AS max_price " +
                     "FROM ownsItem " +
                     "GROUP BY itemName " +
-                    "HAVING COUNT(*) > 2";
+                    "HAVING COUNT(*) >= 2";
 
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
@@ -168,18 +175,23 @@ public class DatabaseConnectionHandler {
             while (rs.next()) {
                 String itemName = rs.getString("itemName");
                 double maxPrice = rs.getDouble("max_price");
-                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
+//                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
+                result += "Item Name: " + itemName + ", Max Price: " + maxPrice + "<br>";
             }
 
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
-    public void nestedAggregate() {
+    public String nestedAggregate() {
+        String result = "";
+
         try {
             String query =
                     "WITH PlayerAverageCost AS (" +
@@ -198,20 +210,19 @@ public class DatabaseConnectionHandler {
             if (rs.next()) {
                 String playerName = rs.getString("playerName");
                 double highestAvgCost = rs.getDouble("average_cost");
-                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
+//                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
+                result = "Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost;
             }
 
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
-
-
-
-
 
 
 // ==================================================================================================================================
@@ -219,28 +230,36 @@ public class DatabaseConnectionHandler {
 //  functions for the playerStats relation
 
     // delete one tuple in the playerStats relation given a playerID
-    public void deletePlayerStats(int playerID) {
+    public String deletePlayerStats(int playerID) {
+        String result = "";
+
         try {
             String query = "DELETE FROM playerStats WHERE playerID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ps.setInt(1, playerID);
 
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
+            int rowsAffected = ps.executeUpdate();
+            result = String.valueOf(rowsAffected);
+            if (rowsAffected == 0) {
+//                System.out.println(WARNING_TAG + " Player " + playerID + " does not exist!");
+                result = (WARNING_TAG + " Player " + playerID + " does not exist!");
             }
 
             connection.commit();
 
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+        return result;
     }
 
     // Insert a new tuple in the playerStats relation
-    public void insertPlayerStats(PlayerStats model) {
+    public String insertPlayerStats(PlayerStats model) {
+        String result = "";
+
         try {
             String query = "INSERT INTO playerStats VALUES (?,?,?,?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -256,17 +275,21 @@ public class DatabaseConnectionHandler {
             ps.setInt(10, model.getMapID());
 
 
-            ps.executeUpdate();
+            int rowsChanged = ps.executeUpdate();
+            result = String.valueOf(rowsChanged);
+//            System.out.println("Insertion: " + rowsChanged + " changed");
+
             connection.commit();
 
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
             rollbackConnection();
         }
+
+        return result;
     }
-
-
 
 
     // returns the tuples in playerStats relation
@@ -277,7 +300,7 @@ public class DatabaseConnectionHandler {
             String query = "SELECT * FROM playerStats";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
                         rs.getInt("champID"),
@@ -288,37 +311,6 @@ public class DatabaseConnectionHandler {
                         rs.getInt("kills"),
                         rs.getString("rank"),
                         rs.getInt("mapID")
-                        );
-                result.add(model);
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new PlayerStats[result.size()]);
-    }
-
-    public PlayerStats[] joinPlayerTurret(int mapID) {
-        ArrayList<PlayerStats> result = new ArrayList<>();
-
-        try {
-            String query = "SELECT p.playerName, p.championName, p.creepScore, p.kills, p.rank FROM playerStats p INNER JOIN turret ON p.playerID = turret.playerID WHERE turret.mapID = ?";
-            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ps.setInt(1, mapID);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                PlayerStats model = new PlayerStats(0,
-                        rs.getString("playerName"),
-                        0,
-                        rs.getString("championName"),
-                        0,
-                        0,
-                        rs.getInt("creepScore"),
-                        rs.getInt("kills"),
-                        rs.getString("rank"),
-                        0
                 );
                 result.add(model);
             }
@@ -331,6 +323,47 @@ public class DatabaseConnectionHandler {
         return result.toArray(new PlayerStats[result.size()]);
     }
 
+    public String joinPlayerTurret(int mapID) {
+//        ArrayList<PlayerStats> result = new ArrayList<>();
+        String result = "";
+
+        try {
+            String query = "SELECT p.playerName, p.championName, p.creepScore, p.kills," +
+                    " p.rank FROM playerStats p INNER JOIN turret ON p.playerID = turret.playerID WHERE turret.mapID = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setInt(1, mapID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+//                PlayerStats model = new PlayerStats(0,
+//                        rs.getString("playerName"),
+//                        0,
+//                        rs.getString("championName"),
+//                        0,
+//                        0,
+//                        rs.getInt("creepScore"),
+//                        rs.getInt("kills"),
+//                        rs.getString("rank"),
+//                        0
+//                );
+                result += "Player name: " + rs.getString("playerName")
+                        + ", Champion: " + rs.getString("championName")
+                        + ", Creep Score: " + rs.getInt("creepScore")
+                        + ", Kills: " + rs.getInt("kills")
+                        + ", Rank: " + rs.getString("rank") + "<br>";
+
+//                result.add(model);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
+        }
+
+//        return result.toArray(new PlayerStats[result.size()]);
+        return result;
+    }
 
 
     // returns tuples based on the selection condition
@@ -361,7 +394,7 @@ public class DatabaseConnectionHandler {
             }
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerStats model = new PlayerStats(rs.getInt("playerID"),
                         rs.getString("playerName"),
                         rs.getInt("champID"),
@@ -444,6 +477,109 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+    }
+
+    public String updatePlayerStatsWithID(PlayerStats model) {
+        String result = "";
+//            ps.setString(1, name);
+//            ps.setInt(2, id);
+
+        // Check if valid ID
+        if (model.getPlayerID() < 0) {
+            result = WARNING_TAG + " Player " + model.getPlayerID() + " is invalid";
+            return result;
+        }
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder("UPDATE playerStats SET ");
+            List<Object> values = new ArrayList<>(); // holds the values to inject into prepared statement later
+
+            // Add fields to update dynamically
+            if (model.getPlayerName() != null) {
+                queryBuilder.append("playerName = ?, ");
+                values.add(model.getPlayerName());
+            }
+
+            if (model.getChampID() != -1) {
+                queryBuilder.append("champID = ?, ");
+                values.add(model.getChampID());
+            }
+
+            if (model.getChampionName() != null) {
+                queryBuilder.append("championName = ?, ");
+                values.add(model.getChampionName());
+            }
+
+            if (model.getManaPoints() != -1) {
+                queryBuilder.append("manaPoints = ?, ");
+                values.add(model.getManaPoints());
+            }
+
+            if (model.getHealthPoints() != -1) {
+                queryBuilder.append("healthPoints = ?, ");
+                values.add(model.getHealthPoints());
+            }
+
+            if (model.getCreepScore() != -1) {
+                queryBuilder.append("creepScore = ?, ");
+                values.add(model.getCreepScore());
+            }
+
+            if (model.getKills() != -1) {
+                queryBuilder.append("kills = ?, ");
+                values.add(model.getKills());
+            }
+
+            if (model.getRank() != null) {
+                queryBuilder.append("rank = ?, ");
+                values.add(model.getRank());
+            }
+
+            if (model.getMapID() != -1) {
+                queryBuilder.append("mapID = ?, ");
+                values.add(model.getMapID());
+            }
+
+            queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length()); // removes artifacts fron query building, the extra ", "
+            queryBuilder.append(" WHERE playerID = ?");
+            values.add(model.getPlayerID());
+
+            String query = queryBuilder.toString();
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+
+            // set parameter values
+            if (values.size() == 1) {
+                // If there was only 1 value, meaning just player ID, return
+                result = "Error: Please enter a field to be updated";
+            } else {
+                for (int i = 0; i < values.size(); i++) {
+                    // General obkct but need to check if int or str so query doesnt replace it as string
+                    Object value = values.get(i);
+                    if (value instanceof Integer) {
+                        ps.setInt(i + 1, (Integer) value);
+                    } else if (value instanceof String) {
+                        ps.setString(i + 1, (String) value);
+                    }
+                }
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 0) {
+                    result = WARNING_TAG + "No rows changed";
+                } else {
+                    result = "Rows updated: " + rowsAffected;
+                }
+
+                connection.commit();
+
+                ps.close();
+            }
+        } catch (SQLException e) {
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            result = EXCEPTION_TAG + " " + e.getMessage();
+            rollbackConnection();
+        }
+
+        return result;
     }
 
     // show all the tables we have in the database
@@ -567,7 +703,7 @@ public class DatabaseConnectionHandler {
             String query = "SELECT * FROM playerEcon";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 PlayerEcon model = new PlayerEcon(rs.getInt("creepScore"),
                         rs.getInt("kills"),
                         rs.getInt("gold"),
@@ -584,7 +720,7 @@ public class DatabaseConnectionHandler {
         return result.toArray(new PlayerEcon[result.size()]);
     }
 
-    public void deletePlayerEcon(int creepScore, int kills){
+    public void deletePlayerEcon(int creepScore, int kills) {
         try {
             String query = "DELETE FROM playerEcon WHERE creepScore = ? AND kills = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -604,12 +740,6 @@ public class DatabaseConnectionHandler {
             rollbackConnection();
         }
     }
-
-
-
-
-
-
 
 
     //===================================================================================================================================
@@ -632,7 +762,7 @@ public class DatabaseConnectionHandler {
     }
 
     private void rollbackConnection() {
-        try  {
+        try {
             connection.rollback();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -674,18 +804,10 @@ public class DatabaseConnectionHandler {
     }
 
 
-
-
-
-
-
-
-
     public void databaseSetup() {
         dropOwnsItemTableIfExists();
         dropPlayerEconTableIfExists();
         dropPlayerStatsTableIfExists();
-
 
 
 //        dropDragonJungleTableIfExists();
@@ -720,10 +842,10 @@ public class DatabaseConnectionHandler {
         PlayerStats player1 = new PlayerStats(1, "CyberReaper666", 123, "Ahri", 500, 800, 150, 5, "Iron", 1);
         insertPlayerStats(player1);
 
-        OwnsItem item1 = new OwnsItem(1, "lol",1,2,3,4,5);
+        OwnsItem item1 = new OwnsItem(1, "lol", 1, 2, 3, 4, 5);
         insertOwnsItem(item1);
 
-        PlayerEcon player2 = new PlayerEcon(150,5,23,22);
+        PlayerEcon player2 = new PlayerEcon(150, 5, 23, 22);
         insertPlayerEcon(player2);
     }
 
@@ -765,15 +887,15 @@ public class DatabaseConnectionHandler {
 //
 
 
-// we can drop all tables in a single function i think
+    // we can drop all tables in a single function i think
     private void dropPlayerStatsTableIfExists() {
         try {
             String query = "select table_name from user_tables";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("playerstats")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("playerstats")) {
                     ps.execute("DROP TABLE playerStats");
                     break;
                 }
@@ -791,8 +913,8 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("ownsitem")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("ownsitem")) {
                     ps.execute("DROP TABLE ownsItem");
                     break;
                 }
@@ -828,8 +950,8 @@ public class DatabaseConnectionHandler {
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("playerecon")) {
+            while (rs.next()) {
+                if (rs.getString(1).toLowerCase().equals("playerecon")) {
                     ps.execute("DROP TABLE playerEcon");
                     break;
                 }
@@ -840,7 +962,6 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
-
 
 
     private String readLine() {
@@ -854,10 +975,7 @@ public class DatabaseConnectionHandler {
     }
 
 
-
-
 }
-
 
 
 //
@@ -900,8 +1018,6 @@ public class DatabaseConnectionHandler {
 //        System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 //    }
 //}
-
-
 
 
 //    private void dropDragonJungleTableIfExists() {
