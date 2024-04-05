@@ -607,30 +607,28 @@ public class DatabaseConnectionHandler {
     }
 
     // method to make show selected columns
-    public void playerProjection() {
-        List<String> selectedColumns = getColumnSelection(); // Get user-selected columns
-
+    public List<List<String>> playerProjection(List<String> nameList) {
+        List<List<String>> result = new ArrayList<>();
 
         try {
             StringBuilder queryBuilder = new StringBuilder("SELECT ");
 
             // Append selected columns to the query
-            queryBuilder.append(String.join(", ", selectedColumns));
+            queryBuilder.append(String.join(", ", nameList));
             queryBuilder.append(" FROM playerStats");
 
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(queryBuilder.toString()), queryBuilder.toString(), false);
             ResultSet rs = ps.executeQuery();
 
+            // Iterate over the ResultSet and extract values
             while (rs.next()) {
-                // Iterate through each row of the result set
-                for (String columnName : selectedColumns) {
-                    // For each selected column, retrieve its value and process it as needed
-                    String columnValue = rs.getString(columnName);
-                    System.out.println(columnName + ": " + columnValue);
-                    // Or do whatever processing you need with the column value
+                List<String> row = new ArrayList<>();
+                // Extract values for each selected column
+                for (String columnName : nameList) {
+                    String value = rs.getString(columnName); // Assuming all columns are strings
+                    row.add(value);
                 }
-                // Optionally, you can add a separator between rows
-                System.out.println("-------------------------------------");
+                result.add(row);
             }
 
             rs.close();
@@ -638,8 +636,9 @@ public class DatabaseConnectionHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
-    }
 
+        return result;
+    }
 
     // Method to prompt the user to select columns
     public List<String> getColumnSelection() {

@@ -23,7 +23,7 @@ public interface LeagueDelegate {
 
     public void playerSelection();
 
-    public void playerProjection();
+    public List<List<String>> playerProjection(List<String> nameList);
 
     public void deleteOwnsItem(int playerId, String itemName);
 

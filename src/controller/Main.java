@@ -160,8 +160,9 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     @Override
-    public void playerProjection() {
-        dbHandler.playerProjection();
+    public List<List<String>> playerProjection(List<String> nameList) {
+        List<List<String>> result = dbHandler.playerProjection(nameList);
+        return result;
 
     }
 

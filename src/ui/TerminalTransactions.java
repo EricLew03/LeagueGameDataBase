@@ -90,7 +90,7 @@ public class TerminalTransactions {
 						delegate.playerSelection();
 						break;
 					case 10:
-						delegate.playerProjection();
+//						delegate.playerProjection();
 						break;
 					case 11:
 						handleInsertEcon();

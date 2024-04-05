@@ -12,40 +12,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectPanel extends ActionPanel {
+
     @Override
     public JPanel renderActionPanel(LeagueDelegate delegate) {
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Get the list of table names from the delegate
+
         List<String> tableNames = delegate.showTable();
 
-        // Create a JList to display the table names
+
         JList<String> tableList = new JList<>(tableNames.toArray(new String[0]));
 
-        // Add a list selection listener to handle selection events
+
         tableList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     String selectedTableName = tableList.getSelectedValue();
-                    // Here you can check if the selected table name matches the specific one
                     if (selectedTableName != null && selectedTableName.equals("PLAYERSTATS")) {
-                        // Perform your action only for the specific table name
-                        performActionForSpecificTable(panel);
+                        List<String> names = performActionForPlayerStats(panel);
+
+
+                        List<List<String>> result = delegate.playerProjection(names);
+
+
+
+                        StringBuilder htmlContent = new StringBuilder("<html><table style=\"width:500px; border: 1px solid black; font-size: 14px;\">");
+
+
+                        htmlContent.append("<tr>");
+                        for (int i = 0; i < names.size(); i++) {
+                            htmlContent.append("<th>").append(names.get(i)).append("</th>");
+                        }
+                        htmlContent.append("</tr>");
+
+
+                        for (List<String> row : result) {
+                            htmlContent.append("<tr>");
+                            for (String value : row) {
+                                htmlContent.append("<td>").append(value).append("</td>");
+                                System.out.print(value + "\t");
+                            }
+                            htmlContent.append("</tr>");
+                            System.out.println();
+                        }
+
+                        htmlContent.append("</table></html>");
+                        resultLabel.setText(htmlContent.toString());
+
                     }
                 }
             }
+
         });
 
-        // Add the JList to a scroll pane for scrolling if needed
+
         JScrollPane scrollPane = new JScrollPane(tableList);
 
         panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
     }
 
-    // Method to perform an action for the specific table name
-    private void performActionForSpecificTable(JPanel parentPanel) {
+
+    private List<String> performActionForPlayerStats(JPanel parentPanel) {
+        JDialog dialog = new JDialog((Frame)null, "Select Names", true);
         JPanel selectNamesPanel = new JPanel(new GridLayout(0, 1));
 
         String[] names = {
@@ -54,18 +84,20 @@ public class ProjectPanel extends ActionPanel {
                 "rank", "mapID"
         };
 
-        // Create checkboxes for each name
+        List<String> selectedNames = new ArrayList<>();
+
+
         for (String name : names) {
             JCheckBox checkBox = new JCheckBox(name);
             selectNamesPanel.add(checkBox);
         }
 
         JButton doneButton = new JButton("Done");
+
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Find selected checkboxes and get their text (names)
-                List<String> selectedNames = new ArrayList<>();
                 Component[] components = selectNamesPanel.getComponents();
                 for (Component component : components) {
                     if (component instanceof JCheckBox) {
@@ -75,18 +107,22 @@ public class ProjectPanel extends ActionPanel {
                         }
                     }
                 }
+
+                dialog.dispose();
             }
-
-
-
         });
         selectNamesPanel.add(doneButton);
 
-        parentPanel.removeAll();
-        parentPanel.add(selectNamesPanel, BorderLayout.CENTER);
-        parentPanel.revalidate();
-        parentPanel.repaint();
+        dialog.add(selectNamesPanel);
+
+
+        dialog.setPreferredSize(new Dimension(300, 400));
+
+        dialog.pack();
+        dialog.setLocationRelativeTo(parentPanel);
+        dialog.setVisible(true);
+
+
+        return selectedNames;
     }
-
-
 }
