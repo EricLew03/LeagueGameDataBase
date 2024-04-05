@@ -2,6 +2,7 @@ package ui;
 
 import delegates.LeagueDelegate;
 import models.PlayerStats;
+import util.InputSanitizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,15 +72,16 @@ public class InsertPlayerStatsPanel extends ActionPanel {
                     resultLabel.setText("Error: Please fill in all fields");
                 }
 
+
                 int playerID = Integer.parseInt(playerIDField.getText());
-                String playerName = playerNameField.getText();
+                String playerName = InputSanitizer.sanitizeInput(playerNameField.getText());
                 int champID = Integer.parseInt(champIDField.getText());
-                String championName = championNameField.getText();
+                String championName = InputSanitizer.sanitizeInput(championNameField.getText());
                 int manaPoints = Integer.parseInt(manaPointsField.getText());
                 int healthPoints = Integer.parseInt(healthPointsField.getText());
                 int creepScore = Integer.parseInt(creepScoreField.getText());
                 int kills = Integer.parseInt(killsField.getText());
-                String rank = rankField.getText();
+                String rank = InputSanitizer.sanitizeInput(rankField.getText());
                 int mapID = Integer.parseInt(mapIDField.getText());
 
                 PlayerStats playerStats = new PlayerStats(playerID, playerName, champID, championName,

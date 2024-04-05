@@ -131,8 +131,8 @@ public class HomePage extends JFrame {
             case SELECT_PLAYER_STATS_TEXT:
                 newActionPanel = new SelectPlayerStatsPanel();
                 break;
-           case PROJECT_TEXT:
-               newActionPanel = new ProjectPanel();
+            case PROJECT_TEXT:
+                newActionPanel = new ProjectPanel();
                 break;
             case JOIN_TEXT:
                 newActionPanel = new JoinPanel();

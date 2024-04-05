@@ -11,6 +11,6 @@ public abstract class ActionPanel extends JPanel {
     public void setResultLabel(JLabel resultLabel) {
         this.resultLabel = resultLabel;
     }
-    
+
     public abstract JPanel renderActionPanel(LeagueDelegate delegate);
 }

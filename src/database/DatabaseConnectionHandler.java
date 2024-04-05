@@ -150,6 +150,9 @@ public class DatabaseConnectionHandler {
 //                System.out.println("Item Name: " + itemName + ", Count: " + count);
                 result += "Item Name: " + itemName + ", Count: " + count + "<br>";
             }
+            if (result == "") {
+                result = "No items in the table";
+            }
             rs.close();
             ps.close();
         } catch (SQLException e) {
@@ -178,7 +181,9 @@ public class DatabaseConnectionHandler {
 //                System.out.println("Item Name: " + itemName + ", Max Price: " + maxPrice);
                 result += "Item Name: " + itemName + ", Max Price: " + maxPrice + "<br>";
             }
-
+            if (result == "") {
+                result = "No items in the table";
+            }
             rs.close();
             ps.close();
         } catch (SQLException e) {
@@ -213,7 +218,9 @@ public class DatabaseConnectionHandler {
 //                System.out.println("Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost);
                 result = "Player Name: " + playerName + ", Highest Average Cost: " + highestAvgCost;
             }
-
+            if (result == "") {
+                result = "No items in the table";
+            }
             rs.close();
             ps.close();
         } catch (SQLException e) {
@@ -278,7 +285,7 @@ public class DatabaseConnectionHandler {
             int rowsChanged = ps.executeUpdate();
 
             if (rowsChanged == 0) {
-                result = "Insertion Failed";
+                result = "Insertion Failed, playerID is already in use";
             } else {
                 result = String.valueOf("Rows successfully added: " + rowsChanged);
             }
@@ -359,6 +366,10 @@ public class DatabaseConnectionHandler {
 
 //                result.add(model);
             }
+            if (result == "") {
+                result = "No player has destroyed any turrets on this map";
+            }
+
             rs.close();
             ps.close();
         } catch (SQLException e) {
@@ -762,6 +773,7 @@ public class DatabaseConnectionHandler {
 
     public String division() {
         List<String> ownedItemNames = new ArrayList<>();
+        String result;
 
         try {
             String query = "SELECT UNIQUE oi.itemname " +
@@ -780,7 +792,7 @@ public class DatabaseConnectionHandler {
                 String itemName = rs.getString(1);
                 ownedItemNames.add(itemName);
                 System.out.println(itemName);
-                System.out.println("----");
+                System.out.println("<br>");
             }
 
             rs.close();
@@ -789,8 +801,14 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
 
-        String flattenedResult = String.join(", ", ownedItemNames);
-        return flattenedResult;
+        if (ownedItemNames.size() == 0) {
+            result = "No items are owned by every player";
+        } else {
+            String flattenedResult = String.join(", ", ownedItemNames);
+            result = flattenedResult;
+        }
+
+        return result;
     }
 
 

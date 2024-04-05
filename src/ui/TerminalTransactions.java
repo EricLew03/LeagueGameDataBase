@@ -1,12 +1,8 @@
 package ui;
 
 import delegates.LeagueDelegate;
-import models.OwnsItem;
-import models.PlayerEcon;
-import models.PlayerStats;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -54,4 +50,6 @@ public class TerminalTransactions {
             System.out.println("16. aggregateHaving");
             System.out.println("18. nestedAggregated");
             System.out.println("17. division");
-}
+        }
+    }
+};

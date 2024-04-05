@@ -33,7 +33,7 @@ public class DeletePlayerStatsPanel extends ActionPanel {
                 int playerID = Integer.parseInt(playerIDField.getText());
                 String rowsChanged = delegate.deletePlayerStats(playerID);
 
-                resultLabel.setText("Rows changed: " + rowsChanged);
+                resultLabel.setText("Rows deleted: " + rowsChanged);
             }
 
         });

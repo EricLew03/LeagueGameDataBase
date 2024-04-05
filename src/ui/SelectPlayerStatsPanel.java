@@ -1,6 +1,7 @@
 package ui;
 
 import delegates.LeagueDelegate;
+import util.InputSanitizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class SelectPlayerStatsPanel extends ActionPanel {
                 if (queryField.getText().isEmpty()) {
                     query = "";
                 } else {
-                    query = queryField.getText();
+                    query = InputSanitizer.sanitizeInput(queryField.getText());
                 }
 
                 String result = delegate.playerSelection(query);
