@@ -86,12 +86,8 @@ public class InsertPlayerStatsPanel extends ActionPanel {
                         manaPoints, healthPoints, creepScore, kills, rank, mapID);
 
                 String result = delegate.insertPlayerStats(playerStats);
-                if (Integer.parseInt(result) > 0) {
-                    resultLabel.setText("Data Insertion Successful");
-                } else {
-                    resultLabel.setText(result);
-                }
-//
+                resultLabel.setText(result);
+
 //                resultLabel.setText("PlayerStats{" +
 //                        "playerID=" + playerID +
 //                        ", playerName='" + playerName + '\'' +

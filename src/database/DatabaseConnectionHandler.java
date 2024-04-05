@@ -276,7 +276,12 @@ public class DatabaseConnectionHandler {
 
 
             int rowsChanged = ps.executeUpdate();
-            result = String.valueOf(rowsChanged);
+
+            if (rowsChanged == 0) {
+                result = "Insertion Failed";
+            } else {
+                result = String.valueOf("Rows successfully added: " + rowsChanged);
+            }
 //            System.out.println("Insertion: " + rowsChanged + " changed");
 
             connection.commit();
