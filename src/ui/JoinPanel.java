@@ -18,7 +18,7 @@ public class JoinPanel extends ActionPanel {
 
         mapIDField = new JTextField(12);
 
-        actionPanel.add(new JLabel("<html><p style=\"width:300px\">Enter Map ID to find all players who" +
+        actionPanel.add(new JLabel("<html><p style=\"width:300px\">Enter Map ID to find all player's names, champions, creepscores, kills and ranks who" +
                 " have destroyed at least one turret structure</p></html>"));
         actionPanel.add(new JLabel("Map ID:"));
         actionPanel.add(mapIDField);

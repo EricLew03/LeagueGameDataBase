@@ -15,7 +15,7 @@ public class AggregateNestedPanel extends ActionPanel {
         actionPanel.setLayout(new FlowLayout());
 
 
-        JLabel descriptorLabel = new JLabel("<html><p style=\"width:300px\">" + "Finds the player name" +
+        JLabel descriptorLabel = new JLabel("<html><p style=\"width:300px\">" + "Finds the player name " +
                 "who has the highest average cost of items owned" + "</p></html>");
 
         JButton aggregateNestedButton = new JButton("Find");
