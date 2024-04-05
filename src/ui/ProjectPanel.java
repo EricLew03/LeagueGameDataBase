@@ -51,10 +51,9 @@ public class ProjectPanel extends ActionPanel {
                             htmlContent.append("<tr>");
                             for (String value : row) {
                                 htmlContent.append("<td>").append(value).append("</td>");
-                                System.out.print(value + "\t");
+
                             }
                             htmlContent.append("</tr>");
-                            System.out.println();
                         }
 
                         htmlContent.append("</table></html>");
