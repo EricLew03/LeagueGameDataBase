@@ -23,6 +23,11 @@ public class ProjectPanel extends ActionPanel {
 
         JList<String> tableList = new JList<>(tableNames.toArray(new String[0]));
 
+        tableList.setFixedCellHeight(30);
+        tableList.setVisibleRowCount(10);
+
+        tableList.setFont(new Font("Arial", Font.PLAIN, 18));
+
 
         tableList.addListSelectionListener(new ListSelectionListener() {
             @Override
