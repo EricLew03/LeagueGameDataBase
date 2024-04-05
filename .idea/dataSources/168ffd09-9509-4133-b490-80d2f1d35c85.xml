@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@dbhost.students.cs.ubc.ca">
-  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.43">
+  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
     <root id="1">
-      <IntrospectionLevel>3</IntrospectionLevel>
+      <ExplicitIntrospectionLevel>3</ExplicitIntrospectionLevel>
       <ServerVersion>19.0.0.0.0</ServerVersion>
       <TablespacesHash>2130123946</TablespacesHash>
     </root>
@@ -1668,10 +1668,10 @@
     <schema id="555" parent="1" name="ORA_MKLAI10">
       <CreatedTimestamp>2024-04-05.04:39:55</CreatedTimestamp>
       <Current>1</Current>
-      <IntrospectionL1Timestamp>2024-04-05.04:42:43</IntrospectionL1Timestamp>
-      <IntrospectionL2Timestamp>2024-04-05.04:42:43</IntrospectionL2Timestamp>
-      <IntrospectionL3Timestamp>2024-04-05.04:42:43</IntrospectionL3Timestamp>
-      <IntrospectionVersion>200820</IntrospectionVersion>
+      <LastIntrospectionL1Timestamp>2024-04-05.04:42:43</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL2Timestamp>2024-04-05.04:42:43</LastIntrospectionL2Timestamp>
+      <LastIntrospectionL3Timestamp>2024-04-05.04:42:43</LastIntrospectionL3Timestamp>
+      <LastIntrospectionVersion>200820</LastIntrospectionVersion>
       <ModifiedTimestamp>2024-04-05.04:39:55</ModifiedTimestamp>
       <ObjectId>4394</ObjectId>
     </schema>
@@ -2709,10 +2709,10 @@
     </schema>
     <schema id="900" parent="1" name="PUBLIC">
       <CreatedTimestamp>2019-04-16.17:56:16</CreatedTimestamp>
-      <IntrospectionL1Timestamp>2024-04-05.04:42:43</IntrospectionL1Timestamp>
-      <IntrospectionL2Timestamp>2024-04-05.04:42:43</IntrospectionL2Timestamp>
-      <IntrospectionL3Timestamp>2024-04-05.04:42:43</IntrospectionL3Timestamp>
-      <IntrospectionVersion>200820</IntrospectionVersion>
+      <LastIntrospectionL1Timestamp>2024-04-05.04:42:43</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL2Timestamp>2024-04-05.04:42:43</LastIntrospectionL2Timestamp>
+      <LastIntrospectionL3Timestamp>2024-04-05.04:42:43</LastIntrospectionL3Timestamp>
+      <LastIntrospectionVersion>200820</LastIntrospectionVersion>
       <ModifiedTimestamp>2020-12-28.11:16:25</ModifiedTimestamp>
       <ObjectId>1</ObjectId>
     </schema>
@@ -62566,20 +62566,20 @@
       <TargetObjectParentName>SYS</TargetObjectParentName>
     </synonym>
     <column id="8961" parent="1826" name="JUNGLEOBJECTIVEID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8962" parent="1826" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="8963" parent="1826" name="EFFECTTIME">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="8964" parent="1826" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <foreign-key id="8965" parent="1826" name="SYS_C003698150">
@@ -62607,16 +62607,16 @@
       <UnderlyingIndexName>SYS_C003698149</UnderlyingIndexName>
     </key>
     <column id="8968" parent="1827" name="JUNGLEOBJECTIVEID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8969" parent="1827" name="DRAGONTYPE">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="8970" parent="1827" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <foreign-key id="8971" parent="1827" name="SYS_C003698154">
@@ -62652,12 +62652,12 @@
       <UnderlyingIndexName>SYS_C003698152</UnderlyingIndexName>
     </key>
     <column id="8975" parent="1828" name="DRAGONTYPE">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8976" parent="1828" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <index id="8977" parent="1828" name="SYS_C003698151">
@@ -62677,16 +62677,16 @@
       <UnderlyingIndexName>SYS_C003698151</UnderlyingIndexName>
     </key>
     <column id="8979" parent="1829" name="GAMEMODENAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8980" parent="1829" name="MAXPARTYSIZE">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="8981" parent="1829" name="CANBAN">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <index id="8982" parent="1829" name="SYS_C003698126">
@@ -62706,28 +62706,28 @@
       <UnderlyingIndexName>SYS_C003698126</UnderlyingIndexName>
     </key>
     <column id="8984" parent="1830" name="STRUCTUREID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8985" parent="1830" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="8986" parent="1830" name="STRUCTURELOCATION">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="8987" parent="1830" name="RESPAWNTIME">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="8988" parent="1830" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="8989" parent="1830" name="PLAYERID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
     <foreign-key id="8990" parent="1830" name="SYS_C003698147">
@@ -62763,20 +62763,20 @@
       <UnderlyingIndexName>SYS_C003698146</UnderlyingIndexName>
     </key>
     <column id="8994" parent="1831" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="8995" parent="1831" name="MAPNAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="8996" parent="1831" name="NUMBEROFLANES">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="8997" parent="1831" name="GAMEMODENAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>4</Position>
     </column>
     <foreign-key id="8998" parent="1831" name="SYS_C003698128">
@@ -62804,28 +62804,28 @@
       <UnderlyingIndexName>SYS_C003698127</UnderlyingIndexName>
     </key>
     <column id="9001" parent="1832" name="STRUCTUREID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9002" parent="1832" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="9003" parent="1832" name="STRUCTURELOCATION">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="9004" parent="1832" name="VULNERABLE">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="9005" parent="1832" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="9006" parent="1832" name="PLAYERID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
     <foreign-key id="9007" parent="1832" name="SYS_C003698144">
@@ -62861,33 +62861,33 @@
       <UnderlyingIndexName>SYS_C003698143</UnderlyingIndexName>
     </key>
     <column id="9011" parent="1833" name="PLAYERID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9012" parent="1833" name="ITEMNAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="9013" parent="1833" name="MR">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="9014" parent="1833" name="AD">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="9015" parent="1833" name="AP">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="9016" parent="1833" name="ARMOR">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="9017" parent="1833" name="COST">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>7</Position>
     </column>
     <foreign-key id="9018" parent="1833" name="SYS_C003698135">
@@ -62916,21 +62916,21 @@ ITEMNAME</ColNames>
       <UnderlyingIndexName>SYS_C003698134</UnderlyingIndexName>
     </key>
     <column id="9021" parent="1834" name="CREEPSCORE">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9022" parent="1834" name="KILLS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="9023" parent="1834" name="GOLD">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="9024" parent="1834" name="PLAYERLEVEL">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <index id="9025" parent="1834" name="SYS_C003698129">
@@ -62951,44 +62951,44 @@ KILLS</ColNames>
       <UnderlyingIndexName>SYS_C003698129</UnderlyingIndexName>
     </key>
     <column id="9027" parent="1835" name="PLAYERID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9028" parent="1835" name="PLAYERNAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="9029" parent="1835" name="CHAMPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="9030" parent="1835" name="CHAMPIONNAME">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="9031" parent="1835" name="MANAPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="9032" parent="1835" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="9033" parent="1835" name="CREEPSCORE">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="9034" parent="1835" name="KILLS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="9035" parent="1835" name="RANK">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="9036" parent="1835" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>10</Position>
     </column>
     <foreign-key id="9037" parent="1835" name="SYS_C003698133">
@@ -63040,20 +63040,20 @@ KILLS</ColNames>
       <UnderlyingIndexName>SYS_C003698131</UnderlyingIndexName>
     </key>
     <column id="9043" parent="1836" name="STRUCTUREID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9044" parent="1836" name="STRUCTURELOCATION">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="9045" parent="1836" name="MAPID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="9046" parent="1836" name="PLAYERID">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
     <foreign-key id="9047" parent="1836" name="SYS_C003698142">
@@ -63097,12 +63097,12 @@ KILLS</ColNames>
       <UnderlyingIndexName>SYS_C003698139</UnderlyingIndexName>
     </key>
     <column id="9052" parent="1837" name="STRUCTURELOCATION">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9053" parent="1837" name="DAMAGE">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <foreign-key id="9054" parent="1837" name="SYS_C003698138">
@@ -63130,12 +63130,12 @@ KILLS</ColNames>
       <UnderlyingIndexName>SYS_C003698137</UnderlyingIndexName>
     </key>
     <column id="9057" parent="1838" name="STRUCTURELOCATION">
-      <DataType>VARCHAR2(20 byte)|0s</DataType>
+      <DasType>VARCHAR2(20 byte)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="9058" parent="1838" name="HEALTHPOINTS">
-      <DataType>NUMBER(*)|0s</DataType>
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>2</Position>
     </column>
     <index id="9059" parent="1838" name="SYS_C003698136">
