@@ -30,7 +30,8 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
         // Show all available tuples
         PlayerStats[] allRawPlayerTuples = delegate.showPlayerStats();
         actionPanel.add(new JLabel("Available  tuples:"));
-        actionPanel.add(new JLabel(formatter.formatPlayerStats(allRawPlayerTuples)));
+        JLabel players = new JLabel(formatter.formatPlayerStats(allRawPlayerTuples));
+        actionPanel.add(players);
 
         JPanel inputPanel = new JPanel(new GridLayout(0, 2, 5, 5));
 
@@ -124,6 +125,8 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
 //                } catch (NumberFormatException error) {
 //                    resultLabel.setText("Error: Invalid format in one or more fields");
 //                }
+                PlayerStats[] allRawPlayerTuples = delegate.showPlayerStats();
+                players.setText(formatter.formatPlayerStats(allRawPlayerTuples));
             }
 
         });
