@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@dbhost.students.cs.ubc.ca">
   <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
-    <root id="1"/>
+    <root id="1">
+      <ServerVersion>19.0.0.0.0</ServerVersion>
+      <TablespacesHash>2130123946</TablespacesHash>
+    </root>
     <schema id="2" parent="1" name="ANONYMOUS">
       <ObjectId>67</ObjectId>
     </schema>

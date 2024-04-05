@@ -32,6 +32,10 @@ public class HomePage extends JFrame {
     final String NESTED_AGGREGATED_TEXT = "Nested Aggregate";
     final String DIVISION_ACTION_TEXT = "Division";
 
+    final String SHOW_PLAYERSTATS_TEXT = "Show Player Stats";
+
+    final String SHOW_OWNSITEM_TEXT = "Show Own Items";
+
     JMenuItem[] menuItems = {
             new JMenuItem(INSERT_PLAYER_STATS_TEXT),
             new JMenuItem(DELETE_PLAYER_STATS_TEXT),
@@ -42,7 +46,9 @@ public class HomePage extends JFrame {
             new JMenuItem(AGGREGATE_TEXT),
             new JMenuItem(AGGREGATE_HAVING_TEXT),
             new JMenuItem(NESTED_AGGREGATED_TEXT),
-            new JMenuItem(DIVISION_ACTION_TEXT)
+            new JMenuItem(DIVISION_ACTION_TEXT),
+            new JMenuItem(SHOW_OWNSITEM_TEXT),
+            new JMenuItem(SHOW_PLAYERSTATS_TEXT),
     };
 
     public HomePage() {
@@ -125,9 +131,9 @@ public class HomePage extends JFrame {
             case SELECT_PLAYER_STATS_TEXT:
                 newActionPanel = new SelectPlayerStatsPanel();
                 break;
-//            case PROJECT_TEXT:
-//                newActionPanel = new ProjectPanel();
-//                break;
+           case PROJECT_TEXT:
+               newActionPanel = new ProjectPanel();
+                break;
             case JOIN_TEXT:
                 newActionPanel = new JoinPanel();
                 break;
@@ -142,6 +148,12 @@ public class HomePage extends JFrame {
                 break;
             case DIVISION_ACTION_TEXT:
                 newActionPanel = new DivisionPanel();
+                break;
+            case SHOW_PLAYERSTATS_TEXT:
+                newActionPanel = new ShowPlayerStatsPanel();
+                break;
+            case SHOW_OWNSITEM_TEXT:
+                newActionPanel = new ShowOwnsItemPanel();
                 break;
             default:
                 newActionPanel = new InsertPlayerStatsPanel();
