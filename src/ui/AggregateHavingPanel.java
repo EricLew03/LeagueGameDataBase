@@ -16,7 +16,7 @@ public class AggregateHavingPanel extends ActionPanel {
 
 
         JLabel descriptorLabel = new JLabel("<html><p style=\"width:300px\">" + "Query groups all items by " +
-                "name and finds how many players own the item, if they are owned by at least 2 players" + "</p></html>");
+                "name if they are owned by at least 2 players, showing their name and price" + "</p></html>");
 
         JButton aggregateHavingButton = new JButton("Find");
         aggregateHavingButton.addActionListener(new ActionListener() {

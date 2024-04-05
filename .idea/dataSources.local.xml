@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.15026.9">
+  <component name="dataSourceStorageLocal" created-in="IU-222.3739.54">
     <data-source name="@dbhost.students.cs.ubc.ca" uuid="168ffd09-9509-4133-b490-80d2f1d35c85">
       <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
         <extra-name-characters>$#</extra-name-characters>
@@ -17,57 +17,11 @@
           </node>
         </introspection-scope>
       </schema-mapping>
+      <introspection-level>3</introspection-level>
       <load-sources>user_and_system_sources</load-sources>
       <ssh-properties>
         <enabled>true</enabled>
-        <ssh-config-id>a5a71b05-d0be-4182-8e7f-5bf03425038f</ssh-config-id>
-        <local-port>1522</local-port>
-      </ssh-properties>
-    </data-source>
-    <data-source name="@dbhost.students.cs.ubc.ca [2]" uuid="a21fd17b-df8b-4b81-950c-bbdbed08821c">
-      <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
-        <extra-name-characters>$#</extra-name-characters>
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>ora_elewkimp</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="PUBLIC" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-      <load-sources>user_and_system_sources</load-sources>
-      <ssh-properties>
-        <enabled>true</enabled>
-        <ssh-config-id>a5a71b05-d0be-4182-8e7f-5bf03425038f</ssh-config-id>
-        <local-port>1522</local-port>
-      </ssh-properties>
-    </data-source>
-    <data-source name="3" uuid="d06cd9d9-d221-41e5-bd25-6e8cc52a5c0c">
-      <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
-        <extra-name-characters>$#</extra-name-characters>
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>ora_elewkimp</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="PUBLIC" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-      <load-sources>user_and_system_sources</load-sources>
-      <ssh-properties>
-        <enabled>true</enabled>
-        <ssh-config-id>f68c48c9-734c-4eba-a5f7-b74aabf8e533</ssh-config-id>
-        <local-port>1522</local-port>
+        <ssh-config-id>c1025ced-7f19-436d-b2a1-93be992b22c1</ssh-config-id>
       </ssh-properties>
     </data-source>
   </component>
