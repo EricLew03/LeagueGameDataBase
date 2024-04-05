@@ -68,7 +68,7 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
         inputPanel.add(mapIDField);
 
 
-        JButton updatePlayerStatsButton = new JButton("Insert Player Stats");
+        JButton updatePlayerStatsButton = new JButton("Update Player Stats");
         updatePlayerStatsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

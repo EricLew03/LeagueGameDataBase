@@ -296,7 +296,8 @@ public class DatabaseConnectionHandler {
             ps.close();
         } catch (SQLException e) {
 //            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            result = EXCEPTION_TAG + " " + e.getMessage();
+//            result = EXCEPTION_TAG + " " + e.getMessage();
+            result = "Error: Tuple can't be inserted";
             rollbackConnection();
         }
 
@@ -594,7 +595,8 @@ public class DatabaseConnectionHandler {
             }
         } catch (SQLException e) {
 //            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            result = EXCEPTION_TAG + " " + e.getMessage();
+//            result = EXCEPTION_TAG + " " + e.getMessage();
+            result = "Error: Tuple can't be updated";
             rollbackConnection();
         }
 
@@ -692,7 +694,8 @@ public class DatabaseConnectionHandler {
 
             ps.close();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+//            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            System.out.println("Error: Tuple can't be inserted");
             rollbackConnection();
         }
     }
