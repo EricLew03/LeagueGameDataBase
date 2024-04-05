@@ -6,6 +6,9 @@ import models.PlayerStats;
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class ShowPlayerStatsPanel extends ActionPanel {
     @Override
     public JPanel renderActionPanel(LeagueDelegate delegate) {
@@ -13,11 +16,12 @@ public class ShowPlayerStatsPanel extends ActionPanel {
         actionPanel.setLayout(new FlowLayout());
 
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        centerPanel.add(new JLabel(formatPlayerStats(delegate.showPlayerStats())));
-
-
-        actionPanel.add(centerPanel);
+        actionPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                resultLabel.setText(formatPlayerStats(delegate.showPlayerStats()));
+            }
+        });
 
         return actionPanel;
     }
@@ -25,9 +29,8 @@ public class ShowPlayerStatsPanel extends ActionPanel {
     public String formatPlayerStats(PlayerStats[] playerStatsArray) {
         StringBuilder result = new StringBuilder();
 
-
-        result.append("<html><h3 style='text-align: center;'>Player Stats Relation:</h3>");
-        result.append("<table style='margin: 0 auto; border-collapse: collapse; text-align: center;' border='1' cellspacing='0' cellpadding='5'>");
+        result.append("<html><h3 style='text-align: center;'>Owns Item relation:</h3>");
+        result.append("<table style='margin: 0 auto; border-collapse: collapse; text-align: center; font-size: 16px;' border='1' cellspacing='0' cellpadding='5'>");
         result.append("<tr>");
         result.append("<th>Player ID</th>");
         result.append("<th>Player Name</th>");
@@ -40,7 +43,6 @@ public class ShowPlayerStatsPanel extends ActionPanel {
         result.append("<th>Rank</th>");
         result.append("<th>Map ID</th>");
         result.append("</tr>");
-
 
         for (PlayerStats playerStats : playerStatsArray) {
             result.append("<tr>");
@@ -62,3 +64,4 @@ public class ShowPlayerStatsPanel extends ActionPanel {
         return result.toString();
     }
 }
+

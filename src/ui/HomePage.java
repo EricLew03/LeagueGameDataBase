@@ -151,15 +151,9 @@ public class HomePage extends JFrame {
                 break;
             case SHOW_PLAYERSTATS_TEXT:
                 newActionPanel = new ShowPlayerStatsPanel();
-                resultPanel.removeAll();
-                contentPane.removeAll();
-                contentPane.add(newActionPanel, BorderLayout.CENTER);
                 break;
             case SHOW_OWNSITEM_TEXT:
                 newActionPanel = new ShowOwnsItemPanel();
-                resultPanel.removeAll();
-                contentPane.removeAll();
-                contentPane.add(newActionPanel, BorderLayout.CENTER);
                 break;
             default:
                 newActionPanel = new InsertPlayerStatsPanel();
