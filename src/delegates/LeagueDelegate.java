@@ -4,6 +4,8 @@ import models.OwnsItem;
 import models.PlayerEcon;
 import models.PlayerStats;
 
+import java.util.List;
+
 public interface LeagueDelegate {
 
     public void databaseSetup();
@@ -27,7 +29,7 @@ public interface LeagueDelegate {
 
     public void insertOwnsItem(OwnsItem model);
 
-    public void showOwnsItem();
+    public OwnsItem[] showOwnsItem();
 
     public void insertPlayerEcon(PlayerEcon model);
 
@@ -41,12 +43,13 @@ public interface LeagueDelegate {
 
     public String aggregateHaving();
 
-
     public void LeagueFinished();
 
     public String aggregate();
 
     public String division();
+
+    public List<String> showTable();
 
 
 }

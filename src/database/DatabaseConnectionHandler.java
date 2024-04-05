@@ -7,7 +7,6 @@ import util.PrintablePreparedStatement;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -583,17 +582,18 @@ public class DatabaseConnectionHandler {
     }
 
     // show all the tables we have in the database
-    public void showTables() {
+    public List<String> showTables() {
+        List<String> tableNames = new ArrayList<>();
+
         try {
             String query = "SELECT table_name FROM user_tables";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
 
-            // Iterate through the result set and print table names
-            System.out.println("Table Names:");
+            // Iterate through the result set and add table names to the list
             while (rs.next()) {
                 String tableName = rs.getString("table_name");
-                System.out.println(tableName);
+                tableNames.add(tableName);
             }
 
             // Close resources
@@ -603,25 +603,7 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
 
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        int choice = INVALID_INPUT;
-
-        while (choice != 5) {
-            choice = readInteger(false);
-
-            System.out.println(" ");
-
-            if (choice != INVALID_INPUT) {
-                switch (choice) {
-                    case 1:
-                        playerProjection();
-                        break;
-                    default:
-                        System.out.println(WARNING_TAG + " The number that you entered was not a valid option.");
-                        break;
-                }
-            }
-        }
+        return tableNames;
     }
 
     // method to make show selected columns

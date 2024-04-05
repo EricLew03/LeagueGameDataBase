@@ -10,6 +10,8 @@ import models.PlayerStats;
 import ui.HomePage;
 import ui.LoginWindow;
 
+import java.util.List;
+
 /**
  * This is the main controller class that will orchestrate everything.
  */
@@ -70,18 +72,19 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     }
 
     @Override
-    public void showOwnsItem() {
+    public OwnsItem[] showOwnsItem() {
         OwnsItem[] models = dbHandler.getOwnsItem();
+        return models;
 
-        for (int i = 0; i < models.length; i++) {
-            OwnsItem model = models[i];
-            System.out.printf("1. ");
-            System.out.printf("%-4.10s", model.getPlayerID());
-            System.out.printf("%-20.20s", model.getName());
-            System.out.printf("%-20.20s", model.getAd());
-            System.out.printf("%-15.15s", model.getArmor());
-            System.out.println();
-        }
+//        for (int i = 0; i < models.length; i++) {
+//            OwnsItem model = models[i];
+//            System.out.printf("1. ");
+//            System.out.printf("%-4.10s", model.getPlayerID());
+//            System.out.printf("%-20.20s", model.getName());
+//            System.out.printf("%-20.20s", model.getAd());
+//            System.out.printf("%-15.15s", model.getArmor());
+//            System.out.println();
+//        }
 
     }
 
@@ -158,7 +161,7 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
 
     @Override
     public void playerProjection() {
-        dbHandler.showTables();
+        dbHandler.playerProjection();
 
     }
 
@@ -243,6 +246,12 @@ public class Main implements LoginWindowDelegate, LeagueDelegate {
     public String division() {
         return dbHandler.division();
     }
+
+    @Override
+    public List<String> showTable() {
+        return dbHandler.showTables();
+    }
+
 
     /**
      * TerminalTransactionsDelegate Implementation

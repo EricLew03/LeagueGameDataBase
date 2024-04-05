@@ -47,5 +47,28 @@
         <local-port>1522</local-port>
       </ssh-properties>
     </data-source>
+    <data-source name="3" uuid="d06cd9d9-d221-41e5-bd25-6e8cc52a5c0c">
+      <database-info product="Oracle" version="Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production&#10;Version 19.3.0.0.0" jdbc-version="4.3" driver-name="Oracle JDBC driver" driver-version="21.5.0.0.0" dbms="ORACLE" exact-version="19.0.0.0.0" exact-driver-version="21.5">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ora_elewkimp</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="PUBLIC" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <load-sources>user_and_system_sources</load-sources>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>f68c48c9-734c-4eba-a5f7-b74aabf8e533</ssh-config-id>
+        <local-port>1522</local-port>
+      </ssh-properties>
+    </data-source>
   </component>
 </project>
