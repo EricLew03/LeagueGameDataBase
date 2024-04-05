@@ -167,7 +167,7 @@ public class DatabaseConnectionHandler {
             String query = "SELECT itemName, MAX(cost) AS max_price " +
                     "FROM ownsItem " +
                     "GROUP BY itemName " +
-                    "HAVING COUNT(*) > 2";
+                    "HAVING COUNT(*) >= 2";
 
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
             ResultSet rs = ps.executeQuery();
