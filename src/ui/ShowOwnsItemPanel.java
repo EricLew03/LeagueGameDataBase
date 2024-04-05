@@ -42,6 +42,7 @@ public class ShowOwnsItemPanel extends ActionPanel {
             result.append("<tr>");
             result.append("<td>").append(ownsItem.getPlayerID()).append("</td>");
             result.append("<td>").append(ownsItem.getName()).append("</td>");
+            result.append("<td>").append(ownsItem.getMr()).append("</td>");
             result.append("<td>").append(ownsItem.getAd()).append("</td>");
             result.append("<td>").append(ownsItem.getAp()).append("</td>");
             result.append("<td>").append(ownsItem.getArmor()).append("</td>");
