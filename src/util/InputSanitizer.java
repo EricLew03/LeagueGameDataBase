@@ -25,6 +25,13 @@ public class InputSanitizer {
         return sanitizedInput;
     }
 
+    public static boolean checkNumbersOnly(String input) {
+        if (!input.matches("\\d+")) {
+            return false;
+        }
+        return true;
+    }
+
     // check if violates malicious injection keyword
     private static boolean isSQLKeyword(String word) {
         for (String keyword : SQL_KEYWORDS) {

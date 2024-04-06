@@ -1,6 +1,7 @@
 package ui;
 
 import delegates.LeagueDelegate;
+import util.InputSanitizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,12 +29,13 @@ public class DeletePlayerStatsPanel extends ActionPanel {
                 // Check if field is empty first
                 if (playerIDField.getText().isEmpty()) {
                     resultLabel.setText("Error: Please fill in all fields");
+                } else if (!InputSanitizer.checkNumbersOnly(playerIDField.getText())) {
+                    resultLabel.setText("Error: Please only enter digits");
+                } else {
+                    int playerID = Integer.parseInt(playerIDField.getText());
+                    String rowsChanged = delegate.deletePlayerStats(playerID);
+                    resultLabel.setText("Rows deleted: " + rowsChanged);
                 }
-
-                int playerID = Integer.parseInt(playerIDField.getText());
-                String rowsChanged = delegate.deletePlayerStats(playerID);
-
-                resultLabel.setText("Rows deleted: " + rowsChanged);
             }
 
         });
