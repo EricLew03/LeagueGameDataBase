@@ -32,6 +32,16 @@ public class InputSanitizer {
         return true;
     }
 
+    // checkNumbersOnly but ignores empty fields from updatePlayerStat
+    public static boolean checkNonEmptyNumbersOnly(String num) {
+        if (num == "") {
+            return true;
+        } else {
+            return num.matches("\\d+");
+        }
+    }
+
+
     // check if violates malicious injection keyword
     private static boolean isSQLKeyword(String word) {
         for (String keyword : SQL_KEYWORDS) {

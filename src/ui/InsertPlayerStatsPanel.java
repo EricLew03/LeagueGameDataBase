@@ -70,39 +70,36 @@ public class InsertPlayerStatsPanel extends ActionPanel {
                         creepScoreField.getText().isEmpty() || killsField.getText().isEmpty() ||
                         rankField.getText().isEmpty() || mapIDField.getText().isEmpty()) {
                     resultLabel.setText("Error: Please fill in all fields");
+                } else if (!InputSanitizer.checkNumbersOnly(playerIDField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(champIDField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(manaPointsField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(healthPointsField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(creepScoreField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(killsField.getText()) ||
+                        !InputSanitizer.checkNumbersOnly(mapIDField.getText())) {
+                    resultLabel.setText("Error: Invalid input. String entered where only numbers should be");
+                } else {
+                    int playerID = Integer.parseInt(playerIDField.getText());
+                    String playerName = InputSanitizer.sanitizeInput(playerNameField.getText());
+                    int champID = Integer.parseInt(champIDField.getText());
+                    String championName = InputSanitizer.sanitizeInput(championNameField.getText());
+                    int manaPoints = Integer.parseInt(manaPointsField.getText());
+                    int healthPoints = Integer.parseInt(healthPointsField.getText());
+                    int creepScore = Integer.parseInt(creepScoreField.getText());
+                    int kills = Integer.parseInt(killsField.getText());
+                    String rank = InputSanitizer.sanitizeInput(rankField.getText());
+                    int mapID = Integer.parseInt(mapIDField.getText());
+
+                    PlayerStats playerStats = new PlayerStats(playerID, playerName, champID, championName,
+                            manaPoints, healthPoints, creepScore, kills, rank, mapID);
+
+
+                    String result = delegate.insertPlayerStats(playerStats);
+                    resultLabel.setText(result);
                 }
 
-
-                int playerID = Integer.parseInt(playerIDField.getText());
-                String playerName = InputSanitizer.sanitizeInput(playerNameField.getText());
-                int champID = Integer.parseInt(champIDField.getText());
-                String championName = InputSanitizer.sanitizeInput(championNameField.getText());
-                int manaPoints = Integer.parseInt(manaPointsField.getText());
-                int healthPoints = Integer.parseInt(healthPointsField.getText());
-                int creepScore = Integer.parseInt(creepScoreField.getText());
-                int kills = Integer.parseInt(killsField.getText());
-                String rank = InputSanitizer.sanitizeInput(rankField.getText());
-                int mapID = Integer.parseInt(mapIDField.getText());
-
-                PlayerStats playerStats = new PlayerStats(playerID, playerName, champID, championName,
-                        manaPoints, healthPoints, creepScore, kills, rank, mapID);
-
-                String result = delegate.insertPlayerStats(playerStats);
-                resultLabel.setText(result);
-
-//                resultLabel.setText("PlayerStats{" +
-//                        "playerID=" + playerID +
-//                        ", playerName='" + playerName + '\'' +
-//                        ", champID=" + champID +
-//                        ", championName='" + championName + '\'' +
-//                        ", manaPoints=" + manaPoints +
-//                        ", healthPoints=" + healthPoints +
-//                        ", creepScore=" + creepScore +
-//                        ", kills=" + kills +
-//                        ", rank='" + rank + '\'' +
-//                        ", mapID=" + mapID +
-//                        '}');
             }
+
 
         });
 

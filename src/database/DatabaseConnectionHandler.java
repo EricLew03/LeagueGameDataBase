@@ -297,7 +297,7 @@ public class DatabaseConnectionHandler {
         } catch (SQLException e) {
 //            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 //            result = EXCEPTION_TAG + " " + e.getMessage();
-            result = "Error: Tuple can't be inserted";
+            result = "Error: Tuple can't be inserted. ";
             rollbackConnection();
         }
 

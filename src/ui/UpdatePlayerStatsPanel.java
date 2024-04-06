@@ -2,6 +2,7 @@ package ui;
 
 import delegates.LeagueDelegate;
 import models.PlayerStats;
+import util.InputSanitizer;
 import util.StringFormatting;
 
 import javax.swing.*;
@@ -75,58 +76,79 @@ public class UpdatePlayerStatsPanel extends ActionPanel {
                 // Check if field is empty first
                 if (playerIDField.getText().isEmpty()) {
                     resultLabel.setText("Error: Please select a PlayerID to update");
-                    return;
-                }
+                } else {
+                    JTextField[] textFields = {
+                            playerIDField, champIDField,
+                            manaPointsField, healthPointsField, creepScoreField, killsField,
+                            mapIDField
+                    };
 
-                // Check formatting dynamically, in case some fields are empty
+                    String violatedField = "";
+                    for (JTextField textField : textFields) {
+                        if (!textField.getText().isEmpty()) {
+                            if (!InputSanitizer.checkNumbersOnly(textField.getText())) {
+                                violatedField = textField.getText();
+                                break;
+                            }
+                        }
+                    }
+
+                    if (violatedField != "") {
+                        resultLabel.setText("Error: Invalid input in field containing: " + violatedField);
+                    } else {
+
+                        // Check formatting dynamically, in case some fields are empty
 //                try {
-                int playerID = Integer.parseInt(playerIDField.getText());
-                String playerName = playerNameField.getText();
-                if (playerNameField.getText().isEmpty()) {
-                    playerName = null;
-                }
-                int champID = -1;
-                if (!champIDField.getText().isEmpty()) {
-                    champID = Integer.parseInt(champIDField.getText());
-                }
-                String championName = championNameField.getText();
-                if (championNameField.getText().isEmpty()) {
-                    championName = null;
-                }
-                int manaPoints = -1;
-                if (!manaPointsField.getText().isEmpty()) {
-                    manaPoints = Integer.parseInt(manaPointsField.getText());
-                }
-                int healthPoints = -1;
-                if (!healthPointsField.getText().isEmpty()) {
-                    healthPoints = Integer.parseInt(healthPointsField.getText());
-                }
-                int creepScore = -1;
-                if (!creepScoreField.getText().isEmpty()) {
-                    creepScore = Integer.parseInt(creepScoreField.getText());
-                }
-                int kills = -1;
-                if (!killsField.getText().isEmpty()) {
-                    kills = Integer.parseInt(killsField.getText());
-                }
-                String rank = rankField.getText();
-                if (rankField.getText().isEmpty()) {
-                    rank = null;
-                }
-                int mapID = -1;
-                if (!mapIDField.getText().isEmpty()) {
-                    mapID = Integer.parseInt(mapIDField.getText());
-                }
+                        int playerID = Integer.parseInt(playerIDField.getText());
+                        String playerName = playerNameField.getText();
+                        if (playerNameField.getText().isEmpty()) {
+                            playerName = null;
+                        }
+                        int champID = -1;
+                        if (!champIDField.getText().isEmpty()) {
+                            champID = Integer.parseInt(champIDField.getText());
+                        }
+                        String championName = championNameField.getText();
+                        if (championNameField.getText().isEmpty()) {
+                            championName = null;
+                        }
+                        int manaPoints = -1;
+                        if (!manaPointsField.getText().isEmpty()) {
+                            manaPoints = Integer.parseInt(manaPointsField.getText());
+                        }
+                        int healthPoints = -1;
+                        if (!healthPointsField.getText().isEmpty()) {
+                            healthPoints = Integer.parseInt(healthPointsField.getText());
+                        }
+                        int creepScore = -1;
+                        if (!creepScoreField.getText().isEmpty()) {
+                            creepScore = Integer.parseInt(creepScoreField.getText());
+                        }
+                        int kills = -1;
+                        if (!killsField.getText().isEmpty()) {
+                            kills = Integer.parseInt(killsField.getText());
+                        }
+                        String rank = rankField.getText();
+                        if (rankField.getText().isEmpty()) {
+                            rank = null;
+                        }
+                        int mapID = -1;
+                        if (!mapIDField.getText().isEmpty()) {
+                            mapID = Integer.parseInt(mapIDField.getText());
+                        }
 
-                PlayerStats playerStats = new PlayerStats(playerID, playerName, champID, championName,
-                        manaPoints, healthPoints, creepScore, kills, rank, mapID);
-                String result = delegate.updatePlayerStatsWithID(playerStats);
-                resultLabel.setText(result);
+                        PlayerStats playerStats = new PlayerStats(playerID, playerName, champID, championName,
+                                manaPoints, healthPoints, creepScore, kills, rank, mapID);
+                        String result = delegate.updatePlayerStatsWithID(playerStats);
+                        resultLabel.setText(result);
 //                } catch (NumberFormatException error) {
 //                    resultLabel.setText("Error: Invalid format in one or more fields");
 //                }
-                PlayerStats[] allRawPlayerTuples = delegate.showPlayerStats();
-                players.setText(formatter.formatPlayerStats(allRawPlayerTuples));
+                        PlayerStats[] allRawPlayerTuples = delegate.showPlayerStats();
+                        players.setText(formatter.formatPlayerStats(allRawPlayerTuples));
+                    }
+
+                }
             }
 
         });
